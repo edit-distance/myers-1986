@@ -8,10 +8,12 @@ import assert from 'assert';
  * @param {number} center
  * @param {number} D
  * @param {Int32Array} V
- * @param {ArrayLike} left
+ * @param {Function} eq
+ * @param {number} li
  * @param {number} lj
- * @param {ArrayLike} right
+ * @param {number} ri
  * @param {number} rj
+ * @param {number} Delta
  * @return {IterableIterator}
  */
 export default function* diagonalStep(
@@ -20,10 +22,9 @@ export default function* diagonalStep(
 	center,
 	D,
 	V,
-	left,
+	eq,
 	li,
 	lj,
-	right,
 	ri,
 	rj,
 	Delta,
@@ -38,10 +39,9 @@ export default function* diagonalStep(
 		center,
 		D,
 		V,
-		left,
+		eq,
 		li,
 		lj,
-		right,
 		ri,
 		rj,
 		LB,
@@ -60,7 +60,7 @@ export default function* diagonalStep(
 		console.debug({k, x, lj, y, rj});
 		if (direction === 1 && (x > lj || y > rj || x < li || y < ri)) continue;
 		if (direction === -1 && (x < lj || y < rj || x > li || y > ri)) continue;
-		const s = longestCommonPrefix(left, x, lj, right, y, rj);
+		const s = longestCommonPrefix(eq, x, lj, y, rj);
 		assert(direction === -1 || (s >= x && s <= lj));
 		assert(direction === 1 || (s >= lj && s <= x));
 		V[center + k] = s;
@@ -73,10 +73,9 @@ export default function* diagonalStep(
 		center,
 		D,
 		V,
-		left,
+		eq,
 		li,
 		lj,
-		right,
 		ri,
 		rj,
 		Delta,

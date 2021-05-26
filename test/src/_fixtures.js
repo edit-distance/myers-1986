@@ -2,14 +2,37 @@ import {list} from '@iterable-iterator/list';
 import {chain} from '@iterable-iterator/chain';
 import {constant, inverse} from '@iterable-iterator/mapping';
 
-import {diagonalScan, findMiddleSnake} from '../../src/index.js';
+import {
+	diagonalScan,
+	findMiddleSnake,
+	longestCommonPrefix,
+	longestCommonSuffix,
+	makeEqualityFn,
+	defaultTest,
+} from '../../src/index.js';
 
-const scan = (MAX, left, right) => diagonalScan(MAX, left, right);
-const dc = (MAX, left, right) => findMiddleSnake(MAX, left, right);
+const scan = (...args) => diagonalScan(...args);
+const dc = (...args) => findMiddleSnake(...args);
 
 export const algorithms = [scan, dc];
 
 export const repr = (x) => JSON.stringify(x);
+
+export const arrayLikeIsEqual = (a, ai, aj, b, bi, bj) => {
+	if (aj - ai !== bj - bi) return false;
+	const eq = makeEqualityFn(defaultTest, a, b);
+	return longestCommonPrefix(eq, ai, aj, bi, bj) === aj;
+};
+
+export const longestCommonPrefixLength = (a, ai, aj, b, bi, bj) => {
+	const eq = makeEqualityFn(defaultTest, a, b);
+	return longestCommonPrefix(eq, ai, aj, bi, bj) - ai;
+};
+
+export const longestCommonSuffixLength = (a, ai, aj, b, bi, bj) => {
+	const eq = makeEqualityFn(defaultTest, a, b);
+	return aj - longestCommonSuffix(eq, aj, ai, bj, bi);
+};
 
 const keep = (input) => inverse(constant(input, 0));
 const insert = (input) => inverse(constant(input, 1));
@@ -20,12 +43,15 @@ const identity = (input) => ({
 	editScript: list(keep(input)),
 });
 
-const append = (left, suffix) => wrap(left, '', suffix);
-const prepend = (left, prefix) => wrap(left, prefix, '');
+const emptyFor = (x) => (Array.isArray(x) ? [] : '');
+const append = (left, suffix) => wrap(left, emptyFor(left), suffix);
+const prepend = (left, prefix) => wrap(left, prefix, emptyFor(left));
+
+export const concat = (first, ...rest) => first.concat(...rest);
 
 const wrap = (left, prefix, suffix) => ({
 	left,
-	right: prefix + left + suffix,
+	right: concat(prefix, left, suffix),
 	editScript: list(chain(insert(prefix), keep(left), insert(suffix))),
 });
 
@@ -138,6 +164,19 @@ export const data = [
 			[-1, 'E'],
 			[0, 'D'],
 			[1, 'F'],
+		],
+	},
+	{
+		left: 'BANANA',
+		right: 'ATANA',
+		editScript: [
+			[-1, 'B'],
+			[0, 'A'],
+			[-1, 'N'],
+			[1, 'T'],
+			[0, 'A'],
+			[0, 'N'],
+			[0, 'A'],
 		],
 	},
 ];

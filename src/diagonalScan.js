@@ -3,27 +3,38 @@ import assert from 'assert';
 import diagonalAlloc from './diagonalAlloc.js';
 import diagonalStep from './diagonalStep.js';
 import longestCommonPrefix from './longestCommonPrefix.js';
+import makeEqualityFn from './makeEqualityFn.js';
+import defaultTest from './defaultTest.js';
 
 /**
  * Greedy.
  *
  * @param {number} MAX
  * @param {ArrayLike} left
+ * @param {number} li
+ * @param {number} lj
  * @param {ArrayLike} right
+ * @param {number} ri
+ * @param {number} rj
+ * @param {Function} [test=defaultTest]
  * @return {number}
  */
-const diagonalScan = (MAX, left, right) => {
+const diagonalScan = (MAX, left, li, lj, right, ri, rj, test = defaultTest) => {
 	assert(Number.isInteger(MAX));
-	const N = left.length;
-	const M = right.length;
+	const N = lj - li;
+	const M = rj - ri;
 	assert(MAX <= N + M);
 
 	if (MAX < 0) return -1;
 
-	if (MAX === 0) return left === right ? 0 : -1;
+	const eq = makeEqualityFn(test, left, right);
 
-	const V = diagonalAlloc(MAX);
+	if (MAX === 0)
+		return M === N && longestCommonPrefix(eq, li, lj, ri, rj) === lj ? 0 : -1;
 
+	const V = diagonalAlloc(MAX).fill(li);
+
+	const Delta0 = li - ri;
 	for (let D = 0; D <= MAX; ++D) {
 		for (const k of diagonalStep(
 			1,
@@ -31,17 +42,16 @@ const diagonalScan = (MAX, left, right) => {
 			MAX,
 			D,
 			V,
-			left,
-			0,
-			N,
-			right,
-			0,
-			M,
-			0,
+			eq,
+			li,
+			lj,
+			ri,
+			rj,
+			Delta0,
 		)) {
 			const x = V[MAX + k];
-			const y = x - k;
-			if (x === N && y === M) return D;
+			const y = x - (k + Delta0);
+			if (x === lj && y === rj) return D;
 		}
 	}
 
