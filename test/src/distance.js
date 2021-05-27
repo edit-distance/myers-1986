@@ -184,6 +184,50 @@ const inputs = function* ({left, right, distance}) {
 			expected: distance,
 		};
 	}
+
+	yield {
+		MAX: distance,
+		left: concat(left, left, left),
+		li: left.length,
+		lj: 2 * left.length,
+		right: concat(right, right, right),
+		ri: right.length,
+		rj: 2 * right.length,
+		expected: distance,
+	};
+
+	yield {
+		MAX: distance,
+		left: concat(right, left, right),
+		li: right.length,
+		lj: right.length + left.length,
+		right: concat(left, right, left),
+		ri: left.length,
+		rj: left.length + right.length,
+		expected: distance,
+	};
+
+	yield {
+		MAX: distance,
+		left: concat(right, left),
+		li: right.length,
+		lj: right.length + left.length,
+		right: concat(left, right),
+		ri: left.length,
+		rj: left.length + right.length,
+		expected: distance,
+	};
+
+	yield {
+		MAX: left.length,
+		left: concat(right, left),
+		li: right.length,
+		lj: right.length + left.length,
+		right: concat(left, right),
+		ri: 0,
+		rj: left.length,
+		expected: 0,
+	};
 };
 
 for (const algorithm of algorithms) {
