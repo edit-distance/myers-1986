@@ -1,8 +1,10 @@
+export {default as bound} from './bound.js';
 export {default as defaultTest} from './defaultTest.js';
 export {default as diagonalAlloc} from './diagonalAlloc.js';
-export {default as diagonalScan} from './diagonalScan.js';
 export {default as diagonalStep} from './diagonalStep.js';
-export {default as findMiddleSnake} from './findMiddleSnake.js';
 export {default as longestCommonPrefix} from './longestCommonPrefix.js';
 export {default as longestCommonSuffix} from './longestCommonSuffix.js';
 export {default as makeEqualityFn} from './makeEqualityFn.js';
+export {default as makeScan} from './makeScan.js';
+export {default as oneWay} from './oneWay.js';
+export {default as twoWay} from './twoWay.js';

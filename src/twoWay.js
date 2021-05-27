@@ -4,44 +4,21 @@ import diagonalAlloc from './diagonalAlloc.js';
 import diagonalStep from './diagonalStep.js';
 import longestCommonPrefix from './longestCommonPrefix.js';
 import longestCommonSuffix from './longestCommonSuffix.js';
-import makeEqualityFn from './makeEqualityFn.js';
-import defaultTest from './defaultTest.js';
 
 /**
- * FindMiddleSnake.
- *
+ * Scan from begin to middle and end to middle.
  *
  * @param {number} MAX
- * @param {ArrayLike} left
+ * @param {Function} eq
  * @param {number} li
  * @param {number} lj
- * @param {ArrayLike} right
  * @param {number} ri
  * @param {number} rj
- * @param {Function} [test=defaultTest]
  * @return {number}
  */
-const findMiddleSnake = (
-	MAX,
-	left,
-	li,
-	lj,
-	right,
-	ri,
-	rj,
-	test = defaultTest,
-) => {
-	assert(Number.isInteger(MAX));
-	const N = lj - li;
-	const M = rj - ri;
-	assert(MAX <= N + M);
-
-	if (MAX < 0) return -1;
-
-	const eq = makeEqualityFn(test, left, right);
-
-	if (MAX === 0)
-		return M === N && longestCommonPrefix(eq, li, lj, ri, rj) === lj ? 0 : -1;
+const twoWay = (MAX, eq, li, lj, ri, rj) => {
+	assert(MAX > 0);
+	assert(MAX <= lj - li + rj - ri);
 
 	const HALF_MAX = Math.ceil(MAX / 2);
 
@@ -101,4 +78,4 @@ const findMiddleSnake = (
 	return -1;
 };
 
-export default findMiddleSnake;
+export default twoWay;

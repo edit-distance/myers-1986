@@ -3,18 +3,21 @@ import {chain} from '@iterable-iterator/chain';
 import {constant, inverse} from '@iterable-iterator/mapping';
 
 import {
-	diagonalScan,
-	findMiddleSnake,
+	makeScan,
+	oneWay,
+	twoWay,
 	longestCommonPrefix,
 	longestCommonSuffix,
 	makeEqualityFn,
 	defaultTest,
 } from '../../src/index.js';
 
-const scan = (...args) => diagonalScan(...args);
-const dc = (...args) => findMiddleSnake(...args);
+const _oneWayScan = makeScan(oneWay);
+const _twoWayScan = makeScan(twoWay);
+const oneWayScan = (...args) => _oneWayScan(...args);
+const twoWayScan = (...args) => _twoWayScan(...args);
 
-export const algorithms = [scan, dc];
+export const algorithms = [oneWayScan, twoWayScan];
 
 export const repr = (x) => JSON.stringify(x);
 

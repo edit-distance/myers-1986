@@ -1,5 +1,7 @@
 import assert from 'assert';
 
+import bound from './bound.js';
+
 /**
  * Diagonal step.
  *
@@ -29,8 +31,12 @@ export default function* diagonalStep(
 	rj,
 	Delta,
 ) {
+	assert(direction === 1 || direction === -1);
 	assert(direction === -1 || ri < rj || li < lj);
 	assert(direction === 1 || ri > rj || li > lj);
+	// NOTE: We make the bounding box as small as possible.
+	// This should save roughly half of the computation time compared to
+	// letting LB = -D and UB = D.
 	const LB = -bound(D, direction === 1 ? rj - ri : li - lj);
 	const UB = bound(D, direction === 1 ? lj - li : ri - rj);
 	console.debug('beg diagonalStep', {
@@ -58,12 +64,10 @@ export default function* diagonalStep(
 				: V[center + k - direction] + direction;
 		const y = x - (k + Delta);
 		console.debug({k, x, lj, y, rj});
-		if (direction === 1 && (x > lj || y > rj || x < li || y < ri)) continue;
-		if (direction === -1 && (x < lj || y < rj || x > li || y > ri)) continue;
-		const s = longestCommonPrefix(eq, x, lj, y, rj);
-		assert(direction === -1 || (s >= x && s <= lj));
-		assert(direction === 1 || (s >= lj && s <= x));
-		V[center + k] = s;
+		if (direction === 1) {
+			if (x > lj || y > rj || x < li || y < ri) continue;
+		} else if (x < lj || y < rj || x > li || y > ri) continue;
+		V[center + k] = longestCommonPrefix(eq, x, lj, y, rj);
 		yield k;
 	}
 
@@ -81,5 +85,3 @@ export default function* diagonalStep(
 		Delta,
 	});
 }
-
-const bound = (D, N) => (D <= N ? D : 2 * N - D);
