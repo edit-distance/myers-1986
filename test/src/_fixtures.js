@@ -186,6 +186,200 @@ export const data = [
 
 const distance = (editScript) => editScript.filter(([x]) => x !== 0).length;
 
-for (const item of data) {
-	item.distance = distance(item.editScript);
-}
+export const inflate = function* (iterable, transforms) {
+	if (transforms.length === 0) {
+		yield* iterable;
+		return;
+	}
+
+	const [firstTransform, ...otherTransforms] = transforms;
+
+	for (const item of iterable) {
+		yield* inflate(firstTransform(item), otherTransforms);
+	}
+};
+
+export const addDefaultBounds = function* (input) {
+	yield {
+		...input,
+		li: 0,
+		lj: input.left.length,
+		ri: 0,
+		rj: input.right.length,
+	};
+};
+
+export const ensureDistance = function* (input) {
+	yield {
+		...input,
+		distance: input.distance ?? distance(input.editScript),
+	};
+};
+
+export const tweakMAX = function* (input) {
+	const {left, li, lj, right, ri, rj, distance} = input;
+	yield {
+		...input,
+		MAX: lj - li + rj - ri,
+	};
+
+	yield {
+		...input,
+		MAX: distance,
+	};
+
+	yield {
+		...input,
+		MAX: distance - 1,
+		distance: -1,
+	};
+
+	yield {
+		...input,
+		MAX: 0,
+		distance: arrayLikeIsEqual(left, li, lj, right, ri, rj) ? 0 : -1,
+	};
+};
+
+export const swapInputs = function* (input) {
+	yield input;
+
+	const {left, li, lj, right, ri, rj} = input;
+	yield {
+		...input,
+		left: right,
+		li: ri,
+		lj: rj,
+		right: left,
+		ri: li,
+		rj: lj,
+	};
+};
+
+export const listifyStringInputs = function* (input) {
+	yield input;
+	const {left, right} = input;
+	if (!Array.isArray(left)) {
+		yield {
+			...input,
+			left: list(left),
+			right: list(right),
+		};
+	}
+};
+
+export const tweakBounds = function* (input) {
+	yield input;
+	const {left, li, lj, right, ri, rj} = input;
+
+	const pn = longestCommonPrefixLength(left, li, lj, right, ri, rj);
+
+	yield {
+		...input,
+		li: li + pn,
+		ri: ri + pn,
+	};
+
+	const sn = longestCommonSuffixLength(left, li, lj, right, ri, rj);
+
+	yield {
+		...input,
+		lj: lj - sn,
+		rj: rj - sn,
+	};
+
+	const sn2 = longestCommonSuffixLength(left, li + pn, lj, right, ri + pn, rj);
+
+	yield {
+		...input,
+		li: li + pn,
+		lj: lj - sn2,
+		ri: ri + pn,
+		rj: rj - sn2,
+	};
+
+	const pn2 = longestCommonSuffixLength(left, li, lj - sn, right, ri, rj - sn);
+
+	yield {
+		...input,
+		li: li + pn2,
+		lj: lj - sn,
+		ri: ri + pn2,
+		rj: rj - sn,
+	};
+};
+
+export const addPadding = function* (input) {
+	yield input;
+	const {left, li, lj, right, ri, rj} = input;
+
+	if (typeof left === 'string') {
+		const PAD_AMOUNT_1 = 13;
+		const PAD_CHAR_1 = 'a';
+		const PADDING_1 = Array.from({length: PAD_AMOUNT_1 + 1}).join(PAD_CHAR_1);
+		const PAD_AMOUNT_2 = 7;
+		const PAD_CHAR_2 = 'b';
+		const PADDING_2 = Array.from({length: PAD_AMOUNT_2 + 1}).join(PAD_CHAR_2);
+
+		yield {
+			...input,
+			left: concat(PADDING_1, left, PADDING_1),
+			li: li + PAD_AMOUNT_1,
+			lj: lj + PAD_AMOUNT_1,
+			right: concat(PADDING_2, right, PADDING_2),
+			ri: ri + PAD_AMOUNT_2,
+			rj: rj + PAD_AMOUNT_2,
+		};
+	}
+
+	yield {
+		...input,
+		left: concat(left, left, left),
+		li: left.length,
+		lj: 2 * left.length,
+		right: concat(right, right, right),
+		ri: right.length,
+		rj: 2 * right.length,
+	};
+
+	yield {
+		...input,
+		left: concat(right, left),
+		li: ri,
+		lj: rj,
+		right: concat(left, right),
+		ri: li,
+		rj: lj,
+	};
+
+	yield {
+		...input,
+		left: concat(right, left),
+		li: right.length + li,
+		lj: right.length + lj,
+		right: concat(left, right),
+		ri: left.length + ri,
+		rj: left.length + rj,
+	};
+
+	yield {
+		...input,
+		left: concat(right, left),
+		li: right.length + li,
+		lj: right.length + lj,
+		right: concat(left, right),
+		ri: li,
+		rj: lj,
+		distance: 0,
+	};
+
+	yield {
+		...input,
+		left: concat(right, left, right),
+		li: right.length + li,
+		lj: right.length + lj,
+		right: concat(left, right, left),
+		ri: left.length + ri,
+		rj: left.length + rj,
+	};
+};
