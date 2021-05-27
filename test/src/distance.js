@@ -21,7 +21,7 @@ const macro = (t, algorithm, MAX, left, li, lj, right, ri, rj, expected) => {
 
 macro.title = (title, algorithm, MAX, left, li, lj, right, ri, rj, expected) =>
 	title ??
-	`[${algorithm.name}] distance(${MAX}, ${repr(left)}[${li}:${lj}], ${repr(
+	`${algorithm.name}(${MAX}, ${repr(left)}[${li}:${lj}], ${repr(
 		right,
 	)}[${ri}:${rj}]) is ${expected}`;
 
