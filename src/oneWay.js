@@ -19,14 +19,15 @@ const oneWay = (MAX, eq, li, lj, ri, rj) => {
 	assert(MAX > 0);
 	assert(MAX <= lj - li + rj - ri);
 
-	const V = diagonalAlloc(MAX).fill(li);
+	const {array: V, center} = diagonalAlloc(MAX, li, lj, ri, rj);
+	V.fill(li);
 
 	const Delta0 = li - ri;
 	for (let D = 0; D <= MAX; ++D) {
 		for (const k of diagonalStep(
 			1,
 			longestCommonPrefix,
-			MAX,
+			center,
 			D,
 			V,
 			eq,
@@ -36,7 +37,7 @@ const oneWay = (MAX, eq, li, lj, ri, rj) => {
 			rj,
 			Delta0,
 		)) {
-			const x = V[MAX + k];
+			const x = V[center + k];
 			const y = x - (k + Delta0);
 			if (x === lj && y === rj) return D;
 		}
