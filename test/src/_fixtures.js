@@ -171,6 +171,14 @@ export const data = [
 			[2, 3, 1, 2],
 		],
 	},
+	{
+		left: 'xxxxxAxxxxx',
+		right: 'yyyyyAyyyyy',
+		editScript: [
+			[0, 5, 0, 5],
+			[6, 11, 6, 11],
+		],
+	},
 ];
 
 export const distance = (editScript) =>
