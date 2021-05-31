@@ -37,7 +37,7 @@ const makeScan = (method) => {
 		if (MAX === 0)
 			return M === N && longestCommonPrefix(eq, li, lj, ri, rj) === lj ? 0 : -1;
 
-		return method(MAX, eq, li, lj, ri, rj);
+		return method(MAX, eq, li, lj, ri, rj).distance;
 	};
 
 	return scan;

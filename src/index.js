@@ -2,6 +2,7 @@ export {default as bound} from './bound.js';
 export {default as defaultTest} from './defaultTest.js';
 export {default as diagonalAlloc} from './diagonalAlloc.js';
 export {default as diagonalStep} from './diagonalStep.js';
+export {default as diff} from './diff.js';
 export {default as longestCommonPrefix} from './longestCommonPrefix.js';
 export {default as longestCommonSuffix} from './longestCommonSuffix.js';
 export {default as makeEqualityFn} from './makeEqualityFn.js';

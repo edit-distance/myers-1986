@@ -1,11 +1,14 @@
+import {iter} from '@iterable-iterator/iter';
+import {next, StopIteration} from '@iterable-iterator/next';
 import {list} from '@iterable-iterator/list';
-import {chain} from '@iterable-iterator/chain';
-import {constant, inverse} from '@iterable-iterator/mapping';
+import {map} from '@iterable-iterator/map';
+import {sum} from '@iterable-iterator/reduce';
 
 import {
 	makeScan,
 	oneWay,
 	twoWay,
+	diff,
 	longestCommonPrefix,
 	longestCommonSuffix,
 	makeEqualityFn,
@@ -17,7 +20,8 @@ const _twoWayScan = makeScan(twoWay);
 const oneWayScan = (...args) => _oneWayScan(...args);
 const twoWayScan = (...args) => _twoWayScan(...args);
 
-export const algorithms = [oneWayScan, twoWayScan];
+export const distanceAlgorithms = [oneWayScan, twoWayScan];
+export const diffAlgorithms = [diff];
 
 export const repr = (x) => JSON.stringify(x);
 
@@ -37,13 +41,10 @@ export const longestCommonSuffixLength = (a, ai, aj, b, bi, bj) => {
 	return aj - longestCommonSuffix(eq, aj, ai, bj, bi);
 };
 
-const keep = (input) => inverse(constant(input, 0));
-const insert = (input) => inverse(constant(input, 1));
-
 const identity = (input) => ({
 	left: input,
 	right: input,
-	editScript: list(keep(input)),
+	editScript: [],
 });
 
 const emptyFor = (x) => (Array.isArray(x) ? [] : '');
@@ -55,8 +56,39 @@ export const concat = (first, ...rest) => first.concat(...rest);
 const wrap = (left, prefix, suffix) => ({
 	left,
 	right: concat(prefix, left, suffix),
-	editScript: list(chain(insert(prefix), keep(left), insert(suffix))),
+	editScript: [
+		[0, 0, 0, prefix.length],
+		[
+			left.length,
+			left.length,
+			prefix.length + left.length,
+			prefix.length + left.length + suffix.length,
+		],
+	],
 });
+
+export const calcPatch = function* (editScript, right) {
+	for (const [li, lj, ri, rj] of editScript)
+		yield [li, lj, right.slice(ri, rj)];
+};
+
+export const applyPatch = (patch, left, li, lj) => {
+	let result = left.slice(0, 0);
+	for (const [lk, ll, replacement] of patch) {
+		result = concat(result, left.slice(li, lk), replacement);
+		li = ll;
+	}
+
+	return concat(result, left.slice(li, lj));
+};
+
+const boxShift =
+	(xShift, yShift) =>
+	([x0, x1, y0, y1]) =>
+		[xShift + x0, xShift + x1, yShift + y0, yShift + y1];
+
+const shiftEditScript = (xShift, yShift, editScript) =>
+	list(map(boxShift(xShift, yShift), editScript));
 
 export const data = [
 	identity(''),
@@ -74,117 +106,75 @@ export const data = [
 		left: ['this', 'is', 'some', 'text', 'that', 'will', 'be', 'changed'],
 		right: ['this', 'is', 'the', 'changed', 'text'],
 		editScript: [
-			[0, 'this'],
-			[0, 'is'],
-			[-1, 'some'],
-			[-1, 'text'],
-			[-1, 'that'],
-			[-1, 'will'],
-			[-1, 'be'],
-			[1, 'the'],
-			[0, 'changed'],
-			[1, 'text'],
+			[2, 7, 2, 3],
+			[8, 8, 4, 5],
 		],
 	},
 	{
 		left: 'xmjyauz',
 		right: 'mzjawxu',
 		editScript: [
-			[-1, 'x'],
-			[0, 'm'],
-			[1, 'z'],
-			[0, 'j'],
-			[-1, 'y'],
-			[0, 'a'],
-			[1, 'w'],
-			[1, 'x'],
-			[0, 'u'],
-			[-1, 'z'],
+			[0, 1, 0, 0],
+			[1, 1, 1, 2],
+			[3, 4, 3, 3],
+			[4, 4, 4, 6],
+			[6, 7, 7, 7],
 		],
 	},
 	{
 		left: 'ABCDGH',
 		right: 'AEDFHR',
 		editScript: [
-			[0, 'A'],
-			[-1, 'B'],
-			[-1, 'C'],
-			[1, 'E'],
-			[0, 'D'],
-			[-1, 'G'],
-			[1, 'F'],
-			[0, 'H'],
-			[1, 'R'],
+			[1, 3, 1, 2],
+			[4, 5, 3, 4],
+			[6, 6, 5, 6],
 		],
 	},
 	{
 		left: 'AGGTAB',
 		right: 'GXTXAYB',
 		editScript: [
-			[-1, 'A'],
-			[0, 'G'],
-			[-1, 'G'],
-			[1, 'X'],
-			[0, 'T'],
-			[1, 'X'],
-			[0, 'A'],
-			[1, 'Y'],
-			[0, 'B'],
+			[0, 1, 0, 0],
+			[2, 3, 1, 2], // Careful that one is ambiguous
+			[4, 4, 3, 4],
+			[5, 5, 5, 6],
 		],
 	},
 	{
 		left: 'abc',
 		right: 'def',
-		editScript: [
-			[-1, 'a'],
-			[-1, 'b'],
-			[-1, 'c'],
-			[1, 'd'],
-			[1, 'e'],
-			[1, 'f'],
-		],
+		editScript: [[0, 3, 0, 3]],
 	},
 	{
 		left: 'abcde',
 		right: 'ace',
 		editScript: [
-			[0, 'a'],
-			[-1, 'b'],
-			[0, 'c'],
-			[-1, 'd'],
-			[0, 'e'],
+			[1, 2, 1, 1],
+			[3, 4, 2, 2],
 		],
 	},
 	{
 		left: 'ACBAED',
 		right: 'ABCADF',
 		editScript: [
-			[0, 'A'],
-			[1, 'B'],
-			[0, 'C'],
-			[-1, 'B'],
-			[0, 'A'],
-			[-1, 'E'],
-			[0, 'D'],
-			[1, 'F'],
+			[1, 1, 1, 2],
+			[2, 3, 3, 3],
+			[4, 5, 4, 4],
+			[6, 6, 5, 6],
 		],
 	},
 	{
 		left: 'BANANA',
 		right: 'ATANA',
 		editScript: [
-			[-1, 'B'],
-			[0, 'A'],
-			[-1, 'N'],
-			[1, 'T'],
-			[0, 'A'],
-			[0, 'N'],
-			[0, 'A'],
+			[0, 1, 0, 0],
+			[2, 3, 1, 2],
 		],
 	},
 ];
 
-const distance = (editScript) => editScript.filter(([x]) => x !== 0).length;
+export const distance = (editScript) =>
+	sum(map(([li, lj, ri, rj]) => lj - li + rj - ri, editScript));
 
 export const inflate = function* (iterable, transforms) {
 	if (transforms.length === 0) {
@@ -232,19 +222,23 @@ export const tweakMAX = function* (input) {
 		...input,
 		MAX: distance - 1,
 		distance: -1,
+		editScript: undefined,
 	};
+
+	const isSame = arrayLikeIsEqual(left, li, lj, right, ri, rj);
 
 	yield {
 		...input,
 		MAX: 0,
-		distance: arrayLikeIsEqual(left, li, lj, right, ri, rj) ? 0 : -1,
+		distance: isSame ? 0 : -1,
+		editScript: isSame ? [] : undefined,
 	};
 };
 
 export const swapInputs = function* (input) {
 	yield input;
 
-	const {left, li, lj, right, ri, rj} = input;
+	const {left, li, lj, right, ri, rj, editScript} = input;
 	yield {
 		...input,
 		left: right,
@@ -253,8 +247,12 @@ export const swapInputs = function* (input) {
 		right: left,
 		ri: li,
 		rj: lj,
+		editScript: swapEditScript(editScript),
 	};
 };
+
+export const swapEditScript = (editScript) =>
+	editScript?.map(([l0, l1, r0, r1]) => [r0, r1, l0, l1]);
 
 export const listifyStringInputs = function* (input) {
 	yield input;
@@ -270,7 +268,7 @@ export const listifyStringInputs = function* (input) {
 
 export const tweakBounds = function* (input) {
 	yield input;
-	const {left, li, lj, right, ri, rj} = input;
+	const {left, li, lj, right, ri, rj, editScript} = input;
 
 	const pn = longestCommonPrefixLength(left, li, lj, right, ri, rj);
 
@@ -278,6 +276,7 @@ export const tweakBounds = function* (input) {
 		...input,
 		li: li + pn,
 		ri: ri + pn,
+		editScript: shiftEditScript(pn, pn, editScript),
 	};
 
 	const sn = longestCommonSuffixLength(left, li, lj, right, ri, rj);
@@ -296,6 +295,7 @@ export const tweakBounds = function* (input) {
 		lj: lj - sn2,
 		ri: ri + pn,
 		rj: rj - sn2,
+		editScript: shiftEditScript(pn, pn, editScript),
 	};
 
 	const pn2 = longestCommonSuffixLength(left, li, lj - sn, right, ri, rj - sn);
@@ -306,12 +306,13 @@ export const tweakBounds = function* (input) {
 		lj: lj - sn,
 		ri: ri + pn2,
 		rj: rj - sn,
+		editScript: shiftEditScript(pn2, pn2, editScript),
 	};
 };
 
 export const addPadding = function* (input) {
 	yield input;
-	const {left, li, lj, right, ri, rj} = input;
+	const {left, li, lj, right, ri, rj, editScript} = input;
 
 	if (typeof left === 'string') {
 		const PAD_AMOUNT_1 = 13;
@@ -329,17 +330,19 @@ export const addPadding = function* (input) {
 			right: concat(PADDING_2, right, PADDING_2),
 			ri: ri + PAD_AMOUNT_2,
 			rj: rj + PAD_AMOUNT_2,
+			editScript: shiftEditScript(PAD_AMOUNT_1, PAD_AMOUNT_2, editScript),
 		};
 	}
 
 	yield {
 		...input,
 		left: concat(left, left, left),
-		li: left.length,
-		lj: 2 * left.length,
+		li: left.length + li,
+		lj: left.length + lj,
 		right: concat(right, right, right),
-		ri: right.length,
-		rj: 2 * right.length,
+		ri: right.length + ri,
+		rj: right.length + rj,
+		editScript: shiftEditScript(left.length, right.length, editScript),
 	};
 
 	yield {
@@ -360,6 +363,7 @@ export const addPadding = function* (input) {
 		right: concat(left, right),
 		ri: left.length + ri,
 		rj: left.length + rj,
+		editScript: shiftEditScript(right.length, left.length, editScript),
 	};
 
 	yield {
@@ -371,6 +375,7 @@ export const addPadding = function* (input) {
 		ri: li,
 		rj: lj,
 		distance: 0,
+		editScript: [],
 	};
 
 	yield {
@@ -381,5 +386,44 @@ export const addPadding = function* (input) {
 		right: concat(left, right, left),
 		ri: left.length + ri,
 		rj: left.length + rj,
+		editScript: shiftEditScript(right.length, left.length, editScript),
 	};
+};
+
+export const simplify = function* (input) {
+	yield {
+		...input,
+		editScript: simplifyEditScript(input.editScript),
+	};
+};
+
+export const simplifyEditScript = (editScript) => {
+	if (editScript === undefined) return undefined;
+	return Array.from(
+		mergeTouchingRectangles(
+			editScript.filter(([li, lj, ri, rj]) => li < lj || ri < rj),
+		),
+	);
+};
+
+const mergeTouchingRectangles = function* (rectangles) {
+	const it = iter(rectangles);
+	let pending;
+	try {
+		pending = next(it);
+		while (true) {
+			const [l0, l1, r0, r1] = pending;
+			const current = next(it);
+			const [L0, L1, R0, R1] = current;
+			if (l1 === L0 && r1 === R0) {
+				pending = [l0, L1, r0, R1];
+			} else {
+				yield pending;
+				pending = current;
+			}
+		}
+	} catch (error) {
+		if (!(error instanceof StopIteration)) throw error;
+		if (pending !== undefined) yield pending;
+	}
 };

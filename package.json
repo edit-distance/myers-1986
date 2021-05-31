@@ -66,15 +66,20 @@
     "release": "np --message ':hatching_chick: release: Bumping to v%s.'",
     "test": "ava"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@failure-abstraction/error": "^5.0.7"
+  },
   "devDependencies": {
     "@babel/core": "7.14.3",
     "@babel/preset-env": "7.14.4",
     "@babel/register": "7.13.16",
     "@commitlint/cli": "12.1.4",
     "@iterable-iterator/chain": "1.0.0",
+    "@iterable-iterator/iter": "^0.0.2",
     "@iterable-iterator/list": "0.0.2",
-    "@iterable-iterator/mapping": "8.0.0",
+    "@iterable-iterator/map": "^0.1.0",
+    "@iterable-iterator/next": "^1.0.1",
+    "@iterable-iterator/reduce": "^0.0.1",
     "@js-library/commitlint-config": "0.0.4",
     "ava": "3.15.0",
     "babel-plugin-transform-remove-console": "6.9.4",

@@ -13,7 +13,7 @@ import longestCommonPrefix from './longestCommonPrefix.js';
  * @param {number} lj
  * @param {number} ri
  * @param {number} rj
- * @return {number}
+ * @return {Object}
  */
 const oneWay = (MAX, eq, li, lj, ri, rj) => {
 	assert(MAX > 0);
@@ -39,11 +39,16 @@ const oneWay = (MAX, eq, li, lj, ri, rj) => {
 		)) {
 			const x = V[center + k];
 			const y = x - (k + Delta0);
-			if (x === lj && y === rj) return D;
+			if (x === lj && y === rj)
+				return {
+					distance: D,
+				};
 		}
 	}
 
-	return -1;
+	return {
+		distance: -1,
+	};
 };
 
 export default oneWay;

@@ -14,7 +14,7 @@ import longestCommonSuffix from './longestCommonSuffix.js';
  * @param {number} lj
  * @param {number} ri
  * @param {number} rj
- * @return {number}
+ * @return {Object}
  */
 const twoWay = (MAX, eq, li, lj, ri, rj) => {
 	assert(MAX > 0);
@@ -51,7 +51,14 @@ const twoWay = (MAX, eq, li, lj, ri, rj) => {
 			if (k - Delta < -(D - 1)) continue;
 			if (k - Delta > D - 1) continue;
 			if (V[centerV + k] < W[centerW + k - Delta]) continue; // TODO this scans the snake twice
-			return 2 * D - 1;
+			return {
+				k: k + Delta0,
+				xBegin: W[centerW + k - Delta],
+				xEnd: V[centerV + k],
+				distance: 2 * D - 1,
+				distanceLeft: D,
+				distanceRight: D - 1,
+			};
 		}
 
 		if (2 * D > MAX) break;
@@ -73,11 +80,20 @@ const twoWay = (MAX, eq, li, lj, ri, rj) => {
 			if (k + Delta < -D) continue;
 			if (k + Delta > D) continue;
 			if (V[centerV + k + Delta] < W[centerW + k]) continue; // TODO this scans the snake twice
-			return 2 * D;
+			return {
+				k: k + Delta1,
+				xBegin: W[centerW + k],
+				xEnd: V[centerV + k + Delta],
+				distance: 2 * D,
+				distanceLeft: D,
+				distanceRight: D,
+			};
 		}
 	}
 
-	return -1;
+	return {
+		distance: -1,
+	};
 };
 
 export default twoWay;

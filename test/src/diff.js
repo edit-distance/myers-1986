@@ -1,8 +1,13 @@
 import test from 'ava';
 
+import {ValueError} from '@failure-abstraction/error';
+
+import {makeEqualityFn, defaultTest} from '../../src/index.js';
+
 import {
 	data,
-	distanceAlgorithms,
+	diffAlgorithms,
+	distance,
 	repr,
 	inflate,
 	ensureDistance,
@@ -12,18 +17,45 @@ import {
 	tweakMAX,
 	swapInputs,
 	listifyStringInputs,
+	simplify,
+	// SimplifyEditScript,
+	applyPatch,
+	calcPatch,
+	swapEditScript,
 } from './_fixtures.js';
 
 const macro = (t, algorithm, MAX, left, li, lj, right, ri, rj, expected) => {
-	const result = algorithm(MAX, left, li, lj, right, ri, rj);
-	t.is(result, expected);
+	const eq = makeEqualityFn(defaultTest, left, right);
+
+	if (expected === undefined) {
+		t.throws(() => Array.from(algorithm(MAX, eq, li, lj, ri, rj)), {
+			instanceOf: ValueError,
+		});
+	} else {
+		const result = Array.from(algorithm(MAX, eq, li, lj, ri, rj));
+		const a = applyPatch(calcPatch(result, right), left, li, lj);
+		const b = applyPatch(
+			calcPatch(swapEditScript(result), left),
+			right,
+			ri,
+			rj,
+		);
+		t.deepEqual(a, right.slice(ri, rj));
+		t.deepEqual(b, left.slice(li, lj));
+		t.is(distance(result), distance(expected));
+		// Const simplified = simplifyEditScript(result);
+		// t.deepEqual(result, simplified);
+		// t.deepEqual(result, expected);
+	}
 };
 
 macro.title = (title, algorithm, MAX, left, li, lj, right, ri, rj, expected) =>
 	title ??
 	`${algorithm.name}(${MAX}, ${repr(left)}[${li}:${lj}], ${repr(
 		right,
-	)}[${ri}:${rj}]) is ${expected}`;
+	)}[${ri}:${rj}]) ${
+		expected === undefined ? 'throws ValueError' : `is ${repr(expected)}`
+	}`;
 
 const value = (x) => JSON.stringify(x);
 const props = ({algorithm, ...args}) => ({algorithm: algorithm.name, ...args});
@@ -49,10 +81,11 @@ const inputs = (iterable) =>
 		tweakMAX,
 		swapInputs,
 		listifyStringInputs,
+		simplify,
 	]);
 
-for (const algorithm of distanceAlgorithms) {
-	for (const {MAX, left, li, lj, right, ri, rj, distance: expected} of inputs(
+for (const algorithm of diffAlgorithms) {
+	for (const {MAX, left, li, lj, right, ri, rj, editScript: expected} of inputs(
 		data,
 	)) {
 		_test(algorithm, MAX, left, li, lj, right, ri, rj, expected);
