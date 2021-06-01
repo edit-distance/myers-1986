@@ -1360,7 +1360,7 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@node-loader/babel@^1.0.0":
+"@node-loader/babel@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-1.0.0.tgz#cc9e671e26c175c66fbd2bfa7e0bf6903f897fcc"
   integrity sha512-unTn6qtV8wq8QctrND7jywXXMPmGMMIxtIHP3h5CsZjpfX+ksdJEPglzBIGtOwyEEuU4c/Go7j4CCtlbXuOOoQ==
@@ -1992,7 +1992,7 @@ autoprefixer@^10.1.0:
     normalize-range "^0.1.2"
     postcss-value-parser "^4.1.0"
 
-ava@^4.0.0-alpha.2:
+ava@4.0.0-alpha.2:
   version "4.0.0-alpha.2"
   resolved "https://registry.yarnpkg.com/ava/-/ava-4.0.0-alpha.2.tgz#26badd3e202ec4d38713c113761b54a9c88e28ce"
   integrity sha512-7ePbJ00F/W4+traX8uxjA0dQu+6m8AE90BCOloFuH/zvCoqTKu7kChdWoxTPOlGZJnBHk/qCyI3nkMsEFJiDDg==
