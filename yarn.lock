@@ -1293,10 +1293,15 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@failure-abstraction/error@^5.0.5", "@failure-abstraction/error@^5.0.7":
-  version "5.0.7"
-  resolved "https://registry.yarnpkg.com/@failure-abstraction/error/-/error-5.0.7.tgz#f322a40ee2633b5ce1220671f695f9573faca7d3"
-  integrity sha512-aJzkVvXYIqTGoE2aOfWoebajHTAXRb3GDzYlImT/Nrp8AjAsg3jnmkp7N7oqxp0PTKBSBfSsLogLQ/eDBiPE0A==
+"@failure-abstraction/error@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@failure-abstraction/error/-/error-6.0.0.tgz#3716075438374c8eb81e33525c6460346ac66ba8"
+  integrity sha512-sDz3JM8Nq2TL28WQWGP2UlBixchOxTGUDjtN8woI9H18aoL2odlfCTu46I26hQRyY+EHQA3AMb6tS5NVNX3w/Q==
+
+"@failure-abstraction/error@^6.0.1":
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/@failure-abstraction/error/-/error-6.0.1.tgz#ab6929395c7ed3ec74d86db2976e74e31f9569e2"
+  integrity sha512-KvIHhvwfrgbUduQbk55WRDGL2XcXjDLwleId+pSnK7mUUIY7zMGMy3N+ouDcOFymme48tKDlarKsYj5mEEd3fg==
 
 "@istanbuljs/schema@^0.1.2":
   version "0.1.3"
@@ -1308,34 +1313,34 @@
   resolved "https://registry.yarnpkg.com/@iterable-iterator/chain/-/chain-1.0.0.tgz#38d15e7bad373af2dea0651f07252770823fcf08"
   integrity sha512-2XjhgDtg5fnSUTlWrkdCWg5viYe8ZPkD/GntMBBh2Us8bV7mrDHUO1uvBLy3z+BidJNp5PL8kExNsFyzB7s5xw==
 
-"@iterable-iterator/iter@0.0.2", "@iterable-iterator/iter@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@iterable-iterator/iter/-/iter-0.0.2.tgz#7129988de2071ffb747632bd0190c0db579a5b69"
-  integrity sha512-+q2BxI+awes71qm4M5zLXaJK7GUy1Tbt5K7YKTU3Yl8DgCdQxeHBbkAIxXAv49BoS2eLx5cLXHdpX6ybzvA2XQ==
+"@iterable-iterator/iter@1.0.0", "@iterable-iterator/iter@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/iter/-/iter-1.0.0.tgz#a399879bc4cb53b90edca7df6496cdf81b42b1c0"
+  integrity sha512-aZ2nhrbwH4iOXmVfWrN76sBELRNQVucUJWbq5kz6+x0JKAh22mhJ1CFExPi67bC6JwVjrdm2Wsed9xLG0AvClQ==
 
-"@iterable-iterator/list@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@iterable-iterator/list/-/list-0.0.2.tgz#6289761d3ada6bb88f0c92683367ea960f310869"
-  integrity sha512-103Wwqx0x8neIFjm0GVR7cmEcv29Eg7F4lX72sr9L6FzMH9lp50ejfroAdbdMT37TWq2KVNo1eEWXtFo9hBybw==
+"@iterable-iterator/list@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/list/-/list-1.0.0.tgz#1d22dd6bc70212a8049f315e51eb955ed9b9a240"
+  integrity sha512-xT0JsTBJggv/evgFUHGA3MXbqBj0Mq/bCL3i5kOcHPgQxnvVo8N9+i2wDcRhU1dDlLbnJLymyuRarDpGH4it8Q==
 
-"@iterable-iterator/map@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@iterable-iterator/map/-/map-0.1.0.tgz#abccfff2fd3cfde9505566563eb15dae4209bfb0"
-  integrity sha512-Qx6GvjGqqhk4zxOrP1Q18tvMyr5CPdDRtxSlzkTabFdREy4fLc3nddZBoheD3RovWvaRDmQstt76ETIspDJkcQ==
+"@iterable-iterator/map@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/map/-/map-1.0.0.tgz#a3c566ae8bd7baec6612eaf9f9553b92e1ad7122"
+  integrity sha512-EglFlgU+5FdJlmlShIYG3JoXQqJoCsqEZYfhq6Kjyol+wG0Stw/WRpt54sCmcbHjPCFjPZh5L7bu6T9JY2USXw==
 
-"@iterable-iterator/next@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@iterable-iterator/next/-/next-1.0.1.tgz#ed7fb7b6bf44c3bd77dd01e2c5a0a03830b9142c"
-  integrity sha512-igrAA2O3qCGHQbEjktXeiYxopq5RvaNhzooivyuq7vmE1U2tRmMyP8e5+LaNbrVLZH1jGWcWIATsNo8Q3D/I5w==
+"@iterable-iterator/next@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/next/-/next-2.0.0.tgz#7c6ecb35e6f1f48d128855adff7d3b42f90f17da"
+  integrity sha512-T5OWkjAe7KlOtIuhIIksKu82Sz0gUZNzt7k3P/uCjegU0bFCQtIYV9YqQgHlQXZ6oXfehWDqjZhvEwpmzlrpNQ==
   dependencies:
-    "@failure-abstraction/error" "^5.0.5"
+    "@failure-abstraction/error" "^6.0.0"
 
-"@iterable-iterator/reduce@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@iterable-iterator/reduce/-/reduce-0.0.1.tgz#35cf9b9c27afcdc1ebcd1a8d1f58162e8abd6290"
-  integrity sha512-Lg5HWX6oTajmd1OhFdFvQ8y+Sdqyi4vvwBfzm/mq+8BmQUa+ghnC5nkBs3M3ZcF96R1e4nn31yw4pp/DN+lUeQ==
+"@iterable-iterator/reduce@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/reduce/-/reduce-1.0.0.tgz#1632b661704ac55229d9a24471459b5202110465"
+  integrity sha512-eTcWEgEfv47sZifr7XzAzAJDyRlAw8ZfcMCzFP/soTm0yVtPeXVmiRIUxKFdUiNQR8XgezcqjkNUAqxlwu68rg==
   dependencies:
-    "@iterable-iterator/iter" "^0.0.2"
+    "@iterable-iterator/iter" "^1.0.0"
 
 "@js-library/commitlint-config@0.0.4":
   version "0.0.4"

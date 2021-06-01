@@ -2,17 +2,38 @@ import fs from 'fs';
 
 // eslint-disable-next-line import/no-unassigned-import
 import 'regenerator-runtime/runtime.js';
-import {diff as fastMyersDiff} from 'fast-myers-diff';
-// Import fastDiff from 'fast-diff'; // INCORRECT
-// import {diff as myersDiff} from 'myers-diff'; // CORRECT SLOW
-// import {same as fastArrayDiff} from 'fast-array-diff'; // CORRECT SLOW
-// import {diff as current} from '../src/index.js'; // Needs {"type": "module"}.
-import cjsBuild from '../dist/index.js';
-const cjsBuildDiff = cjsBuild.diff;
+import {diff as fastMyersDiff} from 'fast-myers-diff'; // CORRECT FAST
+// These have been removed from the bench
+// import fastDiff from 'fast-diff'; // INCORRECT SLOW
+// import {diff as myersDiff} from 'myers-diff'; // CORRECT VERY SLOW
+// import {same as fastArrayLCS} from 'fast-array-diff'; // CORRECT VERY SLOW
 
-const stats = fs.statSync('../dist/index.js');
-const mtime = stats.mtime;
-const cjsBuildTitle = `cjsBuild ${mtime.toISOString()}`;
+const importDiff = async (name) => {
+	const path = `../dist/index.${name}`;
+	const _diff = (await import(path)).diff;
+	const diff = (x, y) => {
+		const eq = (xi, yi) => x[xi] === y[yi];
+		const xi = 0;
+		const xj = x.length;
+		const yi = 0;
+		const yj = y.length;
+		const MAX = xj - xi + (yj - yi);
+		return _diff(MAX, eq, xi, xj, yi, yj);
+	};
+
+	const stats = fs.statSync(path);
+	const mtime = stats.mtime;
+	const title = `${name} ${mtime.toISOString()}`;
+
+	return {
+		title,
+		diff
+	};
+};
+
+const cjs = await importDiff('cjs');
+const module = await importDiff('module.js');
+const modern = await importDiff('modern.js');
 
 import Benchtable from 'benchtable';
 const suite = new Benchtable('diffs', {isTransposed: true});
@@ -27,29 +48,21 @@ import {
 	byExpectedDifficulty,
 } from './_fixtures.js';
 
-suite.addFunction(cjsBuildTitle, (x, y, lcs) => {
-	let notDeleted = x.length + y.length;
-	const eq = (xi, yi) => x[xi] === y[yi];
-	const xi = 0;
-	const xj = x.length;
-	const yi = 0;
-	const yj = y.length;
-	const MAX = xj - xi + (yj - yi);
-	for (const [xs, xe, ys, ye] of cjsBuildDiff(MAX, eq, xi, xj, yi, yj)) {
-		notDeleted -= xe - xs + (ye - ys);
-	}
+const add = (title, diff) => {
+	suite.addFunction(title, (x, y, lcs) => {
+		let notDeleted = x.length + y.length;
+		for (const [xs, xe, ys, ye] of diff(x, y)) {
+			notDeleted -= xe - xs + (ye - ys);
+		}
 
-	if (notDeleted !== 2 * lcs) throw new Error('Wrong lcs length');
-});
+		if (notDeleted !== 2 * lcs) throw new Error('Wrong lcs length');
+	});
+}
 
-suite.addFunction(title('fast-myers-diff'), (x, y, lcs) => {
-	let notDeleted = x.length + y.length;
-	for (const [xs, xe, ys, ye] of fastMyersDiff(x, y)) {
-		notDeleted -= xe - xs + (ye - ys);
-	}
-
-	if (notDeleted !== 2 * lcs) throw new Error('Wrong lcs length');
-});
+add(cjs.title, cjs.diff);
+add(module.title, module.diff);
+add(modern.title, modern.diff);
+add(title('fast-myers-diff'), fastMyersDiff);
 
 /*
 // SLOW
@@ -65,13 +78,13 @@ suite.addFunction(title('myers-diff'), (x, y, lcs) => {
 /*
 // SLOW
 suite.addFunction(title('fast-array-diff'), (x, y, lcs) => {
-  const kept = fastArrayDiff(x.split(''), y.split('')).length;
+  const kept = fastArrayLCS(x.split(''), y.split('')).length;
   if(kept !== lcs) throw new Error('Wrong lcs length');
 });
 */
 
 /*
-// INCORRECT
+// INCORRECT (probably because of output cleanup)
 suite.addFunction(title('fast-diff'), (x, y, lcs) => {
   let kept = 0;
   for (const [side, slice] of fastDiff(x, y)) {

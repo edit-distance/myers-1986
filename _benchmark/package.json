@@ -1,5 +1,8 @@
 {
   "type": "module",
+  "scripts": {
+    "bench": "node main.js"
+  },
   "dependencies": {
     "benchtable": "0.1.0",
     "fast-array-diff": "1.0.1",
@@ -7,8 +10,5 @@
     "fast-myers-diff": "3.0.1",
     "myers-diff": "2.0.1",
     "seedrandom": "3.0.5"
-  },
-  "scripts": {
-    "bench": "node main.js"
   }
 }

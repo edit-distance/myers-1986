@@ -27,8 +27,9 @@
     "subsequence"
   ],
   "sideEffects": false,
+  "type": "module",
   "source": "src/index.js",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
   "module": "dist/index.module.js",
   "esmodule": "dist/index.modern.js",
   "umd:main": "dist/index.umd.js",
@@ -37,7 +38,7 @@
     ".": {
       "browser": "./dist/index.module.js",
       "umd": "./dist/index.umd.js",
-      "require": "./dist/index.js",
+      "require": "./dist/index.cjs",
       "default": "./dist/index.modern.js"
     }
   },
@@ -67,7 +68,7 @@
     "test": "ava"
   },
   "dependencies": {
-    "@failure-abstraction/error": "^5.0.7"
+    "@failure-abstraction/error": "^6.0.1"
   },
   "devDependencies": {
     "@babel/core": "7.14.3",
@@ -75,11 +76,11 @@
     "@babel/register": "7.13.16",
     "@commitlint/cli": "12.1.4",
     "@iterable-iterator/chain": "1.0.0",
-    "@iterable-iterator/iter": "0.0.2",
-    "@iterable-iterator/list": "0.0.2",
-    "@iterable-iterator/map": "0.1.0",
-    "@iterable-iterator/next": "1.0.1",
-    "@iterable-iterator/reduce": "0.0.1",
+    "@iterable-iterator/iter": "1.0.0",
+    "@iterable-iterator/list": "1.0.0",
+    "@iterable-iterator/map": "1.0.0",
+    "@iterable-iterator/next": "2.0.0",
+    "@iterable-iterator/reduce": "1.0.0",
     "@js-library/commitlint-config": "0.0.4",
     "ava": "3.15.0",
     "babel-plugin-transform-remove-console": "6.9.4",
@@ -104,10 +105,6 @@
   "ava": {
     "files": [
       "test/src/**/*"
-    ],
-    "require": [
-      "regenerator-runtime/runtime",
-      "@babel/register"
     ],
     "timeout": "1m"
   },
@@ -196,7 +193,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "!(_benchmark/*).js": [
       "npm run lint-and-fix"
     ],
     "package.json": [
@@ -210,6 +207,9 @@
     "prettier": true,
     "plugins": [
       "unicorn"
+    ],
+    "ignores": [
+      "_benchmark/**"
     ],
     "rules": {
       "unicorn/filename-case": [
