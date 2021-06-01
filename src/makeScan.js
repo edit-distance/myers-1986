@@ -1,6 +1,7 @@
 import assert from 'assert';
 
 import longestCommonPrefix from './longestCommonPrefix.js';
+import longestCommonSuffix from './longestCommonSuffix.js';
 import makeEqualityFn from './makeEqualityFn.js';
 import defaultTest from './defaultTest.js';
 
@@ -31,13 +32,29 @@ const makeScan = (method) => {
 		assert(MAX <= N + M);
 
 		if (MAX < 0) return -1;
+		if (MAX === 0 && N !== M) return -1;
 
 		const eq = makeEqualityFn(test, left, right);
 
-		if (MAX === 0)
-			return M === N && longestCommonPrefix(eq, li, lj, ri, rj) === lj ? 0 : -1;
+		const l0 = longestCommonPrefix(eq, li, lj, ri, rj);
 
-		return method(MAX, eq, li, lj, ri, rj).distance;
+		if (l0 === lj && N === M) return 0;
+
+		if (MAX === 0) return -1;
+
+		const r0 = ri + (l0 - li);
+		const l1 = longestCommonSuffix(eq, lj, l0, rj, r0);
+		const r1 = rj - (lj - l1);
+
+		const halfPerimeter = l1 - l0 + r1 - r0;
+
+		return halfPerimeter <= MAX
+			? l0 === l1 || r0 === r1
+				? halfPerimeter
+				: method(halfPerimeter, eq, l0, l1, r0, r1).distance
+			: l0 === l1 || r0 === r1
+			? -1
+			: method(MAX, eq, l0, l1, r0, r1).distance;
 	};
 
 	return scan;

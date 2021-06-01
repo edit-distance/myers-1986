@@ -19,6 +19,10 @@ import longestCommonSuffix from './longestCommonSuffix.js';
 const twoWay = (MAX, eq, li, lj, ri, rj) => {
 	assert(MAX > 0);
 	assert(MAX <= lj - li + rj - ri);
+	assert(li < lj);
+	assert(ri < rj);
+	assert(!eq(li, ri));
+	assert(!eq(lj - 1, rj - 1));
 
 	const HALF_MAX = Math.ceil(MAX / 2);
 
@@ -33,7 +37,7 @@ const twoWay = (MAX, eq, li, lj, ri, rj) => {
 
 	const parityDelta = Delta % 2;
 
-	for (let D = 0; D <= HALF_MAX; ++D) {
+	for (let D = 1; D <= HALF_MAX; ++D) {
 		for (const k of diagonalStep(
 			1,
 			longestCommonPrefix,

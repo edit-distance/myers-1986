@@ -18,12 +18,16 @@ import longestCommonPrefix from './longestCommonPrefix.js';
 const oneWay = (MAX, eq, li, lj, ri, rj) => {
 	assert(MAX > 0);
 	assert(MAX <= lj - li + rj - ri);
+	assert(li < lj);
+	assert(ri < rj);
+	assert(!eq(li, ri));
+	assert(!eq(lj - 1, rj - 1));
 
 	const {array: V, center} = diagonalAlloc(MAX, li, lj, ri, rj);
 	V.fill(li);
 
 	const Delta0 = li - ri;
-	for (let D = 0; D <= MAX; ++D) {
+	for (let D = 1; D <= MAX; ++D) {
 		for (const k of diagonalStep(
 			1,
 			longestCommonPrefix,

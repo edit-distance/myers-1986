@@ -59,8 +59,8 @@ const add = (title, diff) => {
 	});
 }
 
-add(cjs.title, cjs.diff);
-add(module.title, module.diff);
+//add(cjs.title, cjs.diff);
+//add(module.title, module.diff);
 add(modern.title, modern.diff);
 add(title('fast-myers-diff'), fastMyersDiff);
 

@@ -39,7 +39,9 @@ const diff = (MAX, eq, li, lj, ri, rj) => {
 
 	assert(l0 < l1 || r0 < r1);
 
-	return recurse(Math.min(MAX, l1 - l0 + r1 - r0), eq, l0, l1, r0, r1);
+	return MAX < l1 - l0 + r1 - r0
+		? recurse(MAX, eq, l0, l1, r0, r1)
+		: recurseDeep(l1 - l0 + r1 - r0, eq, l0, l1, r0, r1);
 };
 
 export default diff;
@@ -56,16 +58,63 @@ export default diff;
  * @return {IterableIterator}
  */
 function* recurse(MAX, eq, li, lj, ri, rj) {
-	if (li === lj) {
-		if (ri === rj) return;
-		if (rj - ri > MAX) throw new ValueError();
-		yield [li, li, ri, rj];
-		return;
+	assert(MAX >= 0);
+	assert(lj - li + rj - ri > MAX);
+	if (li === lj || ri === rj) {
+		assert(lj - li > MAX || rj - ri > MAX);
+		throw new ValueError();
 	}
 
-	if (ri === rj) {
-		if (lj - li > MAX) throw new ValueError();
-		yield [li, lj, ri, ri];
+	assert(li < lj);
+	assert(ri < rj);
+	assert(!eq(li, ri));
+	assert(!eq(lj - 1, rj - 1));
+
+	const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWay(
+		MAX,
+		eq,
+		li,
+		lj,
+		ri,
+		rj,
+	);
+
+	console.debug({k, xBegin, xEnd, distance});
+
+	if (distance === -1) throw new ValueError();
+
+	assert(distance > 0);
+	const maxDistance = lj - li + (rj - ri) - 2 * (xEnd - xBegin);
+	if (distance === maxDistance) {
+		// Early exit when there is no match in the recursive calls
+		assert(xBegin < xEnd);
+		yield [li, xBegin, ri, xBegin - k];
+		yield [xEnd, lj, xEnd - k, rj];
+	} else {
+		assert(distance < maxDistance);
+		yield* recurseDeep(distanceLeft, eq, li, xBegin, ri, xBegin - k);
+		yield* recurseDeep(distanceRight, eq, xEnd, lj, xEnd - k, rj);
+	}
+}
+
+/**
+ * Recurse.
+ *
+ * @param {number} MAX
+ * @param {Function} eq
+ * @param {number} li
+ * @param {number} lj
+ * @param {number} ri
+ * @param {number} rj
+ * @return {IterableIterator}
+ */
+function* recurseDeep(MAX, eq, li, lj, ri, rj) {
+	assert(MAX >= 1);
+	assert(lj - li + rj - ri >= MAX);
+	if (li === lj || ri === rj) {
+		assert(li < lj || ri < rj);
+		assert(lj - li <= MAX && rj - ri <= MAX);
+		yield [li, lj, ri, rj];
 		return;
 	}
 
@@ -85,11 +134,9 @@ function* recurse(MAX, eq, li, lj, ri, rj) {
 
 	console.debug({k, xBegin, xEnd, distance});
 
-	assert(distance !== 0);
-
-	if (distance === -1) throw new ValueError();
-
-	if (distance === lj - li + (rj - ri) - 2 * (xEnd - xBegin)) {
+	assert(distance > 0);
+	const maxDistance = lj - li + (rj - ri) - 2 * (xEnd - xBegin);
+	if (distance === maxDistance) {
 		// Early exit when there is no match in the recursive calls
 		if (xBegin === xEnd) {
 			yield [li, lj, ri, rj];
@@ -98,9 +145,8 @@ function* recurse(MAX, eq, li, lj, ri, rj) {
 			yield [xEnd, lj, xEnd - k, rj];
 		}
 	} else {
-		assert(distance > 0);
-		assert(distance < lj - li + (rj - ri) - 2 * (xEnd - xBegin));
-		yield* recurse(distanceLeft, eq, li, xBegin, ri, xBegin - k);
-		yield* recurse(distanceRight, eq, xEnd, lj, xEnd - k, rj);
+		assert(distance < maxDistance);
+		yield* recurseDeep(distanceLeft, eq, li, xBegin, ri, xBegin - k);
+		yield* recurseDeep(distanceRight, eq, xEnd, lj, xEnd - k, rj);
 	}
 }
