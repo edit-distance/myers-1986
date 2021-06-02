@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@babel/cli@^7.14.3":
+"@babel/cli@7.14.3":
   version "7.14.3"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.14.3.tgz#9f6c8aee12e8660df879610f19a8010958b26a6f"
   integrity sha512-zU4JLvwk32ay1lhhyGfqiRUSPoltVDjhYkA3aQq8+Yby9z30s/EsFw1EPOHxWG9YZo2pAGfgdRNeHZQAYU5m9A==
@@ -726,7 +726,7 @@
     "@babel/helper-create-regexp-features-plugin" "^7.12.13"
     "@babel/helper-plugin-utils" "^7.12.13"
 
-"@babel/preset-env@^7.14.4":
+"@babel/preset-env@7.14.4":
   version "7.14.4"
   resolved "https://registry.yarnpkg.com/@babel/preset-env/-/preset-env-7.14.4.tgz#73fc3228c59727e5e974319156f304f0d6685a2d"
   integrity sha512-GwMMsuAnDtULyOtuxHhzzuSRxFeP0aR/LNzrHRzP8y6AgDNgqnrfCCBm/1cRdTU75tRs28Eh76poHLcg9VF0LA==
@@ -960,12 +960,12 @@ babel-plugin-polyfill-regenerator@^0.2.0:
   dependencies:
     "@babel/helper-define-polyfill-provider" "^0.2.2"
 
-babel-plugin-transform-remove-console@^6.9.4:
+babel-plugin-transform-remove-console@6.9.4:
   version "6.9.4"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-remove-console/-/babel-plugin-transform-remove-console-6.9.4.tgz#b980360c067384e24b357a588d807d3c83527780"
   integrity sha1-uYA2DAZzhOJLNXpYjYB9PINSd4A=
 
-babel-plugin-unassert@^3.1.0:
+babel-plugin-unassert@3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-unassert/-/babel-plugin-unassert-3.1.0.tgz#e87b02117bb3e223c3a0e00d270dcade19c9437d"
   integrity sha512-T9RY/981s2OA3EIF6q+V8Y6l27DNyo8dEBtCsi9vKRC4PGmTzU0dAG+yROGWpq4RVPgE74omcbuef3xDrQwwsg==
