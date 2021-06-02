@@ -184,6 +184,26 @@ export const data = [
 		right: 'AAAAAxAAAAA',
 		editScript: [[5, 5, 5, 6]],
 	},
+	{
+		left: 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL',
+		right: 'RRRRRRRRRRRRRRRRRRRRRRRRRRR',
+		editScript: [[0, 45, 0, 27]],
+	},
+	{
+		left: 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL',
+		right: 'RRRRRRRRRRRRRRRRRRRRRRRRRR',
+		editScript: [[0, 44, 0, 26]],
+	},
+	{
+		left: 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL',
+		right: 'RRRRRRRRRRRRRRRRRRRRRRRRRRRR',
+		editScript: [[0, 45, 0, 28]],
+	},
+	{
+		left: 'LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL',
+		right: 'RRRRRRRRRRRRRRRRRRRRRRRRRRR',
+		editScript: [[0, 44, 0, 27]],
+	},
 ];
 
 export const distance = (editScript) =>
