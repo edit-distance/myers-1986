@@ -11,9 +11,16 @@ import assert from 'assert';
  */
 const longestCommonSuffix = (eq, aj, ai, bj, bi) => {
 	assert(ai <= aj && bi <= bj);
-	while (ai < aj && bi < bj && eq(aj - 1, bj - 1)) {
-		--aj;
-		--bj;
+	if (aj - ai <= bj - bi) {
+		while (ai < aj && eq(aj - 1, bj - 1)) {
+			--aj;
+			--bj;
+		}
+	} else {
+		while (bi < bj && eq(aj - 1, bj - 1)) {
+			--aj;
+			--bj;
+		}
 	}
 
 	return aj;

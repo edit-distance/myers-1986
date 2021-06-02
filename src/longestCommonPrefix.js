@@ -11,9 +11,16 @@ import assert from 'assert';
  */
 const longestCommonPrefix = (eq, ai, aj, bi, bj) => {
 	assert(ai <= aj && bi <= bj);
-	while (ai < aj && bi < bj && eq(ai, bi)) {
-		++ai;
-		++bi;
+	if (aj - ai <= bj - bi) {
+		while (ai < aj && eq(ai, bi)) {
+			++ai;
+			++bi;
+		}
+	} else {
+		while (bi < bj && eq(ai, bi)) {
+			++ai;
+			++bi;
+		}
 	}
 
 	return ai;

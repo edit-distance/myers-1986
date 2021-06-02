@@ -4,7 +4,9 @@ import {ValueError} from '@failure-abstraction/error';
 
 import longestCommonPrefix from './longestCommonPrefix.js';
 import longestCommonSuffix from './longestCommonSuffix.js';
-import twoWay from './twoWay.js';
+import twoWayAlloc from './twoWayAlloc.js';
+import twoWayRealloc from './twoWayRealloc.js';
+import twoWayScan from './twoWayScan.js';
 
 /**
  * Yields diff rectangles.
@@ -70,8 +72,13 @@ function* recurse(MAX, eq, li, lj, ri, rj) {
 	assert(!eq(li, ri));
 	assert(!eq(lj - 1, rj - 1));
 
-	const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWay(
+	const {V, centerF, centerB} = twoWayAlloc(MAX, li, lj, ri, rj);
+
+	const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWayScan(
 		MAX,
+		V,
+		centerF,
+		centerB,
 		eq,
 		li,
 		lj,
@@ -92,13 +99,13 @@ function* recurse(MAX, eq, li, lj, ri, rj) {
 		yield [xEnd, lj, xEnd - k, rj];
 	} else {
 		assert(distance < maxDistance);
-		yield* recurseDeep(distanceLeft, eq, li, xBegin, ri, xBegin - k);
-		yield* recurseDeep(distanceRight, eq, xEnd, lj, xEnd - k, rj);
+		yield* recurseDeeper(V, distanceLeft, eq, li, xBegin, ri, xBegin - k);
+		yield* recurseDeeper(V, distanceRight, eq, xEnd, lj, xEnd - k, rj);
 	}
 }
 
 /**
- * Recurse.
+ * RecurseDeep.
  *
  * @param {number} MAX
  * @param {Function} eq
@@ -123,8 +130,13 @@ function* recurseDeep(MAX, eq, li, lj, ri, rj) {
 	assert(!eq(li, ri));
 	assert(!eq(lj - 1, rj - 1));
 
-	const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWay(
+	const {V, centerF, centerB} = twoWayAlloc(MAX, li, lj, ri, rj);
+
+	const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWayScan(
 		MAX,
+		V,
+		centerF,
+		centerB,
 		eq,
 		li,
 		lj,
@@ -146,7 +158,67 @@ function* recurseDeep(MAX, eq, li, lj, ri, rj) {
 		}
 	} else {
 		assert(distance < maxDistance);
-		yield* recurseDeep(distanceLeft, eq, li, xBegin, ri, xBegin - k);
-		yield* recurseDeep(distanceRight, eq, xEnd, lj, xEnd - k, rj);
+		yield* recurseDeeper(V, distanceLeft, eq, li, xBegin, ri, xBegin - k);
+		yield* recurseDeeper(V, distanceRight, eq, xEnd, lj, xEnd - k, rj);
+	}
+}
+
+/**
+ * RecurseDeeper.
+ *
+ * @param {Int32Array} V
+ * @param {number} MAX
+ * @param {Function} eq
+ * @param {number} li
+ * @param {number} lj
+ * @param {number} ri
+ * @param {number} rj
+ * @return {IterableIterator}
+ */
+function* recurseDeeper(V, MAX, eq, li, lj, ri, rj) {
+	assert(MAX >= 1);
+	assert(lj - li + rj - ri >= MAX);
+	if (li === lj || ri === rj) {
+		assert(li < lj || ri < rj);
+		assert(lj - li <= MAX && rj - ri <= MAX);
+		yield [li, lj, ri, rj];
+		return;
+	}
+
+	assert(li < lj);
+	assert(ri < rj);
+	assert(!eq(li, ri));
+	assert(!eq(lj - 1, rj - 1));
+
+	const {centerF, centerB} = twoWayRealloc(V, MAX, li, lj, ri, rj);
+
+	const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWayScan(
+		MAX,
+		V,
+		centerF,
+		centerB,
+		eq,
+		li,
+		lj,
+		ri,
+		rj,
+	);
+
+	console.debug({k, xBegin, xEnd, distance});
+
+	assert(distance > 0);
+	const maxDistance = lj - li + (rj - ri) - 2 * (xEnd - xBegin);
+	if (distance === maxDistance) {
+		// Early exit when there is no match in the recursive calls
+		if (xBegin === xEnd) {
+			yield [li, lj, ri, rj];
+		} else {
+			yield [li, xBegin, ri, xBegin - k];
+			yield [xEnd, lj, xEnd - k, rj];
+		}
+	} else {
+		assert(distance < maxDistance);
+		yield* recurseDeeper(V, distanceLeft, eq, li, xBegin, ri, xBegin - k);
+		yield* recurseDeeper(V, distanceRight, eq, xEnd, lj, xEnd - k, rj);
 	}
 }

@@ -1,8 +1,7 @@
 import assert from 'assert';
 
-import diagonalAlloc from './diagonalAlloc.js';
-import diagonalStep from './diagonalStep.js';
-import longestCommonPrefix from './longestCommonPrefix.js';
+import oneWayAlloc from './oneWayAlloc.js';
+import forwardStep from './forwardStep.js';
 
 /**
  * Scan from begin to end.
@@ -23,24 +22,11 @@ const oneWay = (MAX, eq, li, lj, ri, rj) => {
 	assert(!eq(li, ri));
 	assert(!eq(lj - 1, rj - 1));
 
-	const {array: V, center} = diagonalAlloc(MAX, li, lj, ri, rj);
-	V.fill(li);
+	const {array: V, center} = oneWayAlloc(MAX, li, lj, ri, rj, li);
 
 	const Delta0 = li - ri;
 	for (let D = 1; D <= MAX; ++D) {
-		for (const k of diagonalStep(
-			1,
-			longestCommonPrefix,
-			center,
-			D,
-			V,
-			eq,
-			li,
-			lj,
-			ri,
-			rj,
-			Delta0,
-		)) {
+		for (const k of forwardStep(center, D, V, eq, li, lj, ri, rj, Delta0)) {
 			const x = V[center + k];
 			const y = x - (k + Delta0);
 			if (x === lj && y === rj)
