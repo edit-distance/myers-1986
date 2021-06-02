@@ -201,7 +201,7 @@
     }
   },
   "lint-staged": {
-    "!(_benchmark/*).js": [
+    "!(_benchmark/*|_profile/*).js": [
       "npm run lint-and-fix"
     ],
     "package.json": [
@@ -217,7 +217,8 @@
       "unicorn"
     ],
     "ignores": [
-      "_benchmark/**"
+      "_benchmark/**",
+      "_profile/**"
     ],
     "rules": {
       "unicorn/filename-case": [

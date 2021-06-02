@@ -44,7 +44,7 @@ export const inputSize = ([L, del, ins]) => ({
 	ins,
 });
 
-const expectedDifficulty = ({L, del, ins}) =>
+export const expectedDifficulty = ({L, del, ins}) =>
 	16 * (L + del * ins) + (del + 1) ** 2 + ins ** 2;
 const increasing = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 const key = (compare, callable) => (a, b) => compare(callable(a), callable(b));
