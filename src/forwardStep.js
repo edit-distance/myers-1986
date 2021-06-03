@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import bound from './bound.js';
 /**
- * Diagonal forward step with yield.
+ * Diagonal forward step.
  *
  * @param {number} center
  * @param {number} D
@@ -13,9 +13,8 @@ import bound from './bound.js';
  * @param {number} ri
  * @param {number} rj
  * @param {number} Delta
- * @return {IterableIterator}
  */
-export default function* forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
+export default function forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 	assert(ri < rj && li < lj);
 	// NOTE: We make the bounding box as small as possible.
 	// This should save roughly half of the computation time compared to
@@ -51,10 +50,11 @@ export default function* forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 	const y = x - (k + Delta);
 	console.debug({k, x, lj, y, rj});
 
-	if (x <= lj && y <= rj && x >= li && y >= ri) {
-		V[center + k] = x;
-		yield k;
-	}
+	assert(x <= lj);
+	// Assert(y <= rj); // False sometimes
+	assert(x >= li);
+	assert(y >= ri);
+	V[center + k] = x;
 
 	for (let k = LB + 2; k < UB; k += 2) {
 		assert(k !== -D && k !== D);
@@ -64,10 +64,11 @@ export default function* forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 		const y = x - (k + Delta);
 		console.debug({k, x, lj, y, rj});
 
-		if (x <= lj && y <= rj && x >= li && y >= ri) {
-			V[center + k] = x;
-			yield k;
-		}
+		// Assert(x <= lj); // False sometimes
+		// assert(y <= rj); // False sometimes
+		assert(x >= li);
+		assert(y >= ri);
+		V[center + k] = x;
 	}
 
 	if (UB !== LB) {
@@ -78,10 +79,11 @@ export default function* forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 		const y = x - (k + Delta);
 		console.debug({k, x, lj, y, rj});
 
-		if (x <= lj && y <= rj && x >= li && y >= ri) {
-			V[center + k] = x;
-			yield k;
-		}
+		// Assert(x <= lj); // False sometimes
+		assert(y <= rj);
+		assert(x >= li);
+		assert(y >= ri);
+		V[center + k] = x;
 	}
 
 	console.debug('end forwardStep', {

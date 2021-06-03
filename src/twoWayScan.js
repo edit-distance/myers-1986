@@ -1,5 +1,6 @@
 import assert from 'assert';
 
+import bound from './bound.js';
 import forwardStep from './forwardStep.js';
 import backwardStep from './backwardStep.js';
 import backwardExtend from './backwardExtend.js';
@@ -44,17 +45,27 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 
 	for (let D = 1; D <= HALF_MAX; ++D) {
 		if (2 * D > MAX + parityDelta) break;
-		for (const k of forwardStep(centerF, D, V, eq, li, lj, ri, rj, Delta0)) {
+		const kMin = -D + parityDelta + Delta;
+		const kMax = D - parityDelta + Delta;
+		forwardStep(centerF, D, V, eq, li, lj, ri, rj, Delta0);
+		const LB = -bound(D, rj - ri);
+		const UB = bound(D, lj - li);
+		assert(LB <= UB);
+		assert(LB !== D);
+		assert(UB !== -D);
+		for (let k = LB; k <= UB; k += 2) {
 			const x = V[centerF + k];
 			const y = x - (k + Delta0);
-			V[centerF + k] = longestCommonPrefix(eq, x, lj, y, rj);
-			if (k - Delta < -(D - parityDelta)) continue;
-			if (k - Delta > D - parityDelta) continue;
-			if (V[centerF + k] < V[centerB + k - Delta]) continue; // TODO this scans the snake twice
+			const xEnd = longestCommonPrefix(eq, x, lj, y, rj);
+			V[centerF + k] = xEnd;
+			if (k < kMin) continue;
+			if (k > kMax) continue;
+			if (xEnd < V[centerB + k - Delta]) continue;
+			assert(xEnd === V[centerB + k - Delta]); // WTF???
 			return {
 				k: k + Delta0,
 				xBegin: longestCommonSuffix(eq, x, li, y, ri),
-				xEnd: V[centerF + k],
+				xEnd,
 				distance: 2 * D - parityDelta,
 				distanceLeft: D,
 				distanceRight: D - parityDelta,

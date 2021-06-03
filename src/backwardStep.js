@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import bound from './bound.js';
 /**
- * Diagonal backward step without yield.
+ * Diagonal backward step.
  *
  * @param {number} center
  * @param {number} D

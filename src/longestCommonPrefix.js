@@ -1,5 +1,3 @@
-import assert from 'assert';
-
 /**
  * LongestCommonPrefix.
  *
@@ -10,7 +8,7 @@ import assert from 'assert';
  * @param {number} bj
  */
 const longestCommonPrefix = (eq, ai, aj, bi, bj) => {
-	assert(ai <= aj && bi <= bj);
+	// Assert(ai <= aj && bi <= bj); // Broken to avoid branchy hot-loops
 	if (aj - ai <= bj - bi) {
 		while (ai < aj && eq(ai, bi)) {
 			++ai;
