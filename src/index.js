@@ -1,3 +1,4 @@
+export {default as backwardExtend} from './backwardExtend.js';
 export {default as backwardStep} from './backwardStep.js';
 export {default as bound} from './bound.js';
 export {default as boundAlloc} from './boundAlloc.js';

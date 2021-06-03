@@ -1,9 +1,8 @@
 import assert from 'assert';
 
 import bound from './bound.js';
-import longestCommonPrefix from './longestCommonPrefix.js';
 /**
- * Diagonal forward step.
+ * Diagonal forward step with yield.
  *
  * @param {number} center
  * @param {number} D
@@ -53,7 +52,7 @@ export default function* forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 	console.debug({k, x, lj, y, rj});
 
 	if (x <= lj && y <= rj && x >= li && y >= ri) {
-		V[center + k] = longestCommonPrefix(eq, x, lj, y, rj);
+		V[center + k] = x;
 		yield k;
 	}
 
@@ -66,7 +65,7 @@ export default function* forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 		console.debug({k, x, lj, y, rj});
 
 		if (x <= lj && y <= rj && x >= li && y >= ri) {
-			V[center + k] = longestCommonPrefix(eq, x, lj, y, rj);
+			V[center + k] = x;
 			yield k;
 		}
 	}
@@ -80,7 +79,7 @@ export default function* forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 		console.debug({k, x, lj, y, rj});
 
 		if (x <= lj && y <= rj && x >= li && y >= ri) {
-			V[center + k] = longestCommonPrefix(eq, x, lj, y, rj);
+			V[center + k] = x;
 			yield k;
 		}
 	}

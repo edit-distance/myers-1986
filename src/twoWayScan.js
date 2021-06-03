@@ -2,6 +2,9 @@ import assert from 'assert';
 
 import forwardStep from './forwardStep.js';
 import backwardStep from './backwardStep.js';
+import backwardExtend from './backwardExtend.js';
+import longestCommonPrefix from './longestCommonPrefix.js';
+import longestCommonSuffix from './longestCommonSuffix.js';
 
 /**
  * Scan from begin to middle and end to middle.
@@ -42,12 +45,15 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 	for (let D = 1; D <= HALF_MAX; ++D) {
 		if (2 * D > MAX + parityDelta) break;
 		for (const k of forwardStep(centerF, D, V, eq, li, lj, ri, rj, Delta0)) {
+			const x = V[centerF + k];
+			const y = x - (k + Delta0);
+			V[centerF + k] = longestCommonPrefix(eq, x, lj, y, rj);
 			if (k - Delta < -(D - parityDelta)) continue;
 			if (k - Delta > D - parityDelta) continue;
 			if (V[centerF + k] < V[centerB + k - Delta]) continue; // TODO this scans the snake twice
 			return {
 				k: k + Delta0,
-				xBegin: V[centerB + k - Delta],
+				xBegin: longestCommonSuffix(eq, x, li, y, ri),
 				xEnd: V[centerF + k],
 				distance: 2 * D - parityDelta,
 				distanceLeft: D,
@@ -56,6 +62,10 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 		}
 
 		if (D === HALF_MAX) break;
+
+		if (D > parityDelta) {
+			backwardExtend(centerB, D - parityDelta, V, eq, lj, li, rj, ri, Delta1);
+		}
 
 		backwardStep(centerB, D + 1 - parityDelta, V, eq, lj, li, rj, ri, Delta1);
 	}
