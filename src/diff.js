@@ -119,7 +119,7 @@ function recurse(MAX, eq, li, lj, ri, rj) {
 	}
 
 	assert(distance < maxDistance);
-	return recurseDeeper(
+	return new RecurseDeeper(
 		V,
 		[
 			new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
@@ -185,7 +185,7 @@ function recurseDeep(MAX, eq, li, lj, ri, rj) {
 	}
 
 	assert(distance < maxDistance);
-	return recurseDeeper(
+	return new RecurseDeeper(
 		V,
 		[
 			new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
@@ -193,6 +193,35 @@ function recurseDeep(MAX, eq, li, lj, ri, rj) {
 		],
 		eq,
 	);
+}
+
+class RecurseDeeper {
+	/**
+	 *
+	 * @param {Int32Array} V
+	 * @param {StackEntry[]} stack
+	 * @param {Function} eq
+	 */
+	constructor(V, stack, eq) {
+		this.V = V;
+		this._stack = stack;
+		this._eq = eq;
+	}
+
+	[Symbol.iterator]() {
+		return this;
+	}
+
+	/**
+	 * @return {IteratorResult<number[]>}
+	 */
+	next() {
+		if (this._stack.length === 0) return {done: true, value: undefined};
+		return {
+			done: false,
+			value: recurseDeeperStep(this.V, this._stack, this._eq),
+		};
+	}
 }
 
 /**
@@ -204,10 +233,12 @@ function recurseDeep(MAX, eq, li, lj, ri, rj) {
  * @param {Int32Array} V
  * @param {StackEntry[]} stack
  * @param {Function} eq
- * @return {IterableIterator}
+ * @return {number[]}
  */
-function* recurseDeeper(V, stack, eq) {
-	while (stack.length > 0) {
+const recurseDeeperStep = (V, stack, eq) => {
+	// eslint-disable-next-line no-constant-condition
+	while (true) {
+		assert(stack.length > 0);
 		const entry = stack.pop();
 		const MAX = entry.D;
 		const li = entry.li;
@@ -221,8 +252,7 @@ function* recurseDeeper(V, stack, eq) {
 		if (halfPerimeter === MAX) {
 			assert(li < lj || ri < rj);
 			assert(lj - li <= MAX && rj - ri <= MAX);
-			yield [li, lj, ri, rj];
-			continue;
+			return [li, lj, ri, rj];
 		}
 
 		assert(halfPerimeter > MAX);
@@ -256,4 +286,4 @@ function* recurseDeeper(V, stack, eq) {
 			new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
 		);
 	}
-}
+};
