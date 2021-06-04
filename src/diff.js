@@ -49,6 +49,23 @@ const diff = (MAX, eq, li, lj, ri, rj) => {
 export default diff;
 
 /**
+ * StackEntry.
+ *
+ * @param {number} D
+ * @param {number} li
+ * @param {number} lj
+ * @param {number} ri
+ * @param {number} rj
+ */
+function StackEntry(D, li, lj, ri, rj) {
+	this.D = D;
+	this.li = li;
+	this.lj = lj;
+	this.ri = ri;
+	this.rj = rj;
+}
+
+/**
  * Recurse.
  *
  * @param {number} MAX
@@ -99,8 +116,14 @@ function* recurse(MAX, eq, li, lj, ri, rj) {
 		yield [xEnd, lj, xEnd - k, rj];
 	} else {
 		assert(distance < maxDistance);
-		yield* recurseDeeper(V, distanceLeft, eq, li, xBegin, ri, xBegin - k);
-		yield* recurseDeeper(V, distanceRight, eq, xEnd, lj, xEnd - k, rj);
+		yield* recurseDeeper(
+			V,
+			[
+				new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
+				new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
+			],
+			eq,
+		);
 	}
 }
 
@@ -158,8 +181,14 @@ function* recurseDeep(MAX, eq, li, lj, ri, rj) {
 		}
 	} else {
 		assert(distance < maxDistance);
-		yield* recurseDeeper(V, distanceLeft, eq, li, xBegin, ri, xBegin - k);
-		yield* recurseDeeper(V, distanceRight, eq, xEnd, lj, xEnd - k, rj);
+		yield* recurseDeeper(
+			V,
+			[
+				new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
+				new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
+			],
+			eq,
+		);
 	}
 }
 
@@ -167,58 +196,65 @@ function* recurseDeep(MAX, eq, li, lj, ri, rj) {
  * RecurseDeeper.
  *
  * @param {Int32Array} V
- * @param {number} MAX
+ * @param {StackEntry[]} stack
  * @param {Function} eq
- * @param {number} li
- * @param {number} lj
- * @param {number} ri
- * @param {number} rj
  * @return {IterableIterator}
  */
-function* recurseDeeper(V, MAX, eq, li, lj, ri, rj) {
-	assert(MAX >= 1);
-	assert(lj - li + rj - ri >= MAX);
-	if (li === lj || ri === rj) {
-		assert(li < lj || ri < rj);
-		assert(lj - li <= MAX && rj - ri <= MAX);
-		yield [li, lj, ri, rj];
-		return;
-	}
+function* recurseDeeper(V, stack, eq) {
+	while (stack.length > 0) {
+		const entry = stack.pop();
+		const MAX = entry.D;
+		const li = entry.li;
+		const lj = entry.lj;
+		const ri = entry.ri;
+		const rj = entry.rj;
 
-	assert(li < lj);
-	assert(ri < rj);
-	assert(!eq(li, ri));
-	assert(!eq(lj - 1, rj - 1));
-
-	const {centerF, centerB} = twoWayRealloc(V, MAX, li, lj, ri, rj);
-
-	const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWayScan(
-		MAX,
-		V,
-		centerF,
-		centerB,
-		eq,
-		li,
-		lj,
-		ri,
-		rj,
-	);
-
-	console.debug({k, xBegin, xEnd, distance});
-
-	assert(distance > 0);
-	const maxDistance = lj - li + (rj - ri) - 2 * (xEnd - xBegin);
-	if (distance === maxDistance) {
-		// Early exit when there is no match in the recursive calls
-		if (xBegin === xEnd) {
+		assert(MAX >= 1);
+		assert(lj - li + rj - ri >= MAX);
+		if (li === lj || ri === rj) {
+			assert(li < lj || ri < rj);
+			assert(lj - li <= MAX && rj - ri <= MAX);
 			yield [li, lj, ri, rj];
-		} else {
-			yield [li, xBegin, ri, xBegin - k];
-			yield [xEnd, lj, xEnd - k, rj];
+			continue;
 		}
-	} else {
-		assert(distance < maxDistance);
-		yield* recurseDeeper(V, distanceLeft, eq, li, xBegin, ri, xBegin - k);
-		yield* recurseDeeper(V, distanceRight, eq, xEnd, lj, xEnd - k, rj);
+
+		assert(li < lj);
+		assert(ri < rj);
+		assert(!eq(li, ri));
+		assert(!eq(lj - 1, rj - 1));
+
+		const {centerF, centerB} = twoWayRealloc(V, MAX, li, lj, ri, rj);
+
+		const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWayScan(
+			MAX,
+			V,
+			centerF,
+			centerB,
+			eq,
+			li,
+			lj,
+			ri,
+			rj,
+		);
+
+		console.debug({k, xBegin, xEnd, distance});
+
+		assert(distance > 0);
+		const maxDistance = lj - li + (rj - ri) - 2 * (xEnd - xBegin);
+		if (distance === maxDistance) {
+			// Early exit when there is no match in the recursive calls
+			if (xBegin === xEnd) {
+				yield [li, lj, ri, rj];
+			} else {
+				yield [li, xBegin, ri, xBegin - k];
+				yield [xEnd, lj, xEnd - k, rj];
+			}
+		} else {
+			assert(distance < maxDistance);
+			stack.push(
+				new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
+				new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
+			);
+		}
 	}
 }
