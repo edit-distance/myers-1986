@@ -198,6 +198,9 @@ function recurseDeep(MAX, eq, li, lj, ri, rj) {
 /**
  * RecurseDeeper.
  *
+ * /!\ The entries in this stack should have a value D = MAX that is exactly
+ * the distance on the input range [li, lj, ri, rj].
+ *
  * @param {Int32Array} V
  * @param {StackEntry[]} stack
  * @param {Function} eq
@@ -213,14 +216,16 @@ function* recurseDeeper(V, stack, eq) {
 		const rj = entry.rj;
 
 		assert(MAX >= 1);
-		assert(lj - li + rj - ri >= MAX);
-		if (li === lj || ri === rj) {
+		const halfPerimeter = lj - li + rj - ri;
+		assert(halfPerimeter >= MAX);
+		if (halfPerimeter === MAX) {
 			assert(li < lj || ri < rj);
 			assert(lj - li <= MAX && rj - ri <= MAX);
 			yield [li, lj, ri, rj];
 			continue;
 		}
 
+		assert(halfPerimeter > MAX);
 		assert(li < lj);
 		assert(ri < rj);
 		assert(!eq(li, ri));
@@ -242,16 +247,13 @@ function* recurseDeeper(V, stack, eq) {
 
 		console.debug({k, xBegin, xEnd, distance});
 
-		assert(distance > 0);
-		const maxDistance = lj - li + (rj - ri) - 2 * (xEnd - xBegin);
-		if (distance === maxDistance) {
+		assert(distance === MAX);
+		const maxDistance = halfPerimeter - 2 * (xEnd - xBegin);
+		if (MAX === maxDistance) {
 			// Early exit when there is no match in the recursive calls
-			if (xBegin === xEnd) {
-				yield [li, lj, ri, rj];
-			} else {
-				yield [li, xBegin, ri, xBegin - k];
-				yield [xEnd, lj, xEnd - k, rj];
-			}
+			assert(xBegin < xEnd);
+			yield [li, xBegin, ri, xBegin - k];
+			yield [xEnd, lj, xEnd - k, rj];
 		} else {
 			assert(distance < maxDistance);
 			stack.push(
