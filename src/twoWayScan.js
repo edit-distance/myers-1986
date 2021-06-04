@@ -40,7 +40,7 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 	assert(parityDelta === 0 || parityDelta === 1);
 
 	if (parityDelta === 0) {
-		backwardStep(centerB, 1, V, eq, lj, li, rj, ri, Delta1);
+		backwardStep(centerB, 1, V, lj, li, rj, ri);
 	}
 
 	for (let D = 1; D <= HALF_MAX; ++D) {
@@ -103,7 +103,7 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 			backwardExtend(centerB, D - parityDelta, V, eq, lj, li, rj, ri, Delta1);
 		}
 
-		backwardStep(centerB, D + 1 - parityDelta, V, eq, lj, li, rj, ri, Delta1);
+		backwardStep(centerB, D + 1 - parityDelta, V, lj, li, rj, ri);
 	}
 
 	return {

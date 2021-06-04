@@ -7,14 +7,12 @@ import bound from './bound.js';
  * @param {number} center
  * @param {number} D
  * @param {Int32Array} V
- * @param {Function} eq
  * @param {number} li
  * @param {number} lj
  * @param {number} ri
  * @param {number} rj
- * @param {number} Delta
  */
-export default function backwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
+export default function backwardStep(center, D, V, li, lj, ri, rj) {
 	assert(ri > rj && li > lj);
 	// NOTE: We make the bounding box as small as possible.
 	// This should save roughly half of the computation time compared to
@@ -29,14 +27,12 @@ export default function backwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 		center,
 		D,
 		V,
-		eq,
 		li,
 		lj,
 		ri,
 		rj,
 		LB,
 		UB,
-		Delta,
 	});
 
 	let c = center + LB;
@@ -66,11 +62,9 @@ export default function backwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 		center,
 		D,
 		V,
-		eq,
 		li,
 		lj,
 		ri,
 		rj,
-		Delta,
 	});
 }
