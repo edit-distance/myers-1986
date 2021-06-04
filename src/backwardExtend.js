@@ -50,15 +50,18 @@ export default function backwardExtend(
 		Delta,
 	});
 
-	for (let k = LB; k <= UB; k += 2) {
-		const x = V[center + k];
-		const y = x - (k + Delta);
-		console.debug({k, x, lj, y, rj});
+	const kMin = LB + Delta;
+	const kMax = UB + Delta;
+	const cx = center - Delta;
+	for (let k = kMin; k <= kMax; k += 2) {
+		const x = V[cx + k];
+		const y = x - k;
+		console.debug({k: k - Delta, x, lj, y, rj});
 		assert(x >= lj); // These should be true
 		assert(y >= rj); // Provided you called
 		assert(x <= li); // BackwardStep(center, D, ...)
 		assert(y <= ri); // Just before.
-		V[center + k] = longestCommonSuffix(eq, x, lj, y, rj);
+		V[cx + k] = longestCommonSuffix(eq, x, lj, y, rj);
 	}
 
 	console.debug('end backwardExtend', {
