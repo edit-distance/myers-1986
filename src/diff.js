@@ -76,7 +76,7 @@ function StackEntry(D, li, lj, ri, rj) {
  * @param {number} rj
  * @return {IterableIterator}
  */
-function* recurse(MAX, eq, li, lj, ri, rj) {
+function recurse(MAX, eq, li, lj, ri, rj) {
 	assert(MAX >= 0);
 	assert(lj - li + rj - ri > MAX);
 	if (li === lj || ri === rj) {
@@ -112,19 +112,21 @@ function* recurse(MAX, eq, li, lj, ri, rj) {
 	if (distance === maxDistance) {
 		// Early exit when there is no match in the recursive calls
 		assert(xBegin < xEnd);
-		yield [li, xBegin, ri, xBegin - k];
-		yield [xEnd, lj, xEnd - k, rj];
-	} else {
-		assert(distance < maxDistance);
-		yield* recurseDeeper(
-			V,
-			[
-				new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
-				new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
-			],
-			eq,
-		);
+		return [
+			[li, xBegin, ri, xBegin - k],
+			[xEnd, lj, xEnd - k, rj],
+		][Symbol.iterator]();
 	}
+
+	assert(distance < maxDistance);
+	return recurseDeeper(
+		V,
+		[
+			new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
+			new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
+		],
+		eq,
+	);
 }
 
 /**
@@ -138,14 +140,13 @@ function* recurse(MAX, eq, li, lj, ri, rj) {
  * @param {number} rj
  * @return {IterableIterator}
  */
-function* recurseDeep(MAX, eq, li, lj, ri, rj) {
+function recurseDeep(MAX, eq, li, lj, ri, rj) {
 	assert(MAX >= 1);
 	assert(lj - li + rj - ri >= MAX);
 	if (li === lj || ri === rj) {
 		assert(li < lj || ri < rj);
 		assert(lj - li <= MAX && rj - ri <= MAX);
-		yield [li, lj, ri, rj];
-		return;
+		return [[li, lj, ri, rj]][Symbol.iterator]();
 	}
 
 	assert(li < lj);
@@ -174,22 +175,24 @@ function* recurseDeep(MAX, eq, li, lj, ri, rj) {
 	if (distance === maxDistance) {
 		// Early exit when there is no match in the recursive calls
 		if (xBegin === xEnd) {
-			yield [li, lj, ri, rj];
-		} else {
-			yield [li, xBegin, ri, xBegin - k];
-			yield [xEnd, lj, xEnd - k, rj];
+			return [[li, lj, ri, rj]][Symbol.iterator]();
 		}
-	} else {
-		assert(distance < maxDistance);
-		yield* recurseDeeper(
-			V,
-			[
-				new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
-				new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
-			],
-			eq,
-		);
+
+		return [
+			[li, xBegin, ri, xBegin - k],
+			[xEnd, lj, xEnd - k, rj],
+		][Symbol.iterator]();
 	}
+
+	assert(distance < maxDistance);
+	return recurseDeeper(
+		V,
+		[
+			new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
+			new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
+		],
+		eq,
+	);
 }
 
 /**
