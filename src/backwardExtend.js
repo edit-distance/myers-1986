@@ -3,7 +3,7 @@ import assert from 'assert';
 import bound from './bound.js';
 import longestCommonSuffix from './longestCommonSuffix.js';
 /**
- * Diagonal backward extension without yield.
+ * Diagonal backward extension.
  *
  * @param {number} center
  * @param {number} D
