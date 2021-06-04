@@ -236,16 +236,15 @@ class RecurseDeeper {
  * @return {number[]}
  */
 const recurseDeeperStep = (V, stack, eq) => {
+	assert(stack.length > 0);
+	const entry = stack.pop();
+	let MAX = entry.D;
+	const li = entry.li;
+	let lj = entry.lj;
+	const ri = entry.ri;
+	let rj = entry.rj;
 	// eslint-disable-next-line no-constant-condition
 	while (true) {
-		assert(stack.length > 0);
-		const entry = stack.pop();
-		const MAX = entry.D;
-		const li = entry.li;
-		const lj = entry.lj;
-		const ri = entry.ri;
-		const rj = entry.rj;
-
 		assert(MAX >= 1);
 		const halfPerimeter = lj - li + rj - ri;
 		assert(halfPerimeter >= MAX);
@@ -281,9 +280,11 @@ const recurseDeeperStep = (V, stack, eq) => {
 		const maxDistance = halfPerimeter - 2 * (xEnd - xBegin);
 		assert(distance <= maxDistance);
 		assert(distance < maxDistance || xBegin < xEnd);
-		stack.push(
-			new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
-			new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
-		);
+		// We push the right side of the recursion tree on the stack
+		stack.push(new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj));
+		// Explicit tail recursion on the left side of the recursion tree
+		MAX = distanceLeft;
+		lj = xBegin;
+		rj = xBegin - k;
 	}
 };
