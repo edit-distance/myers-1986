@@ -249,17 +249,11 @@ function* recurseDeeper(V, stack, eq) {
 
 		assert(distance === MAX);
 		const maxDistance = halfPerimeter - 2 * (xEnd - xBegin);
-		if (MAX === maxDistance) {
-			// Early exit when there is no match in the recursive calls
-			assert(xBegin < xEnd);
-			yield [li, xBegin, ri, xBegin - k];
-			yield [xEnd, lj, xEnd - k, rj];
-		} else {
-			assert(distance < maxDistance);
-			stack.push(
-				new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
-				new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
-			);
-		}
+		assert(distance <= maxDistance);
+		assert(distance < maxDistance || xBegin < xEnd);
+		stack.push(
+			new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
+			new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
+		);
 	}
 }
