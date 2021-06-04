@@ -13,6 +13,7 @@ const bound = (D, N) => {
 	const k = D <= N ? D : 2 * N - D;
 	assert(k <= N);
 	assert(k > -D);
+	assert((D & 1) === (k & 1));
 	return k;
 };
 

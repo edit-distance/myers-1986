@@ -45,21 +45,24 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 
 	for (let D = 1; D <= HALF_MAX; ++D) {
 		if (2 * D > MAX + parityDelta) break;
-		const kMin = -D + parityDelta + Delta;
-		const kMax = D - parityDelta + Delta;
 		forwardStep(centerF, D, V, eq, li, lj, ri, rj, Delta0);
 		const LB = -bound(D, rj - ri);
 		const UB = bound(D, lj - li);
 		assert(LB <= UB);
 		assert(LB !== D);
 		assert(UB !== -D);
-		for (let k = LB; k <= UB; k += 2) {
+		const kMin = Math.max(LB, -D + parityDelta + Delta);
+		assert(kMin >= LB);
+		assert((kMin & 1) === (LB & 1));
+		const kMax = Math.min(UB, D - parityDelta + Delta);
+		assert(kMax <= UB);
+		assert((kMax & 1) === (UB & 1));
+		assert((kMin & 1) === (kMax & 1));
+		for (let k = kMin; k <= kMax; k += 2) {
 			const x = V[centerF + k];
 			const y = x - (k + Delta0);
 			const xEnd = longestCommonPrefix(eq, x, lj, y, rj);
 			V[centerF + k] = xEnd;
-			if (k < kMin) continue;
-			if (k > kMax) continue;
 			if (xEnd < V[centerB + k - Delta]) continue;
 			assert(xEnd === V[centerB + k - Delta]); // WTF???
 			return {
@@ -73,6 +76,28 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 		}
 
 		if (D === HALF_MAX) break;
+
+		// Like backward extend but forward and only for k's not covered in the
+		// output loop
+		if (kMin <= kMax) {
+			for (let k = LB; k < kMin; k += 2) {
+				const x = V[centerF + k];
+				const y = x - (k + Delta0);
+				V[centerF + k] = longestCommonPrefix(eq, x, lj, y, rj);
+			}
+
+			for (let k = kMax + 2; k <= UB; k += 2) {
+				const x = V[centerF + k];
+				const y = x - (k + Delta0);
+				V[centerF + k] = longestCommonPrefix(eq, x, lj, y, rj);
+			}
+		} else {
+			for (let k = LB; k <= UB; k += 2) {
+				const x = V[centerF + k];
+				const y = x - (k + Delta0);
+				V[centerF + k] = longestCommonPrefix(eq, x, lj, y, rj);
+			}
+		}
 
 		if (D > parityDelta) {
 			backwardExtend(centerB, D - parityDelta, V, eq, lj, li, rj, ri, Delta1);
