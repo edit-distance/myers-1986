@@ -6,6 +6,7 @@ export {default as bound} from './bound.js';
 export {default as boundAlloc} from './boundAlloc.js';
 export {default as defaultTest} from './defaultTest.js';
 export {default as diff} from './diff.js';
+export {default as forwardExtend} from './forwardExtend.js';
 export {default as forwardStep} from './forwardStep.js';
 export {default as longestCommonPrefix} from './longestCommonPrefix.js';
 export {default as longestCommonSuffix} from './longestCommonSuffix.js';

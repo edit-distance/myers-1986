@@ -2,6 +2,7 @@ import assert from 'assert';
 
 import bound from './bound.js';
 import forwardStep from './forwardStep.js';
+import forwardExtend from './forwardExtend.js';
 import backwardStep from './backwardStep.js';
 import backwardExtend from './backwardExtend.js';
 import longestCommonPrefix from './longestCommonPrefix.js';
@@ -80,23 +81,10 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 		// Like backward extend but forward and only for k's not covered in the
 		// output loop
 		if (kMin <= kMax) {
-			for (let k = LB; k < kMin; k += 2) {
-				const x = V[centerF + k];
-				const y = x - (k + Delta0);
-				V[centerF + k] = longestCommonPrefix(eq, x, lj, y, rj);
-			}
-
-			for (let k = kMax + 2; k <= UB; k += 2) {
-				const x = V[centerF + k];
-				const y = x - (k + Delta0);
-				V[centerF + k] = longestCommonPrefix(eq, x, lj, y, rj);
-			}
+			forwardExtend(LB, kMin - 2, Delta0, centerF, V, eq, lj, rj);
+			forwardExtend(kMax + 2, UB, Delta0, centerF, V, eq, lj, rj);
 		} else {
-			for (let k = LB; k <= UB; k += 2) {
-				const x = V[centerF + k];
-				const y = x - (k + Delta0);
-				V[centerF + k] = longestCommonPrefix(eq, x, lj, y, rj);
-			}
+			forwardExtend(LB, UB, Delta0, centerF, V, eq, lj, rj);
 		}
 
 		if (D > parityDelta) {
