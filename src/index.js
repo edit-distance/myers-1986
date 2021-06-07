@@ -1,3 +1,5 @@
+export {default as RecurseDeeper} from './RecurseDeeper.js';
+export {default as StackEntry} from './StackEntry.js';
 export {default as backwardExtend} from './backwardExtend.js';
 export {default as backwardStep} from './backwardStep.js';
 export {default as bound} from './bound.js';
@@ -11,6 +13,9 @@ export {default as makeEqualityFn} from './makeEqualityFn.js';
 export {default as makeScan} from './makeScan.js';
 export {default as oneWay} from './oneWay.js';
 export {default as oneWayAlloc} from './oneWayAlloc.js';
+export {default as recurse} from './recurse.js';
+export {default as recurseDeep} from './recurseDeep.js';
+export {default as recurseDeeperStep} from './recurseDeeperStep.js';
 export {default as twoWay} from './twoWay.js';
 export {default as twoWayAlloc} from './twoWayAlloc.js';
 export {default as twoWayRealloc} from './twoWayRealloc.js';
