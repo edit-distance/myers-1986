@@ -16,8 +16,8 @@ const makeEqualityFn = (test, left, right) => {
 	 * @return {boolean}
 	 */
 	const eq = (i, j) => {
-		assert(i >= 0 && i <= left.length);
-		assert(j >= 0 && j <= right.length);
+		assert(i >= 0 && i < left.length);
+		assert(j >= 0 && j < right.length);
 		return test(left[i], right[j]);
 	};
 
