@@ -46,9 +46,10 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 		backwardStep(centerB, 1, V, lj, li, rj, ri);
 	}
 
+	const DMAX = Math.min(HALF_MAX, (MAX + parityDelta) >> 1);
 	const cFD0 = centerF - Delta0;
-	for (let D = 1; D <= HALF_MAX; ++D) {
-		if (2 * D > MAX + parityDelta) break;
+	for (let D = 1; D <= DMAX; ++D) {
+		assert(2 * D <= MAX + parityDelta);
 		const LB = -bound(D, rj - ri);
 		const UB = bound(D, lj - li);
 		assert(LB <= UB);
