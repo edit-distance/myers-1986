@@ -23,7 +23,17 @@ import Split from './Split.js';
  * @param {number} rj
  * @return {Split}
  */
-export default function twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj) {
+export default function twoWayScan(
+	MAX,
+	V,
+	centerF,
+	centerB,
+	eq,
+	li,
+	lj,
+	ri,
+	rj,
+) {
 	assert(MAX >= 1);
 	assert(MAX <= lj - li + rj - ri);
 	assert(li < lj);
@@ -66,34 +76,34 @@ export default function twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj)
 		assert((kMin & 1) === (kMax & 1));
 		const cMin = centerF + kMin;
 		const cMax = centerF + kMax;
-		for (let c = cMin; c <= cMax; c += 2) {
-			const k = c - centerF;
-			const x = V[c];
-			const y = x - (c - cFD0); // X - (k + Delta0)
-			const xEnd = longestCommonPrefix(eq, x, lj, y, rj);
-			V[c] = xEnd;
-			if (xEnd === V[c + cBDcF]) {
-				// XEnd === V[centerB + k - Delta]
-				return new Split(
-					c - cFD0, // K + Delta0
-					longestCommonSuffix(eq, x, li, y, ri),
-					xEnd,
-					D,
-					(D << 1) - parityDelta,
-				);
-			}
-
-			assert(xEnd < V[centerB + k - Delta]); // WTF???
-		}
-
-		if (D === HALF_MAX) break;
-
-		// Like backward extend but forward and only for k's not covered in the
-		// output loop
 		if (cMin <= cMax) {
+			let c = cMin;
+			do {
+				const x = V[c];
+				const y = x - (c - cFD0); // X - (k + Delta0)
+				const xEnd = longestCommonPrefix(eq, x, lj, y, rj);
+				V[c] = xEnd;
+				if (xEnd === V[c + cBDcF]) {
+					// XEnd === V[centerB + k - Delta]
+					return new Split(
+						c - cFD0, // K + Delta0
+						longestCommonSuffix(eq, x, li, y, ri),
+						xEnd,
+						D,
+						(D << 1) - parityDelta,
+					);
+				}
+
+				const k = c - centerF;
+				assert(xEnd < V[centerB + k - Delta]); // WTF???
+				c += 2;
+			} while (c <= cMax);
+
+			if (D === DMAX) break;
 			forwardExtend(centerF + LB, cMin - 2, cFD0, V, eq, lj, rj);
 			forwardExtend(cMax + 2, centerF + UB, cFD0, V, eq, lj, rj);
 		} else {
+			if (D === DMAX) break;
 			forwardExtend(centerF + LB, centerF + UB, cFD0, V, eq, lj, rj);
 		}
 
