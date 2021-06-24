@@ -93,7 +93,17 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 		}
 
 		if (D > parityDelta) {
-			backwardExtend(centerB, D - parityDelta, V, eq, lj, li, rj, ri, Delta1);
+			const Dp = D - parityDelta;
+			assert(ri < rj && li < lj);
+			const LB = -bound(Dp, lj - li);
+			const UB = bound(Dp, rj - ri);
+			assert(LB <= UB);
+			assert(LB !== Dp);
+			assert(UB !== -Dp);
+			const cx = centerB - Delta1;
+			const cMin = centerB + LB;
+			const cMax = centerB + UB;
+			backwardExtend(cMin, cMax, cx, V, eq, li, ri);
 		}
 
 		backwardStep(centerB, D + 1 - parityDelta, V, lj, li, rj, ri);
