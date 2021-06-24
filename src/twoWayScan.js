@@ -47,6 +47,7 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 	}
 
 	const DMAX = Math.min(HALF_MAX, (MAX + parityDelta) >> 1);
+	const cBDcF = centerB - Delta - centerF;
 	const cFD0 = centerF - Delta0;
 	for (let D = 1; D <= DMAX; ++D) {
 		assert(2 * D <= MAX + parityDelta);
@@ -65,20 +66,24 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 		assert((kMin & 1) === (kMax & 1));
 		const cMin = centerF + kMin;
 		const cMax = centerF + kMax;
-		for (let k = kMin; k <= kMax; k += 2) {
-			const x = V[centerF + k];
-			const y = x - (k + Delta0);
+		for (let c = cMin; c <= cMax; c += 2) {
+			const k = c - centerF;
+			const x = V[c];
+			const y = x - (c - cFD0); // X - (k + Delta0)
 			const xEnd = longestCommonPrefix(eq, x, lj, y, rj);
-			V[centerF + k] = xEnd;
-			if (xEnd < V[centerB + k - Delta]) continue;
-			assert(xEnd === V[centerB + k - Delta]); // WTF???
-			return new Split(
-				k + Delta0,
-				longestCommonSuffix(eq, x, li, y, ri),
-				xEnd,
-				D,
-				2 * D - parityDelta,
-			);
+			V[c] = xEnd;
+			if (xEnd === V[c + cBDcF]) {
+				// XEnd === V[centerB + k - Delta]
+				return new Split(
+					c - cFD0, // K + Delta0
+					longestCommonSuffix(eq, x, li, y, ri),
+					xEnd,
+					D,
+					(D << 1) - parityDelta,
+				);
+			}
+
+			assert(xEnd < V[centerB + k - Delta]); // WTF???
 		}
 
 		if (D === HALF_MAX) break;
