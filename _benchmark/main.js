@@ -51,6 +51,8 @@ const add = (title, diff) => {
 		}
 
 		if (notDeleted !== 2 * lcs) throw new Error('Wrong lcs length');
+	}, {
+		maxTime: 5
 	});
 }
 
