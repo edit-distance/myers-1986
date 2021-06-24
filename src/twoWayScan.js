@@ -6,6 +6,7 @@ import backwardStep from './backwardStep.js';
 import backwardExtend from './backwardExtend.js';
 import longestCommonPrefix from './longestCommonPrefix.js';
 import longestCommonSuffix from './longestCommonSuffix.js';
+import Split from './Split.js';
 
 /**
  * Scan from begin to middle and end to middle.
@@ -19,7 +20,7 @@ import longestCommonSuffix from './longestCommonSuffix.js';
  * @param {number} lj
  * @param {number} ri
  * @param {number} rj
- * @return {Object}
+ * @return {Split}
  */
 const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 	assert(MAX >= 1);
@@ -66,14 +67,13 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 			V[centerF + k] = xEnd;
 			if (xEnd < V[centerB + k - Delta]) continue;
 			assert(xEnd === V[centerB + k - Delta]); // WTF???
-			return {
-				k: k + Delta0,
-				xBegin: longestCommonSuffix(eq, x, li, y, ri),
+			return new Split(
+				k + Delta0,
+				longestCommonSuffix(eq, x, li, y, ri),
 				xEnd,
-				distance: 2 * D - parityDelta,
-				distanceLeft: D,
-				distanceRight: D - parityDelta,
-			};
+				D,
+				2 * D - parityDelta,
+			);
 		}
 
 		if (D === HALF_MAX) break;
@@ -107,9 +107,7 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 		backwardStep(centerB, D + 1 - parityDelta, V, lj, li, rj, ri);
 	}
 
-	return {
-		distance: -1,
-	};
+	return new Split(-1, -1, -1, -1, -1);
 };
 
 export default twoWayScan;

@@ -33,17 +33,14 @@ export default function recurseDeep(MAX, eq, li, lj, ri, rj) {
 
 	const {V, centerF, centerB} = twoWayAlloc(MAX, li, lj, ri, rj);
 
-	const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWayScan(
-		MAX,
-		V,
-		centerF,
-		centerB,
-		eq,
-		li,
-		lj,
-		ri,
-		rj,
-	);
+	const split = twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj);
+
+	const k = split.k;
+	const xBegin = split.xBegin;
+	const xEnd = split.xEnd;
+	const distanceLeft = split.distanceLeft;
+	const distance = split.distance;
+	const distanceRight = distance - distanceLeft;
 
 	console.debug({k, xBegin, xEnd, distance});
 

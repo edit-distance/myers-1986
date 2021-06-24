@@ -1,4 +1,5 @@
 export {default as RecurseDeeper} from './RecurseDeeper.js';
+export {default as Split} from './Split.js';
 export {default as StackEntry} from './StackEntry.js';
 export {default as backwardExtend} from './backwardExtend.js';
 export {default as backwardStep} from './backwardStep.js';

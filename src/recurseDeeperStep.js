@@ -43,21 +43,18 @@ const recurseDeeperStep = (V, stack, eq) => {
 
 		const {centerF, centerB} = twoWayRealloc(V, MAX, li, lj, ri, rj);
 
-		const {k, xBegin, xEnd, distance, distanceLeft, distanceRight} = twoWayScan(
-			MAX,
-			V,
-			centerF,
-			centerB,
-			eq,
-			li,
-			lj,
-			ri,
-			rj,
-		);
+		const split = twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj);
+
+		const k = split.k;
+		const xBegin = split.xBegin;
+		const xEnd = split.xEnd;
+		const distanceLeft = split.distanceLeft;
+		const distance = split.distance;
+		assert(distance === MAX);
+		const distanceRight = MAX - distanceLeft;
 
 		console.debug({k, xBegin, xEnd, distance});
 
-		assert(distance === MAX);
 		const maxDistance = halfPerimeter - 2 * (xEnd - xBegin);
 		assert(distance <= maxDistance);
 		assert(distance < maxDistance || xBegin < xEnd);

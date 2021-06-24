@@ -4,6 +4,7 @@ import oneWayAlloc from './oneWayAlloc.js';
 import forwardStep from './forwardStep.js';
 import bound from './bound.js';
 import longestCommonPrefix from './longestCommonPrefix.js';
+import Split from './Split.js';
 
 /**
  * Scan from begin to end.
@@ -14,7 +15,7 @@ import longestCommonPrefix from './longestCommonPrefix.js';
  * @param {number} lj
  * @param {number} ri
  * @param {number} rj
- * @return {Object}
+ * @return {Split}
  */
 const oneWay = (MAX, eq, li, lj, ri, rj) => {
 	assert(MAX > 0);
@@ -39,17 +40,12 @@ const oneWay = (MAX, eq, li, lj, ri, rj) => {
 			let y = x - (k + Delta0);
 			x = longestCommonPrefix(eq, x, lj, y, rj);
 			y = x - (k + Delta0);
-			if (x === lj && y === rj)
-				return {
-					distance: D,
-				};
+			if (x === lj && y === rj) return new Split(-1, -1, -1, -1, D);
 			V[center + k] = x;
 		}
 	}
 
-	return {
-		distance: -1,
-	};
+	return new Split(-1, -1, -1, -1, -1);
 };
 
 export default oneWay;
