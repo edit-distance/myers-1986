@@ -9,7 +9,7 @@ import assert from 'assert';
  * @param {number} bi
  * @param {number} bj
  */
-const longestCommonPrefix = (eq, ai, aj, bi, bj) => {
+export default function longestCommonPrefix(eq, ai, aj, bi, bj) {
 	assert(Number.isInteger(ai) && ai >= 0);
 	assert(Number.isInteger(aj));
 	assert(Number.isInteger(bi) && bi >= 0);
@@ -28,6 +28,4 @@ const longestCommonPrefix = (eq, ai, aj, bi, bj) => {
 	}
 
 	return ai;
-};
-
-export default longestCommonPrefix;
+}

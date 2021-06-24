@@ -9,7 +9,7 @@ import assert from 'assert';
  * @param {number} bj
  * @param {number} bi
  */
-const longestCommonSuffix = (eq, aj, ai, bj, bi) => {
+export default function longestCommonSuffix (eq, aj, ai, bj, bi) {
 	assert(Number.isInteger(aj));
 	assert(Number.isInteger(ai) && ai >= 0);
 	assert(Number.isInteger(bj));
@@ -28,6 +28,4 @@ const longestCommonSuffix = (eq, aj, ai, bj, bi) => {
 	}
 
 	return aj;
-};
-
-export default longestCommonSuffix;
+}

@@ -19,7 +19,7 @@ import recurseDeep from './recurseDeep.js';
  * @param {number} rj
  * @return {IterableIterator}
  */
-const diff = (MAX, eq, li, lj, ri, rj) => {
+export default function diff (MAX, eq, li, lj, ri, rj) {
 	assert(Number.isInteger(MAX));
 	const N = lj - li;
 	const M = rj - ri;
@@ -44,6 +44,4 @@ const diff = (MAX, eq, li, lj, ri, rj) => {
 	return MAX < l1 - l0 + r1 - r0
 		? recurse(MAX, eq, l0, l1, r0, r1)
 		: recurseDeep(l1 - l0 + r1 - r0, eq, l0, l1, r0, r1);
-};
-
-export default diff;
+}

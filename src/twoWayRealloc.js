@@ -13,7 +13,7 @@ import boundAlloc from './boundAlloc.js';
  * @param {number} rj
  * @return {{centerF: number, centerB: number}}
  */
-const twoWayRealloc = (V, MAX, li, lj, ri, rj) => {
+export default function twoWayRealloc (V, MAX, li, lj, ri, rj) {
 	const HALF_MAX = (MAX >> 1) + (MAX & 1); // Ceil(MAX / 2);
 
 	const lMAX = boundAlloc(HALF_MAX, li, lj);
@@ -31,6 +31,4 @@ const twoWayRealloc = (V, MAX, li, lj, ri, rj) => {
 		centerF,
 		centerB,
 	};
-};
-
-export default twoWayRealloc;
+}

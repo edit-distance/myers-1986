@@ -17,7 +17,7 @@ import Split from './Split.js';
  * @param {number} rj
  * @return {Split}
  */
-const oneWay = (MAX, eq, li, lj, ri, rj) => {
+export default function oneWay (MAX, eq, li, lj, ri, rj) {
 	assert(MAX > 0);
 	assert(MAX <= lj - li + rj - ri);
 	assert(li < lj);
@@ -46,6 +46,4 @@ const oneWay = (MAX, eq, li, lj, ri, rj) => {
 	}
 
 	return new Split(-1, -1, -1, -1, -1);
-};
-
-export default oneWay;
+}

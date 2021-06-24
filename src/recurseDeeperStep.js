@@ -15,7 +15,7 @@ import twoWayScan from './twoWayScan.js';
  * @param {Function} eq
  * @return {number[]}
  */
-const recurseDeeperStep = (V, stack, eq) => {
+export default function recurseDeeperStep (V, stack, eq) {
 	assert(stack.length > 0);
 	const entry = stack.pop();
 	assert(entry instanceof StackEntry);
@@ -65,6 +65,4 @@ const recurseDeeperStep = (V, stack, eq) => {
 		lj = xBegin;
 		rj = xBegin - k;
 	}
-};
-
-export default recurseDeeperStep;
+}

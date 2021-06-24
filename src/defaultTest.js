@@ -5,5 +5,6 @@
  * @param {any} y
  * @return {boolean}
  */
-const defaultTest = (x, y) => x === y;
-export default defaultTest;
+export default function defaultTest(x, y) {
+	return x === y;
+}

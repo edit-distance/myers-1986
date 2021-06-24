@@ -23,7 +23,7 @@ import Split from './Split.js';
  * @param {number} rj
  * @return {Split}
  */
-const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
+export default function twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj) {
 	assert(MAX >= 1);
 	assert(MAX <= lj - li + rj - ri);
 	assert(li < lj);
@@ -115,6 +115,4 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 	}
 
 	return new Split(-1, -1, -1, -1, -1);
-};
-
-export default twoWayScan;
+}

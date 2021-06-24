@@ -14,7 +14,7 @@ import twoWayScan from './twoWayScan.js';
  * @param {number} rj
  * @return {Object}
  */
-const twoWay = (MAX, eq, li, lj, ri, rj) => {
+export default function twoWay (MAX, eq, li, lj, ri, rj) {
 	assert(MAX > 0);
 	assert(MAX <= lj - li + rj - ri);
 	assert(li < lj);
@@ -25,6 +25,4 @@ const twoWay = (MAX, eq, li, lj, ri, rj) => {
 	const {V, centerF, centerB} = twoWayAlloc(MAX, li, lj, ri, rj);
 
 	return twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj);
-};
-
-export default twoWay;
+}

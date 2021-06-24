@@ -11,7 +11,7 @@ import defaultTest from './defaultTest.js';
  * @param {Function} method
  * @return {Function}
  */
-const makeScan = (method) => {
+export default function makeScan (method) {
 	/**
 	 * Scan.
 	 *
@@ -58,6 +58,4 @@ const makeScan = (method) => {
 	};
 
 	return scan;
-};
-
-export default makeScan;
+}

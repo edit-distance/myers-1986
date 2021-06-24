@@ -7,7 +7,7 @@ import assert from 'assert';
  * @param {ArrayLike} left
  * @param {ArrayLike} right
  */
-const makeEqualityFn = (test, left, right) => {
+export default function makeEqualityFn (test, left, right) {
 	/**
 	 * Eq.
 	 *
@@ -22,6 +22,4 @@ const makeEqualityFn = (test, left, right) => {
 	};
 
 	return eq;
-};
-
-export default makeEqualityFn;
+}
