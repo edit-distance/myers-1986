@@ -12,9 +12,8 @@ import twoWayScan from './twoWayScan.js';
  * @param {number} lj
  * @param {number} ri
  * @param {number} rj
- * @return {Object}
  */
-export default function twoWay (MAX, eq, li, lj, ri, rj) {
+export default function twoWay(MAX, eq, li, lj, ri, rj) {
 	assert(MAX > 0);
 	assert(MAX <= lj - li + rj - ri);
 	assert(li < lj);
