@@ -35,27 +35,21 @@ export default function backwardStep(center, D, V, li, lj, ri, rj) {
 		UB,
 	});
 
-	let c = center + LB;
+	const cMin = center + LB;
 	const cMax = center + UB;
 
-	assert(c - center === LB);
-	const xp = V[c + 1];
-	const yp = V[c - 1];
-	V[c] = LB !== -D && xp > yp ? yp : xp - 1;
+	V[cMin] =
+		LB !== -D && V[cMin + 1] > V[cMin - 1] ? V[cMin - 1] : V[cMin + 1] - 1;
 
-	for (c += 2; c < cMax; c += 2) {
+	for (let c = cMin + 2; c < cMax; c += 2) {
 		assert(c - center !== -D && c - center !== D);
-		const xp = V[c + 1];
-		const yp = V[c - 1];
-		V[c] = xp > yp ? yp : xp - 1;
+		V[c] = V[c + 1] > V[c - 1] ? V[c - 1] : V[c + 1] - 1;
 	}
 
 	if (UB !== LB) {
-		assert(c - center === UB);
-		const xp = V[c + 1];
-		const yp = V[c - 1];
-		assert(c - center === D || xp > yp);
-		V[c] = yp;
+		const yp = V[cMax - 1];
+		assert(UB === D || V[cMax + 1] > yp); // UB === D || xp > yp
+		V[cMax] = yp;
 	}
 
 	console.debug('end backwardStep', {
