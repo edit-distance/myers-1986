@@ -43,9 +43,8 @@ export default function forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 	const cy = center + 1;
 
 	const k = LB;
-	const xp = V[cx + k];
 	const yp = V[cy + k];
-	assert(k === -D || xp < yp);
+	assert(k === -D || V[cx + k] < yp); // K === -D || xp < yp
 	const x = yp;
 	const y = x - (k + Delta);
 	console.debug({k, x, lj, y, rj});
