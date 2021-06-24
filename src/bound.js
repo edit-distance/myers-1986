@@ -10,7 +10,7 @@ import assert from 'assert';
 const bound = (D, N) => {
 	assert(N >= 1);
 	assert(D >= 1);
-	const k = D <= N ? D : 2 * N - D;
+	const k = D <= N ? D : (N << 1) - D;
 	assert(k <= N);
 	assert(k > -D);
 	assert((D & 1) === (k & 1));
