@@ -28,12 +28,12 @@ const oneWay = (MAX, eq, li, lj, ri, rj) => {
 
 	const Delta0 = li - ri;
 	for (let D = 1; D <= MAX; ++D) {
-		forwardStep(center, D, V, eq, li, lj, ri, rj, Delta0);
 		const LB = -bound(D, rj - ri);
 		const UB = bound(D, lj - li);
 		assert(LB <= UB);
 		assert(LB !== D);
 		assert(UB !== -D);
+		forwardStep(center, D, V, LB, UB);
 		for (let k = LB; k <= UB; k += 2) {
 			let x = V[center + k];
 			let y = x - (k + Delta0);

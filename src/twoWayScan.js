@@ -45,12 +45,12 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 
 	for (let D = 1; D <= HALF_MAX; ++D) {
 		if (2 * D > MAX + parityDelta) break;
-		forwardStep(centerF, D, V, eq, li, lj, ri, rj, Delta0);
 		const LB = -bound(D, rj - ri);
 		const UB = bound(D, lj - li);
 		assert(LB <= UB);
 		assert(LB !== D);
 		assert(UB !== -D);
+		forwardStep(centerF, D, V, LB, UB); // , li, lj, ri, rj, Delta0);
 		const kMin = Math.max(LB, -D + parityDelta + Delta);
 		assert(kMin >= LB);
 		assert((kMin & 1) === (LB & 1));

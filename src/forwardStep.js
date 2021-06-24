@@ -1,43 +1,19 @@
 import assert from 'assert';
 
-import bound from './bound.js';
 /**
  * Diagonal forward step.
  *
  * @param {number} center
  * @param {number} D
- * @param {Int32Array} V
- * @param {Function} eq
- * @param {number} li
- * @param {number} lj
- * @param {number} ri
- * @param {number} rj
- * @param {number} Delta
+ * @param {{[x: number]: number}} V
+ * @param {number} LB
+ * @param {number} UB
  */
-export default function forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
-	assert(ri < rj && li < lj);
-	// NOTE: We make the bounding box as small as possible.
-	// This should save roughly half of the computation time compared to
-	// letting LB = -D and UB = D.
-	const LB = -bound(D, rj - ri);
-	const UB = bound(D, lj - li);
+export default function forwardStep(center, D, V, LB, UB) {
+	// Assert(ri < rj && li < lj);
 	assert(LB <= UB);
 	assert(LB !== D);
 	assert(UB !== -D);
-
-	console.debug('beg forwardStep', {
-		center,
-		D,
-		V,
-		eq,
-		li,
-		lj,
-		ri,
-		rj,
-		LB,
-		UB,
-		Delta,
-	});
 
 	const cx = center - 1;
 	const cy = center + 1;
@@ -46,13 +22,12 @@ export default function forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 	const yp = V[cy + k];
 	assert(k === -D || V[cx + k] < yp); // K === -D || xp < yp
 	const x = yp;
-	const y = x - (k + Delta);
-	console.debug({k, x, lj, y, rj});
+	// Const y = x - (k + Delta);
 
-	assert(x <= lj);
+	// assert(x <= lj); // Always true
 	// Assert(y <= rj); // False sometimes
-	assert(x >= li);
-	assert(y >= ri);
+	// assert(x >= li); // Always true
+	// assert(y >= ri); // Always true
 	V[center + k] = x;
 
 	for (let k = LB + 2; k < UB; k += 2) {
@@ -60,13 +35,11 @@ export default function forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 		const xp = V[cx + k];
 		const yp = V[cy + k];
 		const x = xp < yp ? yp : xp + 1;
-		const y = x - (k + Delta);
-		console.debug({k, x, lj, y, rj});
 
 		// Assert(x <= lj); // False sometimes
 		// assert(y <= rj); // False sometimes
-		assert(x >= li);
-		assert(y >= ri);
+		// assert(x >= li); // Always true
+		// assert(y >= ri); // Always true
 		V[center + k] = x;
 	}
 
@@ -75,25 +48,11 @@ export default function forwardStep(center, D, V, eq, li, lj, ri, rj, Delta) {
 		const xp = V[cx + k];
 		const yp = V[cy + k];
 		const x = k !== D && xp < yp ? yp : xp + 1;
-		const y = x - (k + Delta);
-		console.debug({k, x, lj, y, rj});
 
 		// Assert(x <= lj); // False sometimes
-		assert(y <= rj);
-		assert(x >= li);
-		assert(y >= ri);
+		// assert(y <= rj); // Always true
+		// assert(x >= li); // Always true
+		// assert(y >= ri); // Always true
 		V[center + k] = x;
 	}
-
-	console.debug('end forwardStep', {
-		center,
-		D,
-		V,
-		eq,
-		li,
-		lj,
-		ri,
-		rj,
-		Delta,
-	});
 }
