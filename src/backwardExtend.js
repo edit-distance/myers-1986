@@ -59,8 +59,8 @@ export default function backwardExtend(
 		const x = V[c];
 		const y = x - (c - cx);
 		console.debug({k: c - cx - Delta, x, lj, y, rj});
-		assert(x >= lj); // These should be true
-		assert(y >= rj); // Provided you called
+		assert(x === lj - 2 || x === lj - 1 || x >= lj); // These should be true
+		assert(y === rj - 2 || y === rj - 1 || y >= rj); // Provided you called
 		assert(x <= li); // BackwardStep(center, D, ...)
 		assert(y <= ri); // Just before.
 		V[c] = longestCommonSuffix(eq, x, lj, y, rj);

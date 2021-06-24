@@ -37,15 +37,10 @@ const modern = await importDiff('modern.js');
 
 import Benchtable from 'benchtable';
 const suite = new Benchtable('diffs', {isTransposed: true});
-import seedRandom from 'seedrandom';
-seedRandom('benchmark', {global: true});
 
 import {
-	repeat,
-	insertions,
 	title,
-	inputSize,
-	byExpectedDifficulty,
+	benchmarkInputs,
 } from './_fixtures.js';
 
 const add = (title, diff) => {
@@ -94,27 +89,7 @@ suite.addFunction(title('fast-diff'), (x, y, lcs) => {
 });
 */
 
-const sizes = [
-	[10, 100, 100],
-	[10, 4, 200],
-	[100, 10, 10],
-	[100, 20, 0],
-	[100, 0, 20],
-	[10, 1000, 1000],
-	[10000, 100, 100],
-	[10000, 200, 0],
-	[10000, 0, 200],
-	[10000, 10, 10],
-	[10000, 20, 0],
-	[10000, 0, 20],
-]
-	.map(inputSize) // eslint-disable-line unicorn/no-array-callback-reference
-	.sort(byExpectedDifficulty);
-
-for (const {N, M, L, del, ins} of sizes) {
-	const lcs = repeat('a', L);
-	const left = insertions(repeat('d', del), lcs);
-	const right = insertions(repeat('i', ins), lcs);
+for (const {N, M, L, del, ins, left, right} of benchmarkInputs) {
 	suite.addInput(
 		`N+M=${N + M} N=${N} M=${M} |lcs|=${L} |-|=${del} |+|=${ins}`,
 		[left, right, L],

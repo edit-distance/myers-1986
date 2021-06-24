@@ -3,6 +3,7 @@ import {next, StopIteration} from '@iterable-iterator/next';
 import {list} from '@iterable-iterator/list';
 import {map} from '@iterable-iterator/map';
 import {sum} from '@iterable-iterator/reduce';
+import seedRandom from 'seedrandom';
 
 import {
 	makeScan,
@@ -67,6 +68,51 @@ const wrap = (left, prefix, suffix) => ({
 	],
 });
 
+const random = seedRandom('benchmark');
+
+export function repeat(s1, n) {
+	let ans = '';
+	let ss = s1;
+	while (n >= 2) {
+		if (n & 1) ans += ss;
+		n >>= 1;
+		ss += ss;
+	}
+
+	return n & 1 ? ans + ss : ans;
+}
+
+export function insertions(insertion, into) {
+	let ans = into;
+	for (const x of insertion) {
+		// eslint-disable-next-line unicorn/prefer-math-trunc
+		const pos = (random() * ans.length) | 0;
+		ans = ans.slice(0, pos) + x + ans.slice(pos);
+	}
+
+	return ans;
+}
+
+export const inputSize = ([L, del, ins]) => ({
+	N: L + del,
+	M: L + ins,
+	D: del + ins,
+	L,
+	del,
+	ins,
+});
+
+export function makeInput({L, del, ins}) {
+	const lcs = repeat('a', L);
+	const left = insertions(repeat('d', del), lcs);
+	const right = insertions(repeat('i', ins), lcs);
+	return {
+		left,
+		right,
+		lcs,
+	};
+}
+
 export const calcPatch = function* (editScript, right) {
 	for (const [li, lj, ri, rj] of editScript)
 		yield [li, lj, right.slice(ri, rj)];
@@ -88,7 +134,37 @@ const boxShift =
 		[xShift + x0, xShift + x1, yShift + y0, yShift + y1];
 
 const shiftEditScript = (xShift, yShift, editScript) =>
-	list(map(boxShift(xShift, yShift), editScript));
+	editScript && list(map(boxShift(xShift, yShift), editScript));
+
+export const expectedDifficulty = ({L, del, ins}) =>
+	16 * (L + del * ins) + (del + 1) ** 2 + ins ** 2;
+const increasing = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+const key = (compare, callable) => (a, b) => compare(callable(a), callable(b));
+
+export const byExpectedDifficulty = key(increasing, expectedDifficulty);
+
+export const benchmarkSizes = [
+	[100, 0, 20],
+	[100, 20, 0],
+	[100, 10, 10],
+	[10, 4, 200],
+	[10000, 0, 20],
+	[10000, 20, 0],
+	[10000, 10, 10],
+	[10, 100, 100],
+	[10, 1000, 1000],
+	[10000, 100, 100],
+	[10000, 200, 0],
+	[10000, 0, 200],
+]
+	.map(inputSize) // eslint-disable-line unicorn/no-array-callback-reference
+	.sort(byExpectedDifficulty);
+
+export const benchmarkInputs = benchmarkSizes.map((parameters) => ({
+	distance: parameters.D,
+	...parameters,
+	...makeInput(parameters),
+}));
 
 export const data = [
 	identity(''),
@@ -239,12 +315,18 @@ export const ensureDistance = function* (input) {
 	};
 };
 
-export const tweakMAX = function* (input) {
-	const {left, li, lj, right, ri, rj, distance} = input;
+export const ensureMAX = function* (input) {
+	const {li, lj, ri, rj} = input;
 	yield {
-		...input,
 		MAX: lj - li + rj - ri,
+		...input, // Rewrites MAX if present
 	};
+};
+
+export const tweakMAX = function* (input) {
+	yield input;
+
+	const {left, li, lj, right, ri, rj, distance} = input;
 
 	yield {
 		...input,

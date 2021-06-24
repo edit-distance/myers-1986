@@ -6,6 +6,7 @@ import {makeEqualityFn, defaultTest} from '../../src/index.js';
 
 import {
 	data,
+	benchmarkInputs,
 	diffAlgorithms,
 	distance,
 	repr,
@@ -14,6 +15,7 @@ import {
 	addDefaultBounds,
 	tweakBounds,
 	addPadding,
+	ensureMAX,
 	tweakMAX,
 	swapInputs,
 	listifyStringInputs,
@@ -27,7 +29,7 @@ import {
 const macro = (t, algorithm, MAX, left, li, lj, right, ri, rj, expected) => {
 	const eq = makeEqualityFn(defaultTest, left, right);
 
-	if (expected === undefined) {
+	if (expected === -1) {
 		t.throws(() => Array.from(algorithm(MAX, eq, li, lj, ri, rj)), {
 			instanceOf: ValueError,
 		});
@@ -42,10 +44,10 @@ const macro = (t, algorithm, MAX, left, li, lj, right, ri, rj, expected) => {
 		);
 		t.deepEqual(a, right.slice(ri, rj));
 		t.deepEqual(b, left.slice(li, lj));
-		t.is(distance(result), distance(expected));
+		t.is(distance(result), expected);
+		// We do not normalize output (yet)
 		// Const simplified = simplifyEditScript(result);
 		// t.deepEqual(result, simplified);
-		// t.deepEqual(result, expected);
 	}
 };
 
@@ -54,7 +56,7 @@ macro.title = (title, algorithm, MAX, left, li, lj, right, ri, rj, expected) =>
 	`${algorithm.name}(${MAX}, ${repr(left)}[${li}:${lj}], ${repr(
 		right,
 	)}[${ri}:${rj}]) ${
-		expected === undefined ? 'throws ValueError' : `is ${repr(expected)}`
+		expected === undefined ? 'throws ValueError' : `is ${expected}`
 	}`;
 
 const value = (x) => JSON.stringify(x);
@@ -78,16 +80,33 @@ const inputs = (iterable) =>
 		addDefaultBounds,
 		tweakBounds,
 		addPadding,
+		ensureMAX,
 		tweakMAX,
 		swapInputs,
 		listifyStringInputs,
 		simplify,
 	]);
 
+const rawInputs = (iterable) =>
+	inflate(iterable, [addDefaultBounds, ensureMAX]);
+
 for (const algorithm of diffAlgorithms) {
-	for (const {MAX, left, li, lj, right, ri, rj, editScript: expected} of inputs(
+	for (const {MAX, left, li, lj, right, ri, rj, distance: expected} of inputs(
 		data,
 	)) {
+		_test(algorithm, MAX, left, li, lj, right, ri, rj, expected);
+	}
+
+	for (const {
+		MAX,
+		left,
+		li,
+		lj,
+		right,
+		ri,
+		rj,
+		distance: expected,
+	} of rawInputs(benchmarkInputs)) {
 		_test(algorithm, MAX, left, li, lj, right, ri, rj, expected);
 	}
 }

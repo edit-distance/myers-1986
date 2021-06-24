@@ -2,6 +2,7 @@ import test from 'ava';
 
 import {
 	data,
+	benchmarkInputs,
 	distanceAlgorithms,
 	repr,
 	inflate,
@@ -9,6 +10,7 @@ import {
 	addDefaultBounds,
 	tweakBounds,
 	addPadding,
+	ensureMAX,
 	tweakMAX,
 	swapInputs,
 	listifyStringInputs,
@@ -46,15 +48,32 @@ const inputs = (iterable) =>
 		addDefaultBounds,
 		tweakBounds,
 		addPadding,
+		ensureMAX,
 		tweakMAX,
 		swapInputs,
 		listifyStringInputs,
 	]);
 
+const rawInputs = (iterable) =>
+	inflate(iterable, [addDefaultBounds, ensureMAX]);
+
 for (const algorithm of distanceAlgorithms) {
 	for (const {MAX, left, li, lj, right, ri, rj, distance: expected} of inputs(
 		data,
 	)) {
+		_test(algorithm, MAX, left, li, lj, right, ri, rj, expected);
+	}
+
+	for (const {
+		MAX,
+		left,
+		li,
+		lj,
+		right,
+		ri,
+		rj,
+		distance: expected,
+	} of rawInputs(benchmarkInputs)) {
 		_test(algorithm, MAX, left, li, lj, right, ri, rj, expected);
 	}
 }
