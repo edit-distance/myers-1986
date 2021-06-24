@@ -9,7 +9,7 @@ import assert from 'assert';
  * @param {number} LB
  * @param {number} UB
  */
-export default function forwardStep(center, D, V, LB, UB) {
+const forwardStep = (center, D, V, LB, UB) => {
 	// Assert(ri < rj && li < lj);
 	assert(LB <= UB);
 	assert(LB !== D);
@@ -55,4 +55,6 @@ export default function forwardStep(center, D, V, LB, UB) {
 		// assert(y >= ri); // Always true
 		V[center + k] = x;
 	}
-}
+};
+
+export default forwardStep;

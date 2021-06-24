@@ -12,7 +12,7 @@ import longestCommonSuffix from './longestCommonSuffix.js';
  * @param {number} lj
  * @param {number} rj
  */
-export default function backwardExtend(
+const backwardExtend = (
 	cMin,
 	cMax,
 	cx,
@@ -22,7 +22,7 @@ export default function backwardExtend(
 	lj,
 	// Ri,
 	rj,
-) {
+) => {
 	for (let c = cMin; c <= cMax; c += 2) {
 		const x = V[c];
 		const y = x - (c - cx);
@@ -32,4 +32,6 @@ export default function backwardExtend(
 		// assert(y <= ri); // Just before.
 		V[c] = longestCommonSuffix(eq, V[c], lj, V[c] - (c - cx), rj);
 	}
-}
+};
+
+export default backwardExtend;

@@ -19,7 +19,7 @@ import StackEntry from './StackEntry.js';
  * @param {number} rj
  * @return {IterableIterator}
  */
-export default function recurse(MAX, eq, li, lj, ri, rj) {
+const recurse = (MAX, eq, li, lj, ri, rj) => {
 	assert(MAX >= 0);
 	assert(lj - li + rj - ri > MAX);
 	if (li === lj || ri === rj) {
@@ -67,4 +67,6 @@ export default function recurse(MAX, eq, li, lj, ri, rj) {
 		],
 		eq,
 	);
-}
+};
+
+export default recurse;

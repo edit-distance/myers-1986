@@ -8,7 +8,9 @@ import assert from 'assert';
  * @param {number} lj
  * @return {number}
  */
-export default function boundAlloc(MAX, li, lj) {
+const boundAlloc = (MAX, li, lj) => {
 	assert(lj > li);
 	return Math.min(MAX, lj - li);
-}
+};
+
+export default boundAlloc;

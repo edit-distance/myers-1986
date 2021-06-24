@@ -12,7 +12,7 @@ import bound from './bound.js';
  * @param {number} ri
  * @param {number} rj
  */
-export default function backwardStep(center, D, V, li, lj, ri, rj) {
+const backwardStep = (center, D, V, li, lj, ri, rj) => {
 	assert(ri > rj && li > lj);
 	// NOTE: We make the bounding box as small as possible.
 	// This should save roughly half of the computation time compared to
@@ -61,4 +61,6 @@ export default function backwardStep(center, D, V, li, lj, ri, rj) {
 		ri,
 		rj,
 	});
-}
+};
+
+export default backwardStep;
