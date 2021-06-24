@@ -6,6 +6,8 @@ L="$3"
 D="$4"
 I="$5"
 
-logfile="${main}-n=${n}-L=${L}-D=${D}-I=${I}.log"
+TIMESTAMP="$(date '+%Y-%m-%dT%H:%M:%S')"
+
+logfile="${main}-n=${n}-L=${L}-D=${D}-I=${I}-${TIMESTAMP}-v8.log"
 
 node --prof --logfile="$logfile" "$@"
