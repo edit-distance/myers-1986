@@ -49,7 +49,7 @@
     "build": "NODE_ENV=production microbundle",
     "build-docs": "esdoc",
     "build-gh-pages": "npm run build-docs",
-    "ci:test": "npm run lint-config && npm run lint && npm run cover",
+    "ci:test": "npm run lint-config && npm run lint && npm run cover -- -- --tap | tap-dot",
     "commit-msg": "commitlint --edit",
     "cover": "NODE_ENV=cover c8 --all --src src --reporter lcov --reporter text-summary --reporter text npm test",
     "debug": "NODE_ENV=debug npm run test -- -st --fail-fast",
@@ -102,6 +102,7 @@
     "power-assert": "1.6.1",
     "regenerator-runtime": "0.13.7",
     "seedrandom": "^3.0.5",
+    "tap-dot": "^2.0.0",
     "xo": "0.39.1"
   },
   "ava": {
