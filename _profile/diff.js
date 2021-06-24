@@ -6,9 +6,8 @@ const [n, L, D, I] = hideBin(process.argv).map((x) => Number.parseInt(x, 10));
 
 import {
 	expectedDifficulty,
-	repeat,
-	insertions,
-} from '../_benchmark/_fixtures.js';
+	makeInput
+} from '../test/src/_fixtures.js';
 
 const diff = (x, y) => {
 	const eq = (xi, yi) => x[xi] === y[yi];
@@ -28,9 +27,7 @@ console.log(`expected difficulty ${expectedDifficulty({L, del: D, ins: I})}`);
 console.timeEnd('prepare');
 
 console.time('input');
-const lcs = repeat('a', L);
-const left = insertions(repeat('d', D), lcs);
-const right = insertions(repeat('i', I), lcs);
+const {left, right} = makeInput({L, del: D, ins: I});
 console.timeEnd('input');
 
 console.time('diff');
