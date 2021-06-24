@@ -29,7 +29,8 @@ const twoWayScan = (MAX, V, centerF, centerB, eq, li, lj, ri, rj) => {
 	assert(!eq(li, ri));
 	assert(!eq(lj - 1, rj - 1));
 
-	const HALF_MAX = Math.ceil(MAX / 2);
+	// Math.ceil(MAX / 2); triggers deopt lost precision
+	const HALF_MAX = (MAX >> 1) + (MAX & 1);
 	assert(HALF_MAX >= 1);
 
 	const Delta0 = li - ri;
