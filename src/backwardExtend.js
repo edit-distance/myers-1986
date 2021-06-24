@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import longestCommonSuffix from './longestCommonSuffix.js';
 /**
- * Diagonal backward extension.
+ * Diagonal backward extension subroutine.
  *
  * @param {number} cMin
  * @param {number} cMax
