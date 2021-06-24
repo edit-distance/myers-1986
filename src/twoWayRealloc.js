@@ -14,7 +14,7 @@ import boundAlloc from './boundAlloc.js';
  * @return {{centerF: number, centerB: number}}
  */
 const twoWayRealloc = (V, MAX, li, lj, ri, rj) => {
-	const HALF_MAX = Math.ceil(MAX / 2);
+	const HALF_MAX = (MAX >> 1) + (MAX & 1); // Ceil(MAX / 2);
 
 	const lMAX = boundAlloc(HALF_MAX, li, lj);
 	const rMAX = boundAlloc(HALF_MAX, ri, rj);
