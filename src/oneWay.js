@@ -36,10 +36,10 @@ const oneWay = (MAX, eq, li, lj, ri, rj) => {
 		assert(UB !== -D);
 		forwardStep(center, D, V, LB, UB);
 		for (let k = LB; k <= UB; k += 2) {
-			let x = V[center + k];
-			let y = x - (k + Delta0);
-			x = longestCommonPrefix(eq, x, lj, y, rj);
-			y = x - (k + Delta0);
+			const x_ = V[center + k];
+			const y_ = x_ - (k + Delta0);
+			const x = longestCommonPrefix(eq, x_, lj, y_, rj);
+			const y = x - (k + Delta0);
 			if (x === lj && y === rj) return new Split(-1, -1, -1, -1, D);
 			V[center + k] = x;
 		}
