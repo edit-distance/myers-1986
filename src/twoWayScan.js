@@ -13,7 +13,7 @@ import Split from './Split.js';
  * Scan from begin to middle and end to middle.
  *
  * @param {number} MAX
- * @param {Int32Array} V
+ * @param {{[x: number]: number, length: number}} V
  * @param {number} centerF
  * @param {number} centerB
  * @param {Function} eq

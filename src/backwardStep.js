@@ -6,7 +6,7 @@ import bound from './bound.js';
  *
  * @param {number} center
  * @param {number} D
- * @param {Int32Array} V
+ * @param {{[x: number]: number}} V
  * @param {number} li
  * @param {number} lj
  * @param {number} ri

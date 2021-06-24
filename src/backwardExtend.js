@@ -7,7 +7,7 @@ import longestCommonSuffix from './longestCommonSuffix.js';
  * @param {number} cMin
  * @param {number} cMax
  * @param {number} cx
- * @param {Int32Array} V
+ * @param {{[x: number]: number}} V
  * @param {Function} eq
  * @param {number} lj
  * @param {number} rj
