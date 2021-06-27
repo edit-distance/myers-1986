@@ -13,7 +13,7 @@ import boundAlloc from './boundAlloc.js';
  * @param {number} init
  * @return {{array: Int32Array, center: number}}
  */
-export default function oneWayAlloc (MAX, li, lj, ri, rj, init) {
+export default function oneWayAlloc(MAX, li, lj, ri, rj, init) {
 	const lMAX = boundAlloc(MAX, li, lj);
 	const rMAX = boundAlloc(MAX, ri, rj);
 	assert(rMAX + 1 < rMAX + 1 + lMAX);

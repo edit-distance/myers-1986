@@ -11,7 +11,7 @@ import defaultTest from './defaultTest.js';
  * @param {Function} method
  * @return {Function}
  */
-export default function makeScan (method) {
+export default function makeScan(method) {
 	/**
 	 * Scan.
 	 *

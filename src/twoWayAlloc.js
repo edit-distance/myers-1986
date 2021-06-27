@@ -12,7 +12,7 @@ import boundAlloc from './boundAlloc.js';
  * @param {number} rj
  * @return {{V: Int32Array, centerF: number, centerB: number}}
  */
-export default function twoWayAlloc (MAX, li, lj, ri, rj) {
+export default function twoWayAlloc(MAX, li, lj, ri, rj) {
 	const HALF_MAX = (MAX >> 1) + (MAX & 1); // Ceil(MAX / 2);
 
 	const lMAX = boundAlloc(HALF_MAX, li, lj);

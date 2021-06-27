@@ -7,7 +7,7 @@ import assert from 'assert';
  * @param {ArrayLike} left
  * @param {ArrayLike} right
  */
-export default function makeEqualityFn (test, left, right) {
+export default function makeEqualityFn(test, left, right) {
 	/**
 	 * Eq.
 	 *

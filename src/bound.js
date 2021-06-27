@@ -7,7 +7,7 @@ import assert from 'assert';
  * @param {number} N >= 1
  * @return {number} A number -D < k <= N.
  */
-export default function bound (D, N) {
+export default function bound(D, N) {
 	assert(N >= 1);
 	assert(D >= 1);
 	const k = D <= N ? D : (N << 1) - D;
