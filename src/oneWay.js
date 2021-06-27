@@ -17,7 +17,7 @@ import Split from './Split.js';
  * @param {number} rj
  * @return {Split}
  */
-export default function oneWay (MAX, eq, li, lj, ri, rj) {
+export default function oneWay(MAX, eq, li, lj, ri, rj) {
 	assert(MAX > 0);
 	assert(MAX <= lj - li + rj - ri);
 	assert(li < lj);
@@ -34,7 +34,7 @@ export default function oneWay (MAX, eq, li, lj, ri, rj) {
 		assert(LB <= UB);
 		assert(LB !== D);
 		assert(UB !== -D);
-		forwardStep(center, D, V, LB, UB);
+		forwardStep(V, center + LB, center + UB, center + D);
 		for (let k = LB; k <= UB; k += 2) {
 			const x_ = V[center + k];
 			const y_ = x_ - (k + Delta0);

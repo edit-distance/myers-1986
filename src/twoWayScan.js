@@ -52,76 +52,104 @@ export default function twoWayScan(
 	const parityDelta = Delta & 1; // Delta % 2 does not work when Delta < 0
 	assert(parityDelta === 0 || parityDelta === 1);
 
-	if (parityDelta === 0) {
-		backwardStep(centerB, 1, V, lj, li, rj, ri);
-	}
-
 	const DMAX = Math.min(HALF_MAX, (MAX + parityDelta) >> 1);
-	const cBDcF = centerB - Delta - centerF;
-	const cFD0 = centerF - Delta0;
-	for (let D = 1; D <= DMAX; ++D) {
-		assert(2 * D <= MAX + parityDelta);
-		const LB = -bound(D, rj - ri);
-		const UB = bound(D, lj - li);
-		assert(LB <= UB);
-		assert(LB !== D);
-		assert(UB !== -D);
-		forwardStep(centerF, D, V, LB, UB); // , li, lj, ri, rj, Delta0);
-		const kMin = Math.max(LB, -D + parityDelta + Delta);
-		assert(kMin >= LB);
-		assert((kMin & 1) === (LB & 1));
-		const kMax = Math.min(UB, D - parityDelta + Delta);
-		assert(kMax <= UB);
-		assert((kMax & 1) === (UB & 1));
-		assert((kMin & 1) === (kMax & 1));
-		const cMin = centerF + kMin;
-		const cMax = centerF + kMax;
-		if (cMin <= cMax) {
-			let c = cMin;
-			do {
-				const x = V[c];
-				const y = x - (c - cFD0); // X - (k + Delta0)
-				const xEnd = longestCommonPrefix(eq, x, lj, y, rj);
-				V[c] = xEnd;
-				if (xEnd === V[c + cBDcF]) {
-					// XEnd === V[centerB + k - Delta]
-					return new Split(
-						c - cFD0, // K + Delta0
-						longestCommonSuffix(eq, x, li, y, ri),
-						xEnd,
-						D,
-						(D << 1) - parityDelta,
-					);
+
+	if (DMAX !== 0) {
+		assert(DMAX >= 1);
+
+		if (parityDelta === 0) {
+			backwardStep(V, centerB - 1, centerB + 1, centerB - 1);
+		}
+
+		const cFmD0 = centerF - Delta0;
+		const cBmD1 = centerB - Delta1;
+		const cBDcF = cBmD1 - cFmD0;
+		let D = 1;
+		let LBprev = -1;
+		let UBprev = 1;
+		let LB = -1;
+		let UB = 1;
+		// eslint-disable-next-line no-constant-condition
+		while (true) {
+			assert(2 * D <= MAX + parityDelta);
+			assert(LB <= UB);
+			assert(LB !== D);
+			assert(UB !== -D);
+			forwardStep(V, centerF + LB, centerF + UB, centerF + D);
+			const kMin = Math.max(LB, -D + parityDelta + Delta);
+			assert(kMin >= LB);
+			assert((kMin & 1) === (LB & 1));
+			const kMax = Math.min(UB, D - parityDelta + Delta);
+			assert(kMax <= UB);
+			assert((kMax & 1) === (UB & 1));
+			assert((kMin & 1) === (kMax & 1));
+			const cMin = centerF + kMin;
+			const cMax = centerF + kMax;
+			if (cMin <= cMax) {
+				let c = cMin;
+				do {
+					const x = V[c];
+					// Const y = x - (c - cFD0); // X - (k + Delta0)
+					V[c] = longestCommonPrefix(eq, x, lj, x - (c - cFmD0), rj);
+					if (V[c] === V[c + cBDcF]) {
+						// XEnd === V[centerB + k - Delta]
+						return new Split(
+							c - cFmD0, // K + Delta0
+							longestCommonSuffix(eq, x, li, x - (c - cFmD0), ri),
+							V[c],
+							D,
+							(D << 1) - parityDelta,
+						);
+					}
+
+					assert(V[c] < V[c + cBDcF]); // WTF???
+					c += 2;
+				} while (c <= cMax);
+
+				if (D === DMAX) break; // This is where we break the loop
+				forwardExtend(centerF + LB, cMin - 2, cFmD0, V, eq, lj, rj);
+				forwardExtend(cMax + 2, centerF + UB, cFmD0, V, eq, lj, rj);
+			} else {
+				if (D === DMAX) break; // This is where we break the loop
+				forwardExtend(centerF + LB, centerF + UB, cFmD0, V, eq, lj, rj);
+			}
+
+			if (parityDelta === 0) {
+				const LB_ = -UB;
+				const UB_ = -LB;
+				assert(LB_ <= UB_);
+				assert(LB_ !== D);
+				assert(UB_ !== -D);
+				const cMin = centerB - UB;
+				const cMax = centerB - LB;
+				backwardExtend(cMin, cMax, cBmD1, V, eq, li, ri);
+
+				// LBprev = LB; // No need to update since we do not use them.
+				// UBprev = UB;
+				LB = -bound(++D, rj - ri); // This is where D is incremented.
+				UB = bound(D, lj - li);
+				backwardStep(V, centerB - UB, centerB - LB, centerB - D);
+			} else {
+				assert(parityDelta === 1);
+				if (D !== 1) {
+					assert(D >= 2);
+					const LB_ = -UBprev;
+					const UB_ = -LBprev;
+					assert(LB_ <= UB_);
+					assert(LB_ !== D - 1);
+					assert(UB_ !== -(D - 1));
+					const cMin = centerB - UBprev;
+					const cMax = centerB - LBprev;
+					backwardExtend(cMin, cMax, cBmD1, V, eq, li, ri);
 				}
 
-				const k = c - centerF;
-				assert(xEnd < V[centerB + k - Delta]); // WTF???
-				c += 2;
-			} while (c <= cMax);
-
-			if (D === DMAX) break;
-			forwardExtend(centerF + LB, cMin - 2, cFD0, V, eq, lj, rj);
-			forwardExtend(cMax + 2, centerF + UB, cFD0, V, eq, lj, rj);
-		} else {
-			if (D === DMAX) break;
-			forwardExtend(centerF + LB, centerF + UB, cFD0, V, eq, lj, rj);
+				backwardStep(V, centerB - UB, centerB - LB, centerB - D);
+				LBprev = LB;
+				UBprev = UB;
+				LB = -bound(++D, rj - ri); // This is where D is incremented.
+				UB = bound(D, lj - li);
+			}
 		}
-
-		if (D > parityDelta) {
-			const Dp = D - parityDelta;
-			assert(ri < rj && li < lj);
-			const LB = -bound(Dp, lj - li);
-			const UB = bound(Dp, rj - ri);
-			assert(LB <= UB);
-			assert(LB !== Dp);
-			assert(UB !== -Dp);
-			const cx = centerB - Delta1;
-			const cMin = centerB + LB;
-			const cMax = centerB + UB;
-			backwardExtend(cMin, cMax, cx, V, eq, li, ri);
-		}
-
-		backwardStep(centerB, D + 1 - parityDelta, V, lj, li, rj, ri);
 	}
 
 	return new Split(-1, -1, -1, -1, -1);
