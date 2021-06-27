@@ -8399,7 +8399,7 @@ scoped-regex@^2.0.0:
   resolved "https://registry.yarnpkg.com/scoped-regex/-/scoped-regex-2.1.0.tgz#7b9be845d81fd9d21d1ec97c61a0b7cf86d2015f"
   integrity sha512-g3WxHrqSWCZHGHlSrF51VXFdjImhwvH8ZO/pryFH56Qi0cDsZfylQa/t0jCzVQFNbNvM00HfHjkDPEuarKDSWQ==
 
-seedrandom@^3.0.5:
+seedrandom@3.0.5:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/seedrandom/-/seedrandom-3.0.5.tgz#54edc85c95222525b0c7a6f6b3543d8e0b3aa0a7"
   integrity sha512-8OwmbklUNzwezjGInmZ+2clQmExQPvomqjL7LFqOYqtmuxRgQYqOD3mHaU+MvZn5FLUeVxVfQjwLZW/n/JFuqg==
@@ -8960,7 +8960,7 @@ taffydb@2.7.3:
   resolved "https://registry.yarnpkg.com/taffydb/-/taffydb-2.7.3.tgz#2ad37169629498fca5bc84243096d3cde0ec3a34"
   integrity sha1-KtNxaWKUmPylvIQkMJbTzeDsOjQ=
 
-tap-dot@^2.0.0:
+tap-dot@2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/tap-dot/-/tap-dot-2.0.0.tgz#3d6c5fe54ba4e1a419fa64db74b5eebfcf8cf840"
   integrity sha512-7N1yPcRDgdfHCUbG6lZ0hXo53NyXhKIjJNhqKBixl9HVEG4QasG16Nlvr8wRnqr2ZRYVWmbmxwF3NOBbTLtQLQ==
