@@ -10,4 +10,4 @@ TIMESTAMP="$(date '+%Y-%m-%dT%H:%M:%S')"
 
 logfile="${main}-n=${n}-L=${L}-D=${D}-I=${I}-${TIMESTAMP}-analyze-v8.log"
 
-node --prof --log-all --logfile="$logfile" "$@"
+node --prof --log-all --logfile="$logfile" analyze.js "$@"
