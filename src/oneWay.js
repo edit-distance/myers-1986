@@ -2,7 +2,8 @@ import assert from 'assert';
 
 import oneWayAlloc from './oneWayAlloc.js';
 import forwardStep from './forwardStep.js';
-import bound from './bound.js';
+import lBound from './lBound.js';
+import uBound from './uBound.js';
 import longestCommonPrefix from './longestCommonPrefix.js';
 import Split from './Split.js';
 
@@ -29,8 +30,8 @@ export default function oneWay(MAX, eq, li, lj, ri, rj) {
 
 	const Delta0 = li - ri;
 	for (let D = 1; D <= MAX; ++D) {
-		const LB = -bound(D, rj - ri);
-		const UB = bound(D, lj - li);
+		const LB = lBound(D, rj - ri);
+		const UB = uBound(D, lj - li);
 		assert(LB <= UB);
 		assert(LB !== D);
 		assert(UB !== -D);

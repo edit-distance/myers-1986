@@ -1,6 +1,7 @@
 import assert from 'assert';
 
-import bound from './bound.js';
+import lBound from './lBound.js';
+import uBound from './uBound.js';
 import forwardStep from './forwardStep.js';
 import forwardExtend from './forwardExtend.js';
 import backwardStep from './backwardStep.js';
@@ -76,10 +77,10 @@ export default function twoWayScan(
 			assert(LB !== D);
 			assert(UB !== -D);
 			forwardStep(V, centerF + LB, centerF + UB, centerF + D);
-			const kMin = Math.max(LB, -D + parityDelta + Delta);
+			const kMin = Math.max(LB, Delta - (D - parityDelta));
 			assert(kMin >= LB);
 			assert((kMin & 1) === (LB & 1));
-			const kMax = Math.min(UB, D - parityDelta + Delta);
+			const kMax = Math.min(UB, Delta + (D - parityDelta));
 			assert(kMax <= UB);
 			assert((kMax & 1) === (UB & 1));
 			assert((kMin & 1) === (kMax & 1));
@@ -126,8 +127,8 @@ export default function twoWayScan(
 
 				// LBprev = LB; // No need to update since we do not use them.
 				// UBprev = UB;
-				LB = -bound(++D, rj - ri); // This is where D is incremented.
-				UB = bound(D, lj - li);
+				LB = lBound(++D, rj - ri); // This is where D is incremented.
+				UB = uBound(D, lj - li);
 				backwardStep(V, centerB - UB, centerB - LB, centerB - D);
 			} else {
 				assert(parityDelta === 1);
@@ -146,8 +147,8 @@ export default function twoWayScan(
 				backwardStep(V, centerB - UB, centerB - LB, centerB - D);
 				LBprev = LB;
 				UBprev = UB;
-				LB = -bound(++D, rj - ri); // This is where D is incremented.
-				UB = bound(D, lj - li);
+				LB = lBound(++D, rj - ri); // This is where D is incremented.
+				UB = uBound(D, lj - li);
 			}
 		}
 	}

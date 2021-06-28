@@ -1,13 +1,13 @@
 import assert from 'assert';
 
 /**
- * Bound.
+ * Computes an upper bound for the signed distance.
  *
  * @param {number} D >= 1
  * @param {number} N >= 1
  * @return {number} A number -D < k <= N.
  */
-export default function bound(D, N) {
+export default function uBound(D, N) {
 	assert(N >= 1);
 	assert(D >= 1);
 	const k = D <= N ? D : (N << 1) - D;
