@@ -1,4 +1,5 @@
-import arrayType from './arrayType.js';
+import assert from 'assert';
+// Import arrayType from './arrayType.js';
 
 /**
  * ArrayRealloc.
@@ -8,8 +9,10 @@ import arrayType from './arrayType.js';
  * @return {Int8Array|Int16Array|Int32Array}
  */
 export default function arrayRealloc(maxValue, B) {
-	const TypedArray = arrayType(maxValue);
-	return B.constructor === TypedArray
-		? B
-		: new TypedArray(B.buffer, B.byteOffset);
+	assert(maxValue < 2 ** (B.BYTES_PER_ELEMENT * 8));
+	return B;
+	// Const TypedArray = arrayType(maxValue);
+	// return B.constructor === TypedArray
+	// ? B
+	// : new TypedArray(B.buffer, B.byteOffset);
 }
