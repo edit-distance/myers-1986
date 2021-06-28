@@ -236,6 +236,14 @@
     "overrides": [
       {
         "files": [
+          "src/**"
+        ],
+        "rules": {
+          "unicorn/prefer-math-trunc": "off"
+        }
+      },
+      {
+        "files": [
           "doc/**"
         ],
         "env": "browser"
