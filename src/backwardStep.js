@@ -8,10 +8,10 @@
  */
 export default function backwardStep(V, cMin, cMax, cmD) {
 	V[cMin] =
-		cMin !== cmD && V[cMin + 1] > V[cMin - 1] ? V[cMin - 1] : V[cMin + 1] - 1;
+		cMin === cmD ? V[cMin + 1] - 1 : Math.min(V[cMin - 1], V[cMin + 1] - 1);
 
 	for (let c = cMin + 2; c < cMax; c += 2) {
-		V[c] = V[c + 1] > V[c - 1] ? V[c - 1] : V[c + 1] - 1;
+		V[c] = Math.min(V[c - 1], V[c + 1] - 1);
 	}
 
 	if (cMin !== cMax) {

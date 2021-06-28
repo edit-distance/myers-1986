@@ -30,7 +30,7 @@ export default function forwardStep(V, cMin, cMax, cpD) {
 		// assert(y <= rj); // False sometimes
 		// assert(x >= li); // Always true
 		// assert(y >= ri); // Always true
-		V[c] = V[c - 1] < V[c + 1] ? V[c + 1] : V[c - 1] + 1;
+		V[c] = Math.max(V[c + 1], V[c - 1] + 1);
 	}
 
 	if (cMin !== cMax) {
@@ -41,6 +41,6 @@ export default function forwardStep(V, cMin, cMax, cpD) {
 		// assert(x >= li); // Always true
 		// assert(y >= ri); // Always true
 		V[cMax] =
-			cMax !== cpD && V[cMax - 1] < V[cMax + 1] ? V[cMax + 1] : V[cMax - 1] + 1;
+			cMax === cpD ? V[cMax - 1] + 1 : Math.max(V[cMax + 1], V[cMax - 1] + 1);
 	}
 }
