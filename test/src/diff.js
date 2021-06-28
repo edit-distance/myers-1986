@@ -2,9 +2,9 @@ import test from 'ava';
 
 import {ValueError} from '@failure-abstraction/error';
 
-import {makeEqualityFn, defaultTest} from '../../src/index.js';
-
 import {
+	makeEqualityFn,
+	defaultTest,
 	data,
 	benchmarkInputs,
 	diffAlgorithms,

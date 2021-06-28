@@ -1,3 +1,5 @@
+import assert from 'assert';
+
 import {iter} from '@iterable-iterator/iter';
 import {next, StopIteration} from '@iterable-iterator/next';
 import {list} from '@iterable-iterator/list';
@@ -12,14 +14,47 @@ import {
 	diff,
 	longestCommonPrefix,
 	longestCommonSuffix,
-	makeEqualityFn,
-	defaultTest,
 } from '../../src/index.js';
 
 const _oneWayScan = makeScan(oneWay);
 const _twoWayScan = makeScan(twoWay);
 const oneWayScan = (...args) => _oneWayScan(...args);
 const twoWayScan = (...args) => _twoWayScan(...args);
+
+/**
+ * MakeEqualityFn.
+ *
+ * @param {Function} test
+ * @param {ArrayLike} left
+ * @param {ArrayLike} right
+ */
+export function makeEqualityFn(test, left, right) {
+	/**
+	 * Eq.
+	 *
+	 * @param {number} i
+	 * @param {number} j
+	 * @return {boolean}
+	 */
+	const eq = (i, j) => {
+		assert(i >= 0 && i < left.length);
+		assert(j >= 0 && j < right.length);
+		return test(left[i], right[j]);
+	};
+
+	return eq;
+}
+
+/**
+ * DefaultTest.
+ *
+ * @param {any} x
+ * @param {any} y
+ * @return {boolean}
+ */
+export function defaultTest(x, y) {
+	return x === y;
+}
 
 export const distanceAlgorithms = [oneWayScan, twoWayScan];
 export const diffAlgorithms = [diff];

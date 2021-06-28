@@ -1,8 +1,8 @@
 import test from 'ava';
 
-import {makeEqualityFn, defaultTest} from '../../src/index.js';
-
 import {
+	makeEqualityFn,
+	defaultTest,
 	data,
 	benchmarkInputs,
 	distanceAlgorithms,
