@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/makeScan.js | @edit-distance/myers-1986</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><script src="./inject/script/0-header.js"></script><meta name="description" content="Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@edit-distance/myers-1986"><meta property="twitter:description" content="Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/edit-distance/myers-1986"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RecurseDeeper.js~RecurseDeeper.html">RecurseDeeper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Split">Split</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-StackEntry">StackEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayAlloc">arrayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayRealloc">arrayRealloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayType">arrayType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-backwardExtend">backwardExtend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-backwardStep">backwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-boundAlloc">boundAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defaultTest">defaultTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff">diff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff32">diff32</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardExtend">forwardExtend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardStep">forwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lBound">lBound</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonPrefix">longestCommonPrefix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonSuffix">longestCommonSuffix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeEqualityFn">makeEqualityFn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeScan">makeScan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-oneWay">oneWay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-oneWayAlloc">oneWayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurse">recurse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurseDeep">recurseDeep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurseDeeperStep">recurseDeeperStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWay">twoWay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayAlloc">twoWayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayRealloc">twoWayRealloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayScan">twoWayScan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uBound">uBound</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validate32">validate32</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/makeScan.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import assert from &apos;assert&apos;;
+
+import longestCommonPrefix from &apos;./longestCommonPrefix.js&apos;;
+import longestCommonSuffix from &apos;./longestCommonSuffix.js&apos;;
+import validate32 from &apos;./validate32.js&apos;;
+
+/**
+ * MakeScan.
+ *
+ * @param {Function} method
+ * @return {Function}
+ */
+export default function makeScan(method) {
+	/**
+	 * Returns distance, or -1 if distance &gt; MAX.
+	 * Undefined behavior if indices are not int32.
+	 *
+	 * @param {number} MAX
+	 * @param {Function} eq
+	 * @param {number} li
+	 * @param {number} lj
+	 * @param {number} ri
+	 * @param {number} rj
+	 * @return {number}
+	 */
+	const scan32 = (MAX, eq, li, lj, ri, rj) =&gt; {
+		assert(Number.isInteger(MAX));
+		const N = (lj - li) | 0;
+		const M = (rj - ri) | 0;
+		assert(MAX &lt;= N + M);
+
+		if (MAX &lt; 0) return -1;
+		if (MAX === 0 &amp;&amp; N !== M) return -1;
+
+		const l0 = longestCommonPrefix(eq, li, lj, ri, rj);
+
+		if (l0 === lj &amp;&amp; N === M) return 0;
+
+		if (MAX === 0) return -1;
+
+		const r0 = (ri + ((l0 - li) | 0)) | 0;
+		const l1 = longestCommonSuffix(eq, lj, l0, rj, r0);
+		const r1 = (rj - ((lj - l1) | 0)) | 0;
+
+		const halfPerimeter = (((l1 - l0) | 0) + ((r1 - r0) | 0)) | 0;
+
+		return halfPerimeter &lt;= MAX
+			? l0 === l1 || r0 === r1
+				? halfPerimeter
+				: method(halfPerimeter, eq, l0, l1, r0, r1).distance
+			: l0 === l1 || r0 === r1
+			? -1
+			: method(MAX, eq, l0, l1, r0, r1).distance;
+	};
+
+	/**
+	 * Returns distance, or -1 if distance &gt; MAX.
+	 * Throws if indices are not int32.
+	 *
+	 * @param {number} MAX
+	 * @param {Function} eq
+	 * @param {number} li
+	 * @param {number} lj
+	 * @param {number} ri
+	 * @param {number} rj
+	 * @return {number}
+	 */
+	const scan = (MAX, eq, li, lj, ri, rj) =&gt; {
+		validate32(MAX, li, lj, ri, rj);
+		return scan32(MAX | 0, eq, li | 0, lj | 0, ri | 0, rj | 0);
+	};
+
+	return scan;
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

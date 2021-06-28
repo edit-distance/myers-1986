@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/recurse.js | @edit-distance/myers-1986</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><script src="./inject/script/0-header.js"></script><meta name="description" content="Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@edit-distance/myers-1986"><meta property="twitter:description" content="Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/edit-distance/myers-1986"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RecurseDeeper.js~RecurseDeeper.html">RecurseDeeper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Split">Split</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-StackEntry">StackEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayAlloc">arrayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayRealloc">arrayRealloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayType">arrayType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-backwardExtend">backwardExtend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-backwardStep">backwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-boundAlloc">boundAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defaultTest">defaultTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff">diff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff32">diff32</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardExtend">forwardExtend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardStep">forwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lBound">lBound</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonPrefix">longestCommonPrefix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonSuffix">longestCommonSuffix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeEqualityFn">makeEqualityFn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeScan">makeScan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-oneWay">oneWay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-oneWayAlloc">oneWayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurse">recurse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurseDeep">recurseDeep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurseDeeperStep">recurseDeeperStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWay">twoWay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayAlloc">twoWayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayRealloc">twoWayRealloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayScan">twoWayScan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uBound">uBound</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validate32">validate32</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/recurse.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import assert from &apos;assert&apos;;
+
+import {ValueError} from &apos;@failure-abstraction/error&apos;;
+
+import twoWayAlloc from &apos;./twoWayAlloc.js&apos;;
+import twoWayScan from &apos;./twoWayScan.js&apos;;
+
+import RecurseDeeper from &apos;./RecurseDeeper.js&apos;;
+import StackEntry from &apos;./StackEntry.js&apos;;
+
+/**
+ * Recurse.
+ *
+ * @param {number} MAX
+ * @param {Function} eq
+ * @param {number} li
+ * @param {number} lj
+ * @param {number} ri
+ * @param {number} rj
+ * @return {IterableIterator}
+ */
+export default function recurse(MAX, eq, li, lj, ri, rj) {
+	assert(MAX &gt;= 0);
+	assert(lj - li + rj - ri &gt; MAX);
+	if (li === lj || ri === rj) {
+		assert(lj - li &gt; MAX || rj - ri &gt; MAX);
+		throw new ValueError();
+	}
+
+	assert(li &lt; lj);
+	assert(ri &lt; rj);
+	assert(!eq(li, ri));
+	assert(!eq(lj - 1, rj - 1));
+
+	const {V, centerF, centerB} = twoWayAlloc(MAX, li, lj, ri, rj);
+
+	const split = twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj);
+
+	const k = split.k;
+	const xBegin = split.xBegin;
+	const xEnd = split.xEnd;
+	const distanceLeft = split.distanceLeft;
+	const distance = split.distance;
+	const distanceRight = (distance - distanceLeft) | 0;
+
+	console.debug({k, xBegin, xEnd, distance});
+
+	if (distance === -1) throw new ValueError();
+
+	assert(distance &gt; 0);
+	const maxDistance =
+		(((lj - li) | 0) + ((((rj - ri) | 0) - ((xEnd - xBegin) &lt;&lt; 1)) | 0)) | 0;
+	if (distance === maxDistance) {
+		// Early exit when there is no match in the recursive calls
+		assert(xBegin &lt; xEnd);
+		return [
+			[li, xBegin, ri, (xBegin - k) | 0],
+			[xEnd, lj, (xEnd - k) | 0, rj],
+		][Symbol.iterator]();
+	}
+
+	assert(distance &lt; maxDistance);
+	return new RecurseDeeper(
+		V,
+		[
+			new StackEntry(distanceRight, xEnd, lj, (xEnd - k) | 0, rj),
+			new StackEntry(distanceLeft, li, xBegin, ri, (xBegin - k) | 0),
+		],
+		eq,
+	);
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

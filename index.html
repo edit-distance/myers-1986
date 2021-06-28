@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl">
+  <title data-ice="title">Home | @edit-distance/myers-1986</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><script src="./inject/script/0-header.js"></script><meta name="description" content="Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@edit-distance/myers-1986"><meta property="twitter:description" content="Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/edit-distance/myers-1986"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RecurseDeeper.js~RecurseDeeper.html">RecurseDeeper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Split">Split</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-StackEntry">StackEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayAlloc">arrayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayRealloc">arrayRealloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayType">arrayType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-backwardExtend">backwardExtend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-backwardStep">backwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-boundAlloc">boundAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defaultTest">defaultTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff">diff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff32">diff32</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardExtend">forwardExtend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardStep">forwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lBound">lBound</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonPrefix">longestCommonPrefix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonSuffix">longestCommonSuffix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeEqualityFn">makeEqualityFn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeScan">makeScan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-oneWay">oneWay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-oneWayAlloc">oneWayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurse">recurse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurseDeep">recurseDeep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurseDeeperStep">recurseDeeperStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWay">twoWay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayAlloc">twoWayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayRealloc">twoWayRealloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayScan">twoWayScan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uBound">uBound</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validate32">validate32</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="-abacus---a-href--https---edit-distance-github-io-myers-1986---edit-distance-myers-1986--a-">:abacus: <a href="https://edit-distance.github.io/myers-1986">@edit-distance/myers-1986</a></h1><p>Reasonably efficient implementation of Eugene W. Myers&apos;s exact longest common
+subsequence and minimum edit-distance algorithm for JavaScript.
+See <a href="https://edit-distance.github.io/myers-1986/index.html">docs</a>.</p>
+<blockquote>
+<p>:building_construction: Caveat emptor! This is work in progress. Code may be
+working. Documentation may be present. Coherence may be. Maybe.</p>
+</blockquote>
+<pre><code class="lang-js"><code class="source-code prettyprint">// Example 1: compute Edit Distance.
+
+import {makeScan, twoWay} from &apos;@edit-distance/myers-1986&apos;;
+
+const scan = makeScan(twoWay);
+
+const ed = (x, y) =&gt; {
+    const eq = (xi, yi) =&gt; x[xi] === y[yi];
+    const xi = 0;
+    const xj = x.length;
+    const yi = 0;
+    const yj = y.length;
+    const MAX = xj - xi + (yj - yi);
+    return scan(MAX, eq, xi, xj, yi, yj);
+};
+
+ed(&apos;BANANA&apos;, &apos;ATANA&apos;); // 3
+
+// Example 2: compute LCS.
+
+import {diff} from &apos;@edit-distance/myers-1986&apos;;
+
+const rectangles = (x, y) =&gt; {
+    const eq = (xi, yi) =&gt; x[xi] === y[yi];
+    const xi = 0;
+    const xj = x.length;
+    const yi = 0;
+    const yj = y.length;
+    const MAX = xj - xi + (yj - yi);
+    return diff(MAX, eq, xi, xj, yi, yj);
+};
+
+const lcs = (x, y) =&gt; {
+    let result = x.slice(0, 0);
+    let xp = 0;
+    for (const [x0, x1] of rectangles(x, y)) {
+        result = result.concat(x.slice(xp, x0));
+        xp = x1;
+    }
+
+    return result.concat(x.slice(xp, x.length));
+};
+
+lcs(&apos;BANANA&apos;, &apos;ATANA&apos;); // AANA</code>
+</code></pre>
+<p><a href="https://raw.githubusercontent.com/edit-distance/myers-1986/main/LICENSE"><img src="https://img.shields.io/github/license/edit-distance/myers-1986.svg" alt="License"></a>
+<a href="https://www.npmjs.org/package/@edit-distance/myers-1986"><img src="https://img.shields.io/npm/v/@edit-distance/myers-1986.svg" alt="Version"></a>
+<a href="https://github.com/edit-distance/myers-1986/actions/workflows/ci:test.yml?query=branch:main"><img src="https://img.shields.io/github/workflow/status/edit-distance/myers-1986/ci:test?event=push&amp;label=tests" alt="Tests"></a>
+<a href="https://david-dm.org/edit-distance/myers-1986"><img src="https://img.shields.io/david/edit-distance/myers-1986.svg" alt="Dependencies"></a>
+<a href="https://david-dm.org/edit-distance/myers-1986?type=dev"><img src="https://img.shields.io/david/dev/edit-distance/myers-1986.svg" alt="Dev dependencies"></a>
+<a href="https://github.com/edit-distance/myers-1986/issues"><img src="https://img.shields.io/github/issues/edit-distance/myers-1986.svg" alt="GitHub issues"></a>
+<a href="https://www.npmjs.org/package/@edit-distance/myers-1986"><img src="https://img.shields.io/npm/dm/@edit-distance/myers-1986.svg" alt="Downloads"></a></p>
+<p><a href="https://codeclimate.com/github/edit-distance/myers-1986/issues"><img src="https://img.shields.io/codeclimate/issues/edit-distance/myers-1986.svg" alt="Code issues"></a>
+<a href="https://codeclimate.com/github/edit-distance/myers-1986/trends/churn"><img src="https://img.shields.io/codeclimate/maintainability/edit-distance/myers-1986.svg" alt="Code maintainability"></a>
+<a href="https://codecov.io/gh/edit-distance/myers-1986"><img src="https://img.shields.io/codecov/c/gh/edit-distance/myers-1986/main.svg" alt="Code coverage (cov)"></a>
+<a href="https://codeclimate.com/github/edit-distance/myers-1986/trends/technical_debt"><img src="https://img.shields.io/codeclimate/tech-debt/edit-distance/myers-1986.svg" alt="Code technical debt"></a>
+<a href="https://edit-distance.github.io/myers-1986/source.html"><img src="https://edit-distance.github.io/myers-1986/badge.svg" alt="Documentation"></a>
+<a href="https://bundlephobia.com/result?p=@edit-distance/myers-1986"><img src="https://img.shields.io/bundlephobia/minzip/@edit-distance/myers-1986" alt="Package size"></a></p>
+<h2 id="-bicyclist--benchmark">:bicyclist: Benchmark</h2><table>
+<thead>
+<tr>
+<th>input</th>
+<th style="text-align:right">fast-myers-diff v3.0.1</th>
+<th style="text-align:right">modern.js v0.0.1</th>
+<th style="text-align:right">module.js v0.0.1</th>
+<th style="text-align:right">cjs v0.0.1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N+M=220 N=100 M=120 LCS=100 DEL=0 INS=20</td>
+<td style="text-align:right">77,170    ops/sec</td>
+<td style="text-align:right">99,952    ops/sec</td>
+<td style="text-align:right">97,806    ops/sec</td>
+<td style="text-align:right">100,333    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=220 N=120 M=100 LCS=100 DEL=20 INS=0</td>
+<td style="text-align:right">68,575    ops/sec</td>
+<td style="text-align:right">90,582    ops/sec</td>
+<td style="text-align:right">89,178    ops/sec</td>
+<td style="text-align:right">90,030    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=220 N=110 M=110 LCS=100 DEL=10 INS=10</td>
+<td style="text-align:right">63,494    ops/sec</td>
+<td style="text-align:right">83,439    ops/sec</td>
+<td style="text-align:right">81,201    ops/sec</td>
+<td style="text-align:right">82,661    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=224 N=14 M=210 LCS=10 DEL=4 INS=200</td>
+<td style="text-align:right">7,112    ops/sec</td>
+<td style="text-align:right">10,346    ops/sec</td>
+<td style="text-align:right">10,406    ops/sec</td>
+<td style="text-align:right">10,898    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=20020 N=10000 M=10020 LCS=10000 DEL=0 INS=20</td>
+<td style="text-align:right">3,282    ops/sec</td>
+<td style="text-align:right">4,313    ops/sec</td>
+<td style="text-align:right">4,174    ops/sec</td>
+<td style="text-align:right">4,415    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=20020 N=10020 M=10000 LCS=10000 DEL=20 INS=0</td>
+<td style="text-align:right">3,317    ops/sec</td>
+<td style="text-align:right">4,040    ops/sec</td>
+<td style="text-align:right">4,035    ops/sec</td>
+<td style="text-align:right">4,947    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=20020 N=10010 M=10010 LCS=10000 DEL=10 INS=10</td>
+<td style="text-align:right">2,414    ops/sec</td>
+<td style="text-align:right">2,939    ops/sec</td>
+<td style="text-align:right">2,843    ops/sec</td>
+<td style="text-align:right">3,009    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=220 N=110 M=110 LCS=10 DEL=100 INS=100</td>
+<td style="text-align:right">1,607    ops/sec</td>
+<td style="text-align:right">2,737    ops/sec</td>
+<td style="text-align:right">2,720    ops/sec</td>
+<td style="text-align:right">2,887    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=20200 N=10000 M=10200 LCS=10000 DEL=0 INS=200</td>
+<td style="text-align:right">871    ops/sec</td>
+<td style="text-align:right">1,258    ops/sec</td>
+<td style="text-align:right">1,254    ops/sec</td>
+<td style="text-align:right">1,293    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=20200 N=10200 M=10000 LCS=10000 DEL=200 INS=0</td>
+<td style="text-align:right">844    ops/sec</td>
+<td style="text-align:right">1,240    ops/sec</td>
+<td style="text-align:right">1,258    ops/sec</td>
+<td style="text-align:right">1,309    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=20200 N=10100 M=10100 LCS=10000 DEL=100 INS=100</td>
+<td style="text-align:right">703    ops/sec</td>
+<td style="text-align:right">978    ops/sec</td>
+<td style="text-align:right">976    ops/sec</td>
+<td style="text-align:right">978    ops/sec</td>
+</tr>
+<tr>
+<td>N+M=2020 N=1010 M=1010 LCS=10 DEL=1000 INS=1000</td>
+<td style="text-align:right">19.10 ops/sec</td>
+<td style="text-align:right">36.35 ops/sec</td>
+<td style="text-align:right">36.45 ops/sec</td>
+<td style="text-align:right">38.16 ops/sec</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

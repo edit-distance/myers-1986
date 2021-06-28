@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/twoWayScan.js | @edit-distance/myers-1986</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<link rel="stylesheet" href="./inject/css/0-style.css"><script src="./inject/script/0-header.js"></script><meta name="description" content="Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript"><meta property="twitter:card" content="summary"><meta property="twitter:title" content="@edit-distance/myers-1986"><meta property="twitter:description" content="Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript"></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/edit-distance/myers-1986"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/RecurseDeeper.js~RecurseDeeper.html">RecurseDeeper</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-Split">Split</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-StackEntry">StackEntry</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayAlloc">arrayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayRealloc">arrayRealloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-arrayType">arrayType</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-backwardExtend">backwardExtend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-backwardStep">backwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-boundAlloc">boundAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-defaultTest">defaultTest</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff">diff</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff32">diff32</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardExtend">forwardExtend</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardStep">forwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lBound">lBound</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonPrefix">longestCommonPrefix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonSuffix">longestCommonSuffix</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeEqualityFn">makeEqualityFn</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-makeScan">makeScan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-oneWay">oneWay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-oneWayAlloc">oneWayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurse">recurse</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurseDeep">recurseDeep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-recurseDeeperStep">recurseDeeperStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWay">twoWay</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayAlloc">twoWayAlloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayRealloc">twoWayRealloc</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayScan">twoWayScan</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uBound">uBound</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validate32">validate32</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/twoWayScan.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import assert from &apos;assert&apos;;
+
+import lBound from &apos;./lBound.js&apos;;
+import uBound from &apos;./uBound.js&apos;;
+import forwardStep from &apos;./forwardStep.js&apos;;
+import forwardExtend from &apos;./forwardExtend.js&apos;;
+import backwardStep from &apos;./backwardStep.js&apos;;
+import backwardExtend from &apos;./backwardExtend.js&apos;;
+import longestCommonPrefix from &apos;./longestCommonPrefix.js&apos;;
+import longestCommonSuffix from &apos;./longestCommonSuffix.js&apos;;
+import Split from &apos;./Split.js&apos;;
+
+/**
+ * Scan from begin to middle and end to middle.
+ *
+ * @param {number} MAX
+ * @param {{[x: number]: number, length: number}} V
+ * @param {number} centerF
+ * @param {number} centerB
+ * @param {Function} eq
+ * @param {number} li
+ * @param {number} lj
+ * @param {number} ri
+ * @param {number} rj
+ * @return {Split}
+ */
+export default function twoWayScan(
+	MAX,
+	V,
+	centerF,
+	centerB,
+	eq,
+	li,
+	lj,
+	ri,
+	rj,
+) {
+	assert(MAX &gt;= 1);
+	assert(MAX &lt;= lj - li + rj - ri);
+	assert(li &lt; lj);
+	assert(ri &lt; rj);
+	assert(!eq(li, ri));
+	assert(!eq(lj - 1, rj - 1));
+
+	// Math.ceil(MAX / 2); triggers deopt lost precision
+	const HALF_MAX = ((MAX &gt;&gt; 1) + (MAX &amp; 1)) | 0;
+	assert(HALF_MAX &gt;= 1);
+
+	const Delta0 = (li - ri) | 0;
+	const Delta1 = (lj - rj) | 0;
+	const Delta = (Delta1 - Delta0) | 0;
+
+	const parityDelta = Delta &amp; 1; // Delta % 2 does not work when Delta &lt; 0
+	assert(parityDelta === 0 || parityDelta === 1);
+
+	const DMAX = Math.min(HALF_MAX, (MAX + parityDelta) &gt;&gt; 1);
+
+	if (DMAX !== 0) {
+		assert(DMAX &gt;= 1);
+
+		if (parityDelta === 0) {
+			backwardStep(V, (centerB - 1) | 0, (centerB + 1) | 0, (centerB - 1) | 0);
+		}
+
+		const cFmD0 = (centerF - Delta0) | 0;
+		const cBmD1 = (centerB - Delta1) | 0;
+		const cBDcF = (cBmD1 - cFmD0) | 0;
+		let D = 1;
+		let LBprev = -1;
+		let UBprev = 1;
+		let LB = -1;
+		let UB = 1;
+		// eslint-disable-next-line no-constant-condition
+		while (true) {
+			assert(2 * D &lt;= MAX + parityDelta);
+			assert(LB &lt;= UB);
+			assert(LB !== D);
+			assert(UB !== -D);
+			forwardStep(V, (centerF + LB) | 0, (centerF + UB) | 0, (centerF + D) | 0);
+			const kMin = Math.max(LB, (Delta - ((D - parityDelta) | 0)) | 0);
+			assert(kMin &gt;= LB);
+			assert((kMin &amp; 1) === (LB &amp; 1));
+			const kMax = Math.min(UB, (Delta + ((D - parityDelta) | 0)) | 0);
+			assert(kMax &lt;= UB);
+			assert((kMax &amp; 1) === (UB &amp; 1));
+			assert((kMin &amp; 1) === (kMax &amp; 1));
+			const cMin = (centerF + kMin) | 0;
+			const cMax = (centerF + kMax) | 0;
+			if (cMin &lt;= cMax) {
+				let c = cMin;
+				do {
+					const x = V[c];
+					// Const y = x - (c - cFD0); // X - (k + Delta0)
+					V[c] = longestCommonPrefix(
+						eq,
+						x,
+						lj,
+						(x - ((c - cFmD0) | 0)) | 0,
+						rj,
+					);
+					if (V[c] === V[(c + cBDcF) | 0]) {
+						// XEnd === V[centerB + k - Delta]
+						return new Split(
+							(c - cFmD0) | 0, // K + Delta0
+							longestCommonSuffix(eq, x, li, (x - ((c - cFmD0) | 0)) | 0, ri),
+							V[c],
+							D,
+							((D &lt;&lt; 1) - parityDelta) | 0,
+						);
+					}
+
+					assert(V[c] &lt; V[c + cBDcF]); // WTF???
+					c = (c + 2) | 0;
+				} while (c &lt;= cMax);
+
+				if (D === DMAX) break; // This is where we break the loop
+				forwardExtend((centerF + LB) | 0, (cMin - 2) | 0, cFmD0, V, eq, lj, rj);
+				forwardExtend((cMax + 2) | 0, (centerF + UB) | 0, cFmD0, V, eq, lj, rj);
+			} else {
+				if (D === DMAX) break; // This is where we break the loop
+				forwardExtend(
+					(centerF + LB) | 0,
+					(centerF + UB) | 0,
+					cFmD0,
+					V,
+					eq,
+					lj,
+					rj,
+				);
+			}
+
+			if (parityDelta === 0) {
+				const LB_ = -UB;
+				const UB_ = -LB;
+				assert(LB_ &lt;= UB_);
+				assert(LB_ !== D);
+				assert(UB_ !== -D);
+				const cMin = (centerB - UB) | 0;
+				const cMax = (centerB - LB) | 0;
+				backwardExtend(cMin, cMax, cBmD1, V, eq, li, ri);
+
+				// LBprev = LB; // No need to update since we do not use them.
+				// UBprev = UB;
+				D = (D + 1) | 0;
+				LB = lBound(D, (rj - ri) | 0); // This is where D is incremented.
+				UB = uBound(D, (lj - li) | 0);
+				backwardStep(
+					V,
+					(centerB - UB) | 0,
+					(centerB - LB) | 0,
+					(centerB - D) | 0,
+				);
+			} else {
+				assert(parityDelta === 1);
+				if (D !== 1) {
+					assert(D &gt;= 2);
+					const LB_ = -UBprev;
+					const UB_ = -LBprev;
+					assert(LB_ &lt;= UB_);
+					assert(LB_ !== D - 1);
+					assert(UB_ !== -(D - 1));
+					const cMin = (centerB - UBprev) | 0;
+					const cMax = (centerB - LBprev) | 0;
+					backwardExtend(cMin, cMax, cBmD1, V, eq, li, ri);
+				}
+
+				backwardStep(
+					V,
+					(centerB - UB) | 0,
+					(centerB - LB) | 0,
+					(centerB - D) | 0,
+				);
+				LBprev = LB;
+				UBprev = UB;
+				D = (D + 1) | 0; // This is where D is incremented.
+				LB = lBound(D, (rj - ri) | 0);
+				UB = uBound(D, (lj - li) | 0);
+			}
+		}
+	}
+
+	return new Split(-1, -1, -1, -1, -1);
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
