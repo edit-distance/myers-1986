@@ -6,12 +6,12 @@ import recurseDeeperStep from './recurseDeeperStep.js';
 export default class RecurseDeeper {
 	/**
 	 *
-	 * @param {Int32Array} V
+	 * @param {Int8Array|Int16Array|Int32Array} B
 	 * @param {StackEntry[]} stack
 	 * @param {Function} eq
 	 */
-	constructor(V, stack, eq) {
-		this.V = V;
+	constructor(B, stack, eq) {
+		this.B = B;
 		this._stack = stack;
 		this._eq = eq;
 	}
@@ -28,7 +28,7 @@ export default class RecurseDeeper {
 		assert(this._stack[this._stack.length - 1] instanceof StackEntry);
 		return {
 			done: false,
-			value: recurseDeeperStep(this.V, this._stack, this._eq),
+			value: recurseDeeperStep(this.B, this._stack, this._eq),
 		};
 	}
 }

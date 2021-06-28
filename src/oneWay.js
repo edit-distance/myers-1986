@@ -28,21 +28,21 @@ export default function oneWay(MAX, eq, li, lj, ri, rj) {
 
 	const {array: V, center} = oneWayAlloc(MAX, li, lj, ri, rj, li);
 
-	const Delta0 = li - ri;
-	for (let D = 1; D <= MAX; ++D) {
-		const LB = lBound(D, rj - ri);
-		const UB = uBound(D, lj - li);
+	const Delta0 = (li - ri) | 0;
+	for (let D = 1; D <= MAX; D = (D + 1) | 0) {
+		const LB = lBound(D, (rj - ri) | 0);
+		const UB = uBound(D, (lj - li) | 0);
 		assert(LB <= UB);
 		assert(LB !== D);
 		assert(UB !== -D);
-		forwardStep(V, center + LB, center + UB, center + D);
-		for (let k = LB; k <= UB; k += 2) {
-			const x_ = V[center + k];
-			const y_ = x_ - (k + Delta0);
+		forwardStep(V, (center + LB) | 0, (center + UB) | 0, (center + D) | 0);
+		for (let k = LB; k <= UB; k = (k + 2) | 0) {
+			const x_ = V[(center + k) | 0];
+			const y_ = (x_ - ((k + Delta0) | 0)) | 0;
 			const x = longestCommonPrefix(eq, x_, lj, y_, rj);
-			const y = x - (k + Delta0);
+			const y = (x - ((k + Delta0) | 0)) | 0;
 			if (x === lj && y === rj) return new Split(-1, -1, -1, -1, D);
-			V[center + k] = x;
+			V[(center + k) | 0] = x;
 		}
 	}
 

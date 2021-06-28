@@ -10,7 +10,7 @@ import assert from 'assert';
 export default function lBound(D, N) {
 	assert(N >= 1);
 	assert(D >= 1);
-	const k = D <= N ? -D : D - (N << 1);
+	const k = D <= N ? -D | 0 : (D - (N << 1)) | 0;
 	assert(k >= -N);
 	assert(k < D);
 	assert((D & 1) === (k & 1));

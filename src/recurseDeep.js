@@ -40,12 +40,13 @@ export default function recurseDeep(MAX, eq, li, lj, ri, rj) {
 	const xEnd = split.xEnd;
 	const distanceLeft = split.distanceLeft;
 	const distance = split.distance;
-	const distanceRight = distance - distanceLeft;
+	const distanceRight = (distance - distanceLeft) | 0;
 
 	console.debug({k, xBegin, xEnd, distance});
 
 	assert(distance > 0);
-	const maxDistance = lj - li + (rj - ri) - 2 * (xEnd - xBegin);
+	const maxDistance =
+		(((lj - li) | 0) + ((((rj - ri) | 0) - ((xEnd - xBegin) << 1)) | 0)) | 0;
 	if (distance === maxDistance) {
 		// Early exit when there is no match in the recursive calls
 		if (xBegin === xEnd) {
@@ -53,8 +54,8 @@ export default function recurseDeep(MAX, eq, li, lj, ri, rj) {
 		}
 
 		return [
-			[li, xBegin, ri, xBegin - k],
-			[xEnd, lj, xEnd - k, rj],
+			[li, xBegin, ri, (xBegin - k) | 0],
+			[xEnd, lj, (xEnd - k) | 0, rj],
 		][Symbol.iterator]();
 	}
 
@@ -62,8 +63,8 @@ export default function recurseDeep(MAX, eq, li, lj, ri, rj) {
 	return new RecurseDeeper(
 		V,
 		[
-			new StackEntry(distanceRight, xEnd, lj, xEnd - k, rj),
-			new StackEntry(distanceLeft, li, xBegin, ri, xBegin - k),
+			new StackEntry(distanceRight, xEnd, lj, (xEnd - k) | 0, rj),
+			new StackEntry(distanceLeft, li, xBegin, ri, (xBegin - k) | 0),
 		],
 		eq,
 	);

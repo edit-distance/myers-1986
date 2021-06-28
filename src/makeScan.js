@@ -2,8 +2,7 @@ import assert from 'assert';
 
 import longestCommonPrefix from './longestCommonPrefix.js';
 import longestCommonSuffix from './longestCommonSuffix.js';
-import makeEqualityFn from './makeEqualityFn.js';
-import defaultTest from './defaultTest.js';
+import validate32 from './validate32.js';
 
 /**
  * MakeScan.
@@ -13,28 +12,25 @@ import defaultTest from './defaultTest.js';
  */
 export default function makeScan(method) {
 	/**
-	 * Scan.
+	 * Returns distance, or -1 if distance > MAX.
+	 * Undefined behavior if indices are not int32.
 	 *
 	 * @param {number} MAX
-	 * @param {ArrayLike} left
+	 * @param {Function} eq
 	 * @param {number} li
 	 * @param {number} lj
-	 * @param {ArrayLike} right
 	 * @param {number} ri
 	 * @param {number} rj
-	 * @param {Function} [test=defaultTest]
 	 * @return {number}
 	 */
-	const scan = (MAX, left, li, lj, right, ri, rj, test = defaultTest) => {
+	const scan32 = (MAX, eq, li, lj, ri, rj) => {
 		assert(Number.isInteger(MAX));
-		const N = lj - li;
-		const M = rj - ri;
+		const N = (lj - li) | 0;
+		const M = (rj - ri) | 0;
 		assert(MAX <= N + M);
 
 		if (MAX < 0) return -1;
 		if (MAX === 0 && N !== M) return -1;
-
-		const eq = makeEqualityFn(test, left, right);
 
 		const l0 = longestCommonPrefix(eq, li, lj, ri, rj);
 
@@ -42,11 +38,11 @@ export default function makeScan(method) {
 
 		if (MAX === 0) return -1;
 
-		const r0 = ri + (l0 - li);
+		const r0 = (ri + ((l0 - li) | 0)) | 0;
 		const l1 = longestCommonSuffix(eq, lj, l0, rj, r0);
-		const r1 = rj - (lj - l1);
+		const r1 = (rj - ((lj - l1) | 0)) | 0;
 
-		const halfPerimeter = l1 - l0 + r1 - r0;
+		const halfPerimeter = (((l1 - l0) | 0) + ((r1 - r0) | 0)) | 0;
 
 		return halfPerimeter <= MAX
 			? l0 === l1 || r0 === r1
@@ -55,6 +51,23 @@ export default function makeScan(method) {
 			: l0 === l1 || r0 === r1
 			? -1
 			: method(MAX, eq, l0, l1, r0, r1).distance;
+	};
+
+	/**
+	 * Returns distance, or -1 if distance > MAX.
+	 * Throws if indices are not int32.
+	 *
+	 * @param {number} MAX
+	 * @param {Function} eq
+	 * @param {number} li
+	 * @param {number} lj
+	 * @param {number} ri
+	 * @param {number} rj
+	 * @return {number}
+	 */
+	const scan = (MAX, eq, li, lj, ri, rj) => {
+		validate32(MAX, li, lj, ri, rj);
+		return scan32(MAX | 0, eq, li | 0, lj | 0, ri | 0, rj | 0);
 	};
 
 	return scan;

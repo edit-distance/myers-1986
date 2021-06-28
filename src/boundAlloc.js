@@ -10,5 +10,5 @@ import assert from 'assert';
  */
 export default function boundAlloc(MAX, li, lj) {
 	assert(lj > li);
-	return Math.min(MAX, lj - li);
+	return Math.min(MAX, (lj - li) | 0);
 }

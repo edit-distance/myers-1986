@@ -12,7 +12,7 @@ import longestCommonPrefix from './longestCommonPrefix.js';
  * @param {number} rj
  */
 export default function forwardExtend(cMin, cMax, cx, V, eq, lj, rj) {
-	for (let c = cMin; c <= cMax; c += 2) {
-		V[c] = longestCommonPrefix(eq, V[c], lj, V[c] - (c - cx), rj);
+	for (let c = cMin; c <= cMax; c = (c + 2) | 0) {
+		V[c] = longestCommonPrefix(eq, V[c], lj, (V[c] - ((c - cx) | 0)) | 0, rj);
 	}
 }

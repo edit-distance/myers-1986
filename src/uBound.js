@@ -10,7 +10,7 @@ import assert from 'assert';
 export default function uBound(D, N) {
 	assert(N >= 1);
 	assert(D >= 1);
-	const k = D <= N ? D : (N << 1) - D;
+	const k = D <= N ? D | 0 : ((N << 1) - D) | 0;
 	assert(k <= N);
 	assert(k > -D);
 	assert((D & 1) === (k & 1));

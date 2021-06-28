@@ -23,13 +23,13 @@ export default function backwardExtend(
 	// Ri,
 	rj,
 ) {
-	for (let c = cMin; c <= cMax; c += 2) {
+	for (let c = cMin; c <= cMax; c = (c + 2) | 0) {
 		const x = V[c];
 		const y = x - (c - cx);
 		assert(x === lj - 2 || x === lj - 1 || x >= lj); // These should be true
 		assert(y === rj - 2 || y === rj - 1 || y >= rj); // Provided you called
 		// assert(x <= li); // BackwardStep(center, D, ...)
 		// assert(y <= ri); // Just before.
-		V[c] = longestCommonSuffix(eq, V[c], lj, V[c] - (c - cx), rj);
+		V[c] = longestCommonSuffix(eq, V[c], lj, (V[c] - ((c - cx) | 0)) | 0, rj);
 	}
 }

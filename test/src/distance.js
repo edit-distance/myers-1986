@@ -1,5 +1,7 @@
 import test from 'ava';
 
+import {makeEqualityFn, defaultTest} from '../../src/index.js';
+
 import {
 	data,
 	benchmarkInputs,
@@ -17,7 +19,8 @@ import {
 } from './_fixtures.js';
 
 const macro = (t, algorithm, MAX, left, li, lj, right, ri, rj, expected) => {
-	const result = algorithm(MAX, left, li, lj, right, ri, rj);
+	const eq = makeEqualityFn(defaultTest, left, right);
+	const result = algorithm(MAX, eq, li, lj, ri, rj);
 	t.is(result, expected);
 };
 
