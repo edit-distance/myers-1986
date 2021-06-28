@@ -1,7 +1,5 @@
 import fs from 'fs';
 
-// eslint-disable-next-line import/no-unassigned-import
-import 'regenerator-runtime/runtime.js';
 import {diff as fastMyersDiff} from 'fast-myers-diff'; // CORRECT FAST
 // These have been removed from the bench
 // import fastDiff from 'fast-diff'; // INCORRECT SLOW
