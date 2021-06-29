@@ -9,7 +9,8 @@ import assert from 'assert';
  * @return {Int8Array|Int16Array|Int32Array}
  */
 export default function arrayRealloc(maxValue, B) {
-	assert(maxValue < 2 ** (B.BYTES_PER_ELEMENT * 8));
+	assert(maxValue < 2 ** (B.BYTES_PER_ELEMENT * 8 - 1));
+	assert(maxValue >= -(2 ** (B.BYTES_PER_ELEMENT * 8 - 1)));
 	return B;
 	// Const TypedArray = arrayType(maxValue);
 	// return B.constructor === TypedArray
