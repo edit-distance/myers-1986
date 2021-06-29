@@ -54,12 +54,6 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
-    "@edit-distance/myers-1986/src/defaulttest.js~defaulttest",
-    "function/index.html#static-function-defaultTest",
-    "<span>defaultTest</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/defaultTest.js</span>",
-    "function"
-  ],
-  [
     "@edit-distance/myers-1986/src/diff32.js~diff32",
     "function/index.html#static-function-diff32",
     "<span>diff32</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/diff32.js</span>",
@@ -99,12 +93,6 @@ window.esdocSearchIndex = [
     "@edit-distance/myers-1986/src/longestcommonsuffix.js~longestcommonsuffix",
     "function/index.html#static-function-longestCommonSuffix",
     "<span>longestCommonSuffix</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/longestCommonSuffix.js</span>",
-    "function"
-  ],
-  [
-    "@edit-distance/myers-1986/src/makeequalityfn.js~makeequalityfn",
-    "function/index.html#static-function-makeEqualityFn",
-    "<span>makeEqualityFn</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/makeEqualityFn.js</span>",
     "function"
   ],
   [
@@ -552,12 +540,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/defaulttest.js",
-    "file/src/defaultTest.js.html",
-    "src/defaultTest.js",
-    "file"
-  ],
-  [
     "src/diff.js",
     "file/src/diff.js.html",
     "src/diff.js",
@@ -603,12 +585,6 @@ window.esdocSearchIndex = [
     "src/longestcommonsuffix.js",
     "file/src/longestCommonSuffix.js.html",
     "src/longestCommonSuffix.js",
-    "file"
-  ],
-  [
-    "src/makeequalityfn.js",
-    "file/src/makeEqualityFn.js.html",
-    "src/makeEqualityFn.js",
     "file"
   ],
   [

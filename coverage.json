@@ -1,7 +1,7 @@
 {
-  "coverage": "86.11%",
-  "expectCount": 36,
-  "actualCount": 31,
+  "coverage": "85.29%",
+  "expectCount": 34,
+  "actualCount": 29,
   "files": {
     "src/RecurseDeeper.js": {
       "expectCount": 7,
@@ -54,11 +54,6 @@
       "actualCount": 1,
       "undocumentLines": []
     },
-    "src/defaultTest.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
     "src/diff.js": {
       "expectCount": 1,
       "actualCount": 1,
@@ -90,11 +85,6 @@
       "undocumentLines": []
     },
     "src/longestCommonSuffix.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
-    "src/makeEqualityFn.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []
