@@ -206,6 +206,7 @@ export const data = [
 	identity(''),
 	identity('abc'),
 	identity('AAAAAAAAAA'),
+	append('', 'Y'),
 	append('', 'abcdefghijkl'),
 	append('abra', 'cadabra'),
 	prepend('x', 'AAAAAAAAAA'),
@@ -214,6 +215,41 @@ export const data = [
 	wrap('AAAAAAAAAA', 'x', 'x'),
 	wrap('AAAAAAAAA', 'xx', 'xx'),
 	wrap('AAAAAAAAAA', 'xx', 'xx'),
+	{
+		left: 'X',
+		right: 'Y',
+		distance: 2,
+	},
+	{
+		left: 'X',
+		right: 'YY',
+		distance: 3,
+	},
+	{
+		left: 'XX',
+		right: 'YY',
+		distance: 4,
+	},
+	{
+		left: 'X',
+		right: 'YYY',
+		distance: 4,
+	},
+	{
+		left: 'XXXXXXXXXXXXXXX',
+		right: 'YYYYYYYYYYYYYYY',
+		distance: 30,
+	},
+	{
+		left: 'XXXXXXXXXXXXXXX',
+		right: 'YYYYYYYYYYYYYYYY',
+		distance: 31,
+	},
+	{
+		left: 'XXXXXXXXXXXXXXXX',
+		right: 'YYYYYYYYYYYYYYYY',
+		distance: 32,
+	},
 	{
 		left: ['this', 'is', 'some', 'text', 'that', 'will', 'be', 'changed'],
 		right: ['this', 'is', 'the', 'changed', 'text'],
