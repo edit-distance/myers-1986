@@ -78,6 +78,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@edit-distance/myers-1986/src/int32.js~int32",
+    "function/index.html#static-function-int32",
+    "<span>int32</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/int32.js</span>",
+    "function"
+  ],
+  [
     "@edit-distance/myers-1986/src/lbound.js~lbound",
     "function/index.html#static-function-lBound",
     "<span>lBound</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/lBound.js</span>",
@@ -159,12 +165,6 @@ window.esdocSearchIndex = [
     "@edit-distance/myers-1986/src/ubound.js~ubound",
     "function/index.html#static-function-uBound",
     "<span>uBound</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/uBound.js</span>",
-    "function"
-  ],
-  [
-    "@edit-distance/myers-1986/src/validate32.js~validate32",
-    "function/index.html#static-function-validate32",
-    "<span>validate32</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/validate32.js</span>",
     "function"
   ],
   [
@@ -570,6 +570,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/int32.js",
+    "file/src/int32.js.html",
+    "src/int32.js",
+    "file"
+  ],
+  [
     "src/lbound.js",
     "file/src/lBound.js.html",
     "src/lBound.js",
@@ -651,12 +657,6 @@ window.esdocSearchIndex = [
     "src/ubound.js",
     "file/src/uBound.js.html",
     "src/uBound.js",
-    "file"
-  ],
-  [
-    "src/validate32.js",
-    "file/src/validate32.js.html",
-    "src/validate32.js",
     "file"
   ]
 ]

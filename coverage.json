@@ -74,6 +74,11 @@
       "actualCount": 1,
       "undocumentLines": []
     },
+    "src/int32.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
     "src/lBound.js": {
       "expectCount": 1,
       "actualCount": 1,
@@ -140,11 +145,6 @@
       "undocumentLines": []
     },
     "src/uBound.js": {
-      "expectCount": 1,
-      "actualCount": 1,
-      "undocumentLines": []
-    },
-    "src/validate32.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

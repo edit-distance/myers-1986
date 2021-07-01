@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff32">diff32</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardExtend">forwardExtend</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardStep">forwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-int32">int32</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lBound">lBound</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonPrefix">longestCommonPrefix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonSuffix">longestCommonSuffix</a></span></span></li>
@@ -56,7 +57,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayRealloc">twoWayRealloc</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayScan">twoWayScan</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uBound">uBound</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validate32">validate32</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -67,6 +67,13 @@ See <a href="https://edit-distance.github.io/myers-1986/index.html">docs</a>.</p
 <blockquote>
 <p>:building_construction: Caveat emptor! This is work in progress. Code may be
 working. Documentation may be present. Coherence may be. Maybe.</p>
+</blockquote>
+<blockquote>
+<p>:warning: Only signed 32-bit integers are supported for <code>MAX</code>, <code>xi</code>, <code>xj</code>,
+<code>yi</code>, <code>yj</code>. This is also true for the values <code>xj - xi</code> and <code>yj - yi</code> but is
+not enforced. You should be fine if the elements of each pair have the same
+sign. This means you cannot diff things with more than <code>2,147,483,647</code>
+parts (array elements, string characters, text words or lines).</p>
 </blockquote>
 <pre><code class="lang-js"><code class="source-code prettyprint">// Example 1: compute Edit Distance.
 

@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff32">diff32</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardExtend">forwardExtend</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardStep">forwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-int32">int32</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lBound">lBound</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonPrefix">longestCommonPrefix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonSuffix">longestCommonSuffix</a></span></span></li>
@@ -56,7 +57,6 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayRealloc">twoWayRealloc</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayScan">twoWayScan</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uBound">uBound</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validate32">validate32</a></span></span></li>
 </ul>
 </div>
 </nav>
@@ -66,7 +66,7 @@
 
 import longestCommonPrefix from &apos;./longestCommonPrefix.js&apos;;
 import longestCommonSuffix from &apos;./longestCommonSuffix.js&apos;;
-import validate32 from &apos;./validate32.js&apos;;
+import int32 from &apos;./int32.js&apos;;
 
 /**
  * MakeScan.
@@ -130,8 +130,7 @@ export default function makeScan(method) {
 	 * @return {number}
 	 */
 	const scan = (MAX, eq, li, lj, ri, rj) =&gt; {
-		validate32(MAX, li, lj, ri, rj);
-		return scan32(MAX | 0, eq, li | 0, lj | 0, ri | 0, rj | 0);
+		return scan32(int32(MAX), eq, int32(li), int32(lj), int32(ri), int32(rj));
 	};
 
 	return scan;

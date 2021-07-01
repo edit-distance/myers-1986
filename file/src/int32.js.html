@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../">
-  <title data-ice="title">src/validate32.js | @edit-distance/myers-1986</title>
+  <title data-ice="title">src/int32.js | @edit-distance/myers-1986</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -42,6 +42,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-diff32">diff32</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardExtend">forwardExtend</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-forwardStep">forwardStep</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-int32">int32</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-lBound">lBound</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonPrefix">longestCommonPrefix</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-longestCommonSuffix">longestCommonSuffix</a></span></span></li>
@@ -56,83 +57,25 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayRealloc">twoWayRealloc</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-twoWayScan">twoWayScan</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-uBound">uBound</a></span></span></li>
-<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-validate32">validate32</a></span></span></li>
 </ul>
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/validate32.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {ValueError} from &apos;@failure-abstraction/error&apos;;
+<div class="content" data-ice="content"><h1 data-ice="title">src/int32.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import {TypeError} from &apos;@failure-abstraction/error&apos;;
 
 /**
- * Validate input indices.
+ * Int32.
  *
- * @param {number} MAX
- * @param {number} li
- * @param {number} lj
- * @param {number} ri
- * @param {number} rj
+ * @param {any} x
+ * @return {number} A signed 32-bit integer.
  */
-export default function validate32(MAX, li, lj, ri, rj) {
-	if (!Number.isInteger(MAX)) {
-		throw new ValueError();
+export default function int32(x) {
+	if (!Number.isInteger(x) || x &lt; -2147483648 || x &gt; 2147483647) {
+		throw new TypeError();
 	}
 
-	if (MAX &lt; -2147483648) {
-		throw new ValueError();
-	}
-
-	if (MAX &gt; 2147483647) {
-		throw new ValueError();
-	}
-
-	if (!Number.isInteger(li)) {
-		throw new ValueError();
-	}
-
-	if (li &lt; -2147483648) {
-		throw new ValueError();
-	}
-
-	if (li &gt; 2147483647) {
-		throw new ValueError();
-	}
-
-	if (!Number.isInteger(lj)) {
-		throw new ValueError();
-	}
-
-	if (lj &lt; -2147483648) {
-		throw new ValueError();
-	}
-
-	if (lj &gt; 2147483647) {
-		throw new ValueError();
-	}
-
-	if (!Number.isInteger(ri)) {
-		throw new ValueError();
-	}
-
-	if (ri &lt; -2147483648) {
-		throw new ValueError();
-	}
-
-	if (ri &gt; 2147483647) {
-		throw new ValueError();
-	}
-
-	if (!Number.isInteger(rj)) {
-		throw new ValueError();
-	}
-
-	if (rj &lt; -2147483648) {
-		throw new ValueError();
-	}
-
-	if (rj &gt; 2147483647) {
-		throw new ValueError();
-	}
+	return x | 0;
 }
 </code></pre>
 
