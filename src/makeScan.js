@@ -2,7 +2,7 @@ import assert from 'assert';
 
 import longestCommonPrefix from './longestCommonPrefix.js';
 import longestCommonSuffix from './longestCommonSuffix.js';
-import validate32 from './validate32.js';
+import int32 from './int32.js';
 
 /**
  * MakeScan.
@@ -66,8 +66,7 @@ export default function makeScan(method) {
 	 * @return {number}
 	 */
 	const scan = (MAX, eq, li, lj, ri, rj) => {
-		validate32(MAX, li, lj, ri, rj);
-		return scan32(MAX | 0, eq, li | 0, lj | 0, ri | 0, rj | 0);
+		return scan32(int32(MAX), eq, int32(li), int32(lj), int32(ri), int32(rj));
 	};
 
 	return scan;

@@ -59,7 +59,8 @@ export function defaultTest(x, y) {
 export const distanceAlgorithms = [oneWayScan, twoWayScan];
 export const diffAlgorithms = [diff];
 
-export const repr = (x) => JSON.stringify(x);
+export const repr = (x) =>
+	typeof x === 'bigint' ? `${x}n` : JSON.stringify(x);
 
 export const arrayLikeIsEqual = (a, ai, aj, b, bi, bj) => {
 	if (aj - ai !== bj - bi) return false;

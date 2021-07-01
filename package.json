@@ -238,6 +238,7 @@
           "src/**"
         ],
         "rules": {
+          "unicorn/error-message": "off",
           "unicorn/prefer-math-trunc": "off"
         }
       },
