@@ -1358,11 +1358,11 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/backwardStep.js.html#lineNumber9">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/backwardStep.js.html#lineNumber11">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import backwardStep from &apos;<span><a href="file/src/backwardStep.js.html#lineNumber9">@edit-distance/myers-1986/src/backwardStep.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import backwardStep from &apos;<span><a href="file/src/backwardStep.js.html#lineNumber11">@edit-distance/myers-1986/src/backwardStep.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Diagonal backward step.</p>
@@ -1821,11 +1821,11 @@ Undefined behavior if indices are not int32.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/forwardStep.js.html#lineNumber9">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/forwardStep.js.html#lineNumber11">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import forwardStep from &apos;<span><a href="file/src/forwardStep.js.html#lineNumber9">@edit-distance/myers-1986/src/forwardStep.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import forwardStep from &apos;<span><a href="file/src/forwardStep.js.html#lineNumber11">@edit-distance/myers-1986/src/forwardStep.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Diagonal forward step.</p>
@@ -1972,11 +1972,11 @@ Undefined behavior if indices are not int32.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/lBound.js.html#lineNumber10">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/lBound.js.html#lineNumber12">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import lBound from &apos;<span><a href="file/src/lBound.js.html#lineNumber10">@edit-distance/myers-1986/src/lBound.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import lBound from &apos;<span><a href="file/src/lBound.js.html#lineNumber12">@edit-distance/myers-1986/src/lBound.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Computes a lower bound for the signed distance.</p>
@@ -2042,7 +2042,7 @@ Undefined behavior if indices are not int32.</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><span><a href="function/index.html#static-function-uBound">uBound</a></span> for more details on usage and invariants.</span></li></ul></div>
   
 </div>
 <div class="detail" data-ice="detail">
@@ -3235,14 +3235,27 @@ the distance on the input range [li, lj, ri, rj].</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/uBound.js.html#lineNumber10">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/uBound.js.html#lineNumber25">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import uBound from &apos;<span><a href="file/src/uBound.js.html#lineNumber10">@edit-distance/myers-1986/src/uBound.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import uBound from &apos;<span><a href="file/src/uBound.js.html#lineNumber25">@edit-distance/myers-1986/src/uBound.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>Computes an upper bound for the signed distance.</p>
+<p>Note that lBound(D, N) = uBound(D, M) is possible if and only if we have
+D = N + M and N &gt;= 1 and M &gt;= 1. Case analysis:</p>
+<ul>
+<li>D = -D NOT POSSIBLE SINCE D &gt;= 1</li>
+<li>D = D - M * 2 NOT POSSIBLE SINCE M &gt;= 1</li>
+<li>-D = N * 2 - D  NOT POSSIBLE SINCE N &gt;= 1</li>
+<li><p>D - M <em> 2 = N </em> 2 - D POSSIBLE ONLY IF D = N + M, D &gt;= N + 1, and D &gt;= M + 1.</p>
+<p>Note that we only use lBound and uBound when this special case does not
+happen. This required some refactoring in oneWay to pull-out the case D = N</p>
+</li>
+<li>M. None was required in twoWayScan since we have the assertions
+2 * D &lt;= MAX + parityDelta and MAX &lt;= N + M.</li>
+</ul>
 </div>
 
   
@@ -3305,7 +3318,7 @@ the distance on the input range [li, lj, ri, rj].</p>
 
   
 
-  
+  <div data-ice="see"><h4>See:</h4><ul><li><span><a href="lBound">lBound</a></span></li></ul></div>
   
 </div>
 </div>

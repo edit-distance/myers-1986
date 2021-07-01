@@ -62,7 +62,9 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/backwardStep.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import assert from &apos;assert&apos;;
+
+/**
  * Diagonal backward step.
  *
  * @param {{[x: number]: number}} V
@@ -71,6 +73,8 @@
  * @param {number} cmD
  */
 export default function backwardStep(V, cMin, cMax, cmD) {
+	assert(cMin &lt; cMax);
+
 	V[cMin] =
 		cMin === cmD
 			? (V[(cMin + 1) | 0] - 1) | 0
@@ -80,10 +84,8 @@ export default function backwardStep(V, cMin, cMax, cmD) {
 		V[c] = Math.min(V[(c - 1) | 0], (V[(c + 1) | 0] - 1) | 0);
 	}
 
-	if (cMin !== cMax) {
-		// Assert(UB === D || V[cMax + 1] &gt; V[cMax - 1]); // UB === D || xp &gt; yp
-		V[cMax] = V[(cMax - 1) | 0];
-	}
+	// Assert(UB === D || V[cMax + 1] &gt; V[cMax - 1]); // UB === D || xp &gt; yp
+	V[cMax] = V[(cMax - 1) | 0];
 }
 </code></pre>
 

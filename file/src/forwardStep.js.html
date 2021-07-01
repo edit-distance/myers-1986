@@ -62,7 +62,9 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/forwardStep.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">import assert from &apos;assert&apos;;
+
+/**
  * Diagonal forward step.
  *
  * @param {{[x: number]: number}} V
@@ -71,6 +73,7 @@
  * @param {number} cpD
  */
 export default function forwardStep(V, cMin, cMax, cpD) {
+	assert(cMin &lt; cMax);
 	// Assert(ri &lt; rj &amp;&amp; li &lt; lj);
 	// assert(LB &lt;= UB);
 	// assert(LB !== D);
@@ -97,18 +100,16 @@ export default function forwardStep(V, cMin, cMax, cpD) {
 		V[c] = Math.max(V[(c + 1) | 0], (V[(c - 1) | 0] + 1) | 0);
 	}
 
-	if (cMin !== cMax) {
-		// Assert(UB !== LB);
+	// Assert(UB !== LB);
 
-		// Assert(x &lt;= lj); // False sometimes
-		// assert(y &lt;= rj); // Always true
-		// assert(x &gt;= li); // Always true
-		// assert(y &gt;= ri); // Always true
-		V[cMax] =
-			cMax === cpD
-				? (V[(cMax - 1) | 0] + 1) | 0
-				: Math.max(V[(cMax + 1) | 0], (V[(cMax - 1) | 0] + 1) | 0);
-	}
+	// Assert(x &lt;= lj); // False sometimes
+	// assert(y &lt;= rj); // Always true
+	// assert(x &gt;= li); // Always true
+	// assert(y &gt;= ri); // Always true
+	V[cMax] =
+		cMax === cpD
+			? (V[(cMax - 1) | 0] + 1) | 0
+			: Math.max(V[(cMax + 1) | 0], (V[(cMax - 1) | 0] + 1) | 0);
 }
 </code></pre>
 
