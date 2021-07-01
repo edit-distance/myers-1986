@@ -73,7 +73,7 @@ export default function twoWayScan(
 		// eslint-disable-next-line no-constant-condition
 		while (true) {
 			assert(2 * D <= MAX + parityDelta);
-			assert(LB <= UB);
+			assert(LB < UB);
 			assert(LB !== D);
 			assert(UB !== -D);
 			forwardStep(V, (centerF + LB) | 0, (centerF + UB) | 0, (centerF + D) | 0);

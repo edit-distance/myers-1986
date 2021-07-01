@@ -29,10 +29,13 @@ export default function oneWay(MAX, eq, li, lj, ri, rj) {
 	const {array: V, center} = oneWayAlloc(MAX, li, lj, ri, rj, li);
 
 	const Delta0 = (li - ri) | 0;
-	for (let D = 1; D <= MAX; D = (D + 1) | 0) {
-		const LB = lBound(D, (rj - ri) | 0);
-		const UB = uBound(D, (lj - li) | 0);
-		assert(LB <= UB);
+	const ln = (lj - li) | 0;
+	const rn = (rj - ri) | 0;
+	const DMAX = Math.min(MAX, (((ln + rn) | 0) - 1) | 0);
+	for (let D = 1; D <= DMAX; D = (D + 1) | 0) {
+		const LB = lBound(D, rn);
+		const UB = uBound(D, ln);
+		assert(LB < UB);
 		assert(LB !== D);
 		assert(UB !== -D);
 		forwardStep(V, (center + LB) | 0, (center + UB) | 0, (center + D) | 0);
@@ -46,5 +49,7 @@ export default function oneWay(MAX, eq, li, lj, ri, rj) {
 		}
 	}
 
-	return new Split(-1, -1, -1, -1, -1);
+	return MAX === ((ln + rn) | 0)
+		? new Split(-1, -1, -1, -1, MAX)
+		: new Split(-1, -1, -1, -1, -1);
 }

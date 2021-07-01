@@ -1,3 +1,5 @@
+import assert from 'assert';
+
 /**
  * Diagonal backward step.
  *
@@ -7,6 +9,8 @@
  * @param {number} cmD
  */
 export default function backwardStep(V, cMin, cMax, cmD) {
+	assert(cMin < cMax);
+
 	V[cMin] =
 		cMin === cmD
 			? (V[(cMin + 1) | 0] - 1) | 0
@@ -16,8 +20,6 @@ export default function backwardStep(V, cMin, cMax, cmD) {
 		V[c] = Math.min(V[(c - 1) | 0], (V[(c + 1) | 0] - 1) | 0);
 	}
 
-	if (cMin !== cMax) {
-		// Assert(UB === D || V[cMax + 1] > V[cMax - 1]); // UB === D || xp > yp
-		V[cMax] = V[(cMax - 1) | 0];
-	}
+	// Assert(UB === D || V[cMax + 1] > V[cMax - 1]); // UB === D || xp > yp
+	V[cMax] = V[(cMax - 1) | 0];
 }

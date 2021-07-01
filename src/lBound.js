@@ -3,6 +3,8 @@ import assert from 'assert';
 /**
  * Computes a lower bound for the signed distance.
  *
+ * @see {@link uBound} for more details on usage and invariants.
+ *
  * @param {number} D >= 1
  * @param {number} N >= 1
  * @return {number} A number -N <= k < D.

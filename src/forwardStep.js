@@ -1,3 +1,5 @@
+import assert from 'assert';
+
 /**
  * Diagonal forward step.
  *
@@ -7,6 +9,7 @@
  * @param {number} cpD
  */
 export default function forwardStep(V, cMin, cMax, cpD) {
+	assert(cMin < cMax);
 	// Assert(ri < rj && li < lj);
 	// assert(LB <= UB);
 	// assert(LB !== D);
@@ -33,16 +36,14 @@ export default function forwardStep(V, cMin, cMax, cpD) {
 		V[c] = Math.max(V[(c + 1) | 0], (V[(c - 1) | 0] + 1) | 0);
 	}
 
-	if (cMin !== cMax) {
-		// Assert(UB !== LB);
+	// Assert(UB !== LB);
 
-		// Assert(x <= lj); // False sometimes
-		// assert(y <= rj); // Always true
-		// assert(x >= li); // Always true
-		// assert(y >= ri); // Always true
-		V[cMax] =
-			cMax === cpD
-				? (V[(cMax - 1) | 0] + 1) | 0
-				: Math.max(V[(cMax + 1) | 0], (V[(cMax - 1) | 0] + 1) | 0);
-	}
+	// Assert(x <= lj); // False sometimes
+	// assert(y <= rj); // Always true
+	// assert(x >= li); // Always true
+	// assert(y >= ri); // Always true
+	V[cMax] =
+		cMax === cpD
+			? (V[(cMax - 1) | 0] + 1) | 0
+			: Math.max(V[(cMax + 1) | 0], (V[(cMax - 1) | 0] + 1) | 0);
 }
