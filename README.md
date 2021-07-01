@@ -8,6 +8,12 @@ See [docs](https://edit-distance.github.io/myers-1986/index.html).
 > :building_construction: Caveat emptor! This is work in progress. Code may be
 > working. Documentation may be present. Coherence may be. Maybe.
 
+> :warning: Only signed 32-bit integers are supported for `MAX`, `xi`, `xj`,
+> `yi`, `yj`. This is also true for the values `xj - xi` and `yj - yi` but is
+> not enforced. You should be fine if the elements of each pair have the same
+> sign. This means you cannot diff things with more than `2,147,483,647`
+> parts (array elements, string characters, text words or lines).
+
 ```js
 // Example 1: compute Edit Distance.
 
