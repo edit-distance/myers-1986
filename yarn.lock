@@ -1323,10 +1323,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@node-loader/babel@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-1.0.0.tgz#cc9e671e26c175c66fbd2bfa7e0bf6903f897fcc"
-  integrity sha512-unTn6qtV8wq8QctrND7jywXXMPmGMMIxtIHP3h5CsZjpfX+ksdJEPglzBIGtOwyEEuU4c/Go7j4CCtlbXuOOoQ==
+"@node-loader/babel@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-1.1.0.tgz#cfd4fc23304ff8a56790702587c0e9eb1a1a022e"
+  integrity sha512-U2nxEuRh6id3GnyoPQZyVBGmLD2VCc7ppGykroIvMG88iDrCCPketK2aopahxQFlxg/R60I12z9BC4mfBzYCUg==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
