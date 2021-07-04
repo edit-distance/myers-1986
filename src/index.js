@@ -16,6 +16,7 @@ export {default as lBound} from './lBound.js';
 export {default as longestCommonPrefix} from './longestCommonPrefix.js';
 export {default as longestCommonSuffix} from './longestCommonSuffix.js';
 export {default as makeScan} from './makeScan.js';
+export {default as makeScan32} from './makeScan32.js';
 export {default as oneWay} from './oneWay.js';
 export {default as oneWayAlloc} from './oneWayAlloc.js';
 export {default as recurse} from './recurse.js';
