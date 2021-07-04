@@ -1,7 +1,7 @@
 {
-  "coverage": "85.29%",
-  "expectCount": 34,
-  "actualCount": 29,
+  "coverage": "85.71%",
+  "expectCount": 35,
+  "actualCount": 30,
   "files": {
     "src/RecurseDeeper.js": {
       "expectCount": 7,
@@ -95,6 +95,11 @@
       "undocumentLines": []
     },
     "src/makeScan.js": {
+      "expectCount": 1,
+      "actualCount": 1,
+      "undocumentLines": []
+    },
+    "src/makeScan32.js": {
       "expectCount": 1,
       "actualCount": 1,
       "undocumentLines": []

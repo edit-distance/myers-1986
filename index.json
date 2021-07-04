@@ -1664,7 +1664,7 @@
     "__docId__": 80,
     "kind": "file",
     "name": "src/index.js",
-    "content": "export {default as RecurseDeeper} from './RecurseDeeper.js';\nexport {default as Split} from './Split.js';\nexport {default as StackEntry} from './StackEntry.js';\nexport {default as arrayAlloc} from './arrayAlloc.js';\nexport {default as arrayRealloc} from './arrayRealloc.js';\nexport {default as arrayType} from './arrayType.js';\nexport {default as backwardExtend} from './backwardExtend.js';\nexport {default as backwardStep} from './backwardStep.js';\nexport {default as boundAlloc} from './boundAlloc.js';\nexport {default as diff} from './diff.js';\nexport {default as diff32} from './diff32.js';\nexport {default as forwardExtend} from './forwardExtend.js';\nexport {default as forwardStep} from './forwardStep.js';\nexport {default as int32} from './int32.js';\nexport {default as lBound} from './lBound.js';\nexport {default as longestCommonPrefix} from './longestCommonPrefix.js';\nexport {default as longestCommonSuffix} from './longestCommonSuffix.js';\nexport {default as makeScan} from './makeScan.js';\nexport {default as oneWay} from './oneWay.js';\nexport {default as oneWayAlloc} from './oneWayAlloc.js';\nexport {default as recurse} from './recurse.js';\nexport {default as recurseDeep} from './recurseDeep.js';\nexport {default as recurseDeeperStep} from './recurseDeeperStep.js';\nexport {default as twoWay} from './twoWay.js';\nexport {default as twoWayAlloc} from './twoWayAlloc.js';\nexport {default as twoWayRealloc} from './twoWayRealloc.js';\nexport {default as twoWayScan} from './twoWayScan.js';\nexport {default as uBound} from './uBound.js';\n",
+    "content": "export {default as RecurseDeeper} from './RecurseDeeper.js';\nexport {default as Split} from './Split.js';\nexport {default as StackEntry} from './StackEntry.js';\nexport {default as arrayAlloc} from './arrayAlloc.js';\nexport {default as arrayRealloc} from './arrayRealloc.js';\nexport {default as arrayType} from './arrayType.js';\nexport {default as backwardExtend} from './backwardExtend.js';\nexport {default as backwardStep} from './backwardStep.js';\nexport {default as boundAlloc} from './boundAlloc.js';\nexport {default as diff} from './diff.js';\nexport {default as diff32} from './diff32.js';\nexport {default as forwardExtend} from './forwardExtend.js';\nexport {default as forwardStep} from './forwardStep.js';\nexport {default as int32} from './int32.js';\nexport {default as lBound} from './lBound.js';\nexport {default as longestCommonPrefix} from './longestCommonPrefix.js';\nexport {default as longestCommonSuffix} from './longestCommonSuffix.js';\nexport {default as makeScan} from './makeScan.js';\nexport {default as makeScan32} from './makeScan32.js';\nexport {default as oneWay} from './oneWay.js';\nexport {default as oneWayAlloc} from './oneWayAlloc.js';\nexport {default as recurse} from './recurse.js';\nexport {default as recurseDeep} from './recurseDeep.js';\nexport {default as recurseDeeperStep} from './recurseDeeperStep.js';\nexport {default as twoWay} from './twoWay.js';\nexport {default as twoWayAlloc} from './twoWayAlloc.js';\nexport {default as twoWayRealloc} from './twoWayRealloc.js';\nexport {default as twoWayScan} from './twoWayScan.js';\nexport {default as uBound} from './uBound.js';\n",
     "static": true,
     "longname": "/home/runner/work/myers-1986/myers-1986/src/index.js",
     "access": "public",
@@ -1950,7 +1950,7 @@
     "__docId__": 89,
     "kind": "file",
     "name": "src/makeScan.js",
-    "content": "import assert from 'assert';\n\nimport longestCommonPrefix from './longestCommonPrefix.js';\nimport longestCommonSuffix from './longestCommonSuffix.js';\nimport int32 from './int32.js';\n\n/**\n * MakeScan.\n *\n * @param {Function} method\n * @return {Function}\n */\nexport default function makeScan(method) {\n\t/**\n\t * Returns distance, or -1 if distance > MAX.\n\t * Undefined behavior if indices are not int32.\n\t *\n\t * @param {number} MAX\n\t * @param {Function} eq\n\t * @param {number} li\n\t * @param {number} lj\n\t * @param {number} ri\n\t * @param {number} rj\n\t * @return {number}\n\t */\n\tconst scan32 = (MAX, eq, li, lj, ri, rj) => {\n\t\tassert(Number.isInteger(MAX));\n\t\tconst N = (lj - li) | 0;\n\t\tconst M = (rj - ri) | 0;\n\t\tassert(MAX <= N + M);\n\n\t\tif (MAX < 0) return -1;\n\t\tif (MAX === 0 && N !== M) return -1;\n\n\t\tconst l0 = longestCommonPrefix(eq, li, lj, ri, rj);\n\n\t\tif (l0 === lj && N === M) return 0;\n\n\t\tif (MAX === 0) return -1;\n\n\t\tconst r0 = (ri + ((l0 - li) | 0)) | 0;\n\t\tconst l1 = longestCommonSuffix(eq, lj, l0, rj, r0);\n\t\tconst r1 = (rj - ((lj - l1) | 0)) | 0;\n\n\t\tconst halfPerimeter = (((l1 - l0) | 0) + ((r1 - r0) | 0)) | 0;\n\n\t\treturn halfPerimeter <= MAX\n\t\t\t? l0 === l1 || r0 === r1\n\t\t\t\t? halfPerimeter\n\t\t\t\t: method(halfPerimeter, eq, l0, l1, r0, r1).distance\n\t\t\t: l0 === l1 || r0 === r1\n\t\t\t? -1\n\t\t\t: method(MAX, eq, l0, l1, r0, r1).distance;\n\t};\n\n\t/**\n\t * Returns distance, or -1 if distance > MAX.\n\t * Throws if indices are not int32.\n\t *\n\t * @param {number} MAX\n\t * @param {Function} eq\n\t * @param {number} li\n\t * @param {number} lj\n\t * @param {number} ri\n\t * @param {number} rj\n\t * @return {number}\n\t */\n\tconst scan = (MAX, eq, li, lj, ri, rj) => {\n\t\treturn scan32(int32(MAX), eq, int32(li), int32(lj), int32(ri), int32(rj));\n\t};\n\n\treturn scan;\n}\n",
+    "content": "import makeScan32 from './makeScan32.js';\nimport int32 from './int32.js';\n\n/**\n * MakeScan.\n *\n * @param {Function} method\n * @return {Function}\n */\nexport default function makeScan(method) {\n\tconst scan32 = makeScan32(method);\n\n\t/**\n\t * Returns distance, or -1 if distance > MAX.\n\t * Throws if indices are not int32.\n\t *\n\t * @param {number} MAX\n\t * @param {Function} eq\n\t * @param {number} li\n\t * @param {number} lj\n\t * @param {number} ri\n\t * @param {number} rj\n\t * @return {number}\n\t */\n\tconst scan = (MAX, eq, li, lj, ri, rj) => {\n\t\treturn scan32(int32(MAX), eq, int32(li), int32(lj), int32(ri), int32(rj));\n\t};\n\n\treturn scan;\n}\n",
     "static": true,
     "longname": "/home/runner/work/myers-1986/myers-1986/src/makeScan.js",
     "access": "public",
@@ -1971,7 +1971,7 @@
     "importPath": "@edit-distance/myers-1986/src/makeScan.js",
     "importStyle": "makeScan",
     "description": "MakeScan.",
-    "lineNumber": 13,
+    "lineNumber": 10,
     "params": [
       {
         "nullable": null,
@@ -1996,6 +1996,53 @@
   {
     "__docId__": 91,
     "kind": "file",
+    "name": "src/makeScan32.js",
+    "content": "import assert from 'assert';\n\nimport longestCommonPrefix from './longestCommonPrefix.js';\nimport longestCommonSuffix from './longestCommonSuffix.js';\n\n/**\n * MakeScan.\n *\n * @param {Function} method\n * @return {Function}\n */\nexport default function makeScan32(method) {\n\t/**\n\t * Returns distance, or -1 if distance > MAX.\n\t * Undefined behavior if indices are not int32.\n\t *\n\t * @param {number} MAX\n\t * @param {Function} eq\n\t * @param {number} li\n\t * @param {number} lj\n\t * @param {number} ri\n\t * @param {number} rj\n\t * @return {number}\n\t */\n\tconst scan32 = (MAX, eq, li, lj, ri, rj) => {\n\t\tassert(Number.isInteger(MAX));\n\t\tconst N = (lj - li) | 0;\n\t\tconst M = (rj - ri) | 0;\n\t\tassert(MAX <= N + M);\n\n\t\tif (MAX < 0) return -1;\n\t\tif (MAX === 0 && N !== M) return -1;\n\n\t\tconst l0 = longestCommonPrefix(eq, li, lj, ri, rj);\n\n\t\tif (l0 === lj && N === M) return 0;\n\n\t\tif (MAX === 0) return -1;\n\n\t\tconst r0 = (ri + ((l0 - li) | 0)) | 0;\n\t\tconst l1 = longestCommonSuffix(eq, lj, l0, rj, r0);\n\t\tconst r1 = (rj - ((lj - l1) | 0)) | 0;\n\n\t\tconst halfPerimeter = (((l1 - l0) | 0) + ((r1 - r0) | 0)) | 0;\n\n\t\treturn halfPerimeter <= MAX\n\t\t\t? l0 === l1 || r0 === r1\n\t\t\t\t? halfPerimeter\n\t\t\t\t: method(halfPerimeter, eq, l0, l1, r0, r1).distance\n\t\t\t: l0 === l1 || r0 === r1\n\t\t\t? -1\n\t\t\t: method(MAX, eq, l0, l1, r0, r1).distance;\n\t};\n\n\treturn scan32;\n}\n",
+    "static": true,
+    "longname": "/home/runner/work/myers-1986/myers-1986/src/makeScan32.js",
+    "access": "public",
+    "description": null,
+    "lineNumber": 1
+  },
+  {
+    "__docId__": 92,
+    "kind": "function",
+    "name": "makeScan32",
+    "memberof": "src/makeScan32.js",
+    "generator": false,
+    "async": false,
+    "static": true,
+    "longname": "src/makeScan32.js~makeScan32",
+    "access": "public",
+    "export": true,
+    "importPath": "@edit-distance/myers-1986/src/makeScan32.js",
+    "importStyle": "makeScan32",
+    "description": "MakeScan.",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "method",
+        "description": ""
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Function"
+      ],
+      "spread": false,
+      "description": ""
+    }
+  },
+  {
+    "__docId__": 93,
+    "kind": "file",
     "name": "src/oneWay.js",
     "content": "import assert from 'assert';\n\nimport oneWayAlloc from './oneWayAlloc.js';\nimport forwardStep from './forwardStep.js';\nimport lBound from './lBound.js';\nimport uBound from './uBound.js';\nimport longestCommonPrefix from './longestCommonPrefix.js';\nimport Split from './Split.js';\n\n/**\n * Scan from begin to end.\n *\n * @param {number} MAX\n * @param {Function} eq\n * @param {number} li\n * @param {number} lj\n * @param {number} ri\n * @param {number} rj\n * @return {Split}\n */\nexport default function oneWay(MAX, eq, li, lj, ri, rj) {\n\tassert(MAX > 0);\n\tassert(MAX <= lj - li + rj - ri);\n\tassert(li < lj);\n\tassert(ri < rj);\n\tassert(!eq(li, ri));\n\tassert(!eq(lj - 1, rj - 1));\n\n\tconst {array: V, center} = oneWayAlloc(MAX, li, lj, ri, rj, li);\n\n\tconst Delta0 = (li - ri) | 0;\n\tconst ln = (lj - li) | 0;\n\tconst rn = (rj - ri) | 0;\n\tconst DMAX = Math.min(MAX, (((ln + rn) | 0) - 1) | 0);\n\tfor (let D = 1; D <= DMAX; D = (D + 1) | 0) {\n\t\tconst LB = lBound(D, rn);\n\t\tconst UB = uBound(D, ln);\n\t\tassert(LB < UB);\n\t\tassert(LB !== D);\n\t\tassert(UB !== -D);\n\t\tforwardStep(V, (center + LB) | 0, (center + UB) | 0, (center + D) | 0);\n\t\tfor (let k = LB; k <= UB; k = (k + 2) | 0) {\n\t\t\tconst x_ = V[(center + k) | 0];\n\t\t\tconst y_ = (x_ - ((k + Delta0) | 0)) | 0;\n\t\t\tconst x = longestCommonPrefix(eq, x_, lj, y_, rj);\n\t\t\tconst y = (x - ((k + Delta0) | 0)) | 0;\n\t\t\tif (x === lj && y === rj) return new Split(-1, -1, -1, -1, D);\n\t\t\tV[(center + k) | 0] = x;\n\t\t}\n\t}\n\n\treturn MAX === ((ln + rn) | 0)\n\t\t? new Split(-1, -1, -1, -1, MAX)\n\t\t: new Split(-1, -1, -1, -1, -1);\n}\n",
     "static": true,
@@ -2005,7 +2052,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 92,
+    "__docId__": 94,
     "kind": "function",
     "name": "oneWay",
     "memberof": "src/oneWay.js",
@@ -2091,7 +2138,7 @@
     }
   },
   {
-    "__docId__": 93,
+    "__docId__": 95,
     "kind": "file",
     "name": "src/oneWayAlloc.js",
     "content": "import assert from 'assert';\n\nimport boundAlloc from './boundAlloc.js';\nimport arrayAlloc from './arrayAlloc.js';\n\n/**\n * DiagonalAlloc.\n *\n * @param {number} MAX\n * @param {number} li\n * @param {number} lj\n * @param {number} ri\n * @param {number} rj\n * @param {number} init\n */\nexport default function oneWayAlloc(MAX, li, lj, ri, rj, init) {\n\tconst lMAX = boundAlloc(MAX, li, lj);\n\tconst rMAX = boundAlloc(MAX, ri, rj);\n\tassert(rMAX + 1 < rMAX + 1 + lMAX);\n\treturn {\n\t\tarray: arrayAlloc(lj, (((rMAX + 1) | 0) + lMAX) | 0).fill(init),\n\t\tcenter: rMAX,\n\t};\n}\n",
@@ -2102,7 +2149,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 94,
+    "__docId__": 96,
     "kind": "function",
     "name": "oneWayAlloc",
     "memberof": "src/oneWayAlloc.js",
@@ -2185,7 +2232,7 @@
     }
   },
   {
-    "__docId__": 95,
+    "__docId__": 97,
     "kind": "file",
     "name": "src/recurse.js",
     "content": "import assert from 'assert';\n\nimport {ValueError} from '@failure-abstraction/error';\n\nimport twoWayAlloc from './twoWayAlloc.js';\nimport twoWayScan from './twoWayScan.js';\n\nimport RecurseDeeper from './RecurseDeeper.js';\nimport StackEntry from './StackEntry.js';\n\n/**\n * Recurse.\n *\n * @param {number} MAX\n * @param {Function} eq\n * @param {number} li\n * @param {number} lj\n * @param {number} ri\n * @param {number} rj\n * @return {IterableIterator}\n */\nexport default function recurse(MAX, eq, li, lj, ri, rj) {\n\tassert(MAX >= 0);\n\tassert(lj - li + rj - ri > MAX);\n\tif (li === lj || ri === rj) {\n\t\tassert(lj - li > MAX || rj - ri > MAX);\n\t\tthrow new ValueError();\n\t}\n\n\tassert(li < lj);\n\tassert(ri < rj);\n\tassert(!eq(li, ri));\n\tassert(!eq(lj - 1, rj - 1));\n\n\tconst {V, centerF, centerB} = twoWayAlloc(MAX, li, lj, ri, rj);\n\n\tconst split = twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj);\n\n\tconst k = split.k;\n\tconst xBegin = split.xBegin;\n\tconst xEnd = split.xEnd;\n\tconst distanceLeft = split.distanceLeft;\n\tconst distance = split.distance;\n\tconst distanceRight = (distance - distanceLeft) | 0;\n\n\tconsole.debug({k, xBegin, xEnd, distance});\n\n\tif (distance === -1) throw new ValueError();\n\n\tassert(distance > 0);\n\tconst maxDistance =\n\t\t(((lj - li) | 0) + ((((rj - ri) | 0) - ((xEnd - xBegin) << 1)) | 0)) | 0;\n\tif (distance === maxDistance) {\n\t\t// Early exit when there is no match in the recursive calls\n\t\tassert(xBegin < xEnd);\n\t\treturn [\n\t\t\t[li, xBegin, ri, (xBegin - k) | 0],\n\t\t\t[xEnd, lj, (xEnd - k) | 0, rj],\n\t\t][Symbol.iterator]();\n\t}\n\n\tassert(distance < maxDistance);\n\treturn new RecurseDeeper(\n\t\tV,\n\t\t[\n\t\t\tnew StackEntry(distanceRight, xEnd, lj, (xEnd - k) | 0, rj),\n\t\t\tnew StackEntry(distanceLeft, li, xBegin, ri, (xBegin - k) | 0),\n\t\t],\n\t\teq,\n\t);\n}\n",
@@ -2196,7 +2243,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 96,
+    "__docId__": 98,
     "kind": "function",
     "name": "recurse",
     "memberof": "src/recurse.js",
@@ -2282,7 +2329,7 @@
     }
   },
   {
-    "__docId__": 97,
+    "__docId__": 99,
     "kind": "file",
     "name": "src/recurseDeep.js",
     "content": "import assert from 'assert';\n\nimport twoWayAlloc from './twoWayAlloc.js';\nimport twoWayScan from './twoWayScan.js';\n\nimport RecurseDeeper from './RecurseDeeper.js';\nimport StackEntry from './StackEntry.js';\n\n/**\n * RecurseDeep.\n *\n * @param {number} MAX\n * @param {Function} eq\n * @param {number} li\n * @param {number} lj\n * @param {number} ri\n * @param {number} rj\n * @return {IterableIterator}\n */\nexport default function recurseDeep(MAX, eq, li, lj, ri, rj) {\n\tassert(MAX >= 1);\n\tassert(lj - li + rj - ri >= MAX);\n\tif (li === lj || ri === rj) {\n\t\tassert(li < lj || ri < rj);\n\t\tassert(lj - li <= MAX && rj - ri <= MAX);\n\t\treturn [[li, lj, ri, rj]][Symbol.iterator]();\n\t}\n\n\tassert(li < lj);\n\tassert(ri < rj);\n\tassert(!eq(li, ri));\n\tassert(!eq(lj - 1, rj - 1));\n\n\tconst {V, centerF, centerB} = twoWayAlloc(MAX, li, lj, ri, rj);\n\n\tconst split = twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj);\n\n\tconst k = split.k;\n\tconst xBegin = split.xBegin;\n\tconst xEnd = split.xEnd;\n\tconst distanceLeft = split.distanceLeft;\n\tconst distance = split.distance;\n\tconst distanceRight = (distance - distanceLeft) | 0;\n\n\tconsole.debug({k, xBegin, xEnd, distance});\n\n\tassert(distance > 0);\n\tconst maxDistance =\n\t\t(((lj - li) | 0) + ((((rj - ri) | 0) - ((xEnd - xBegin) << 1)) | 0)) | 0;\n\tif (distance === maxDistance) {\n\t\t// Early exit when there is no match in the recursive calls\n\t\tif (xBegin === xEnd) {\n\t\t\treturn [[li, lj, ri, rj]][Symbol.iterator]();\n\t\t}\n\n\t\treturn [\n\t\t\t[li, xBegin, ri, (xBegin - k) | 0],\n\t\t\t[xEnd, lj, (xEnd - k) | 0, rj],\n\t\t][Symbol.iterator]();\n\t}\n\n\tassert(distance < maxDistance);\n\treturn new RecurseDeeper(\n\t\tV,\n\t\t[\n\t\t\tnew StackEntry(distanceRight, xEnd, lj, (xEnd - k) | 0, rj),\n\t\t\tnew StackEntry(distanceLeft, li, xBegin, ri, (xBegin - k) | 0),\n\t\t],\n\t\teq,\n\t);\n}\n",
@@ -2293,7 +2340,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 98,
+    "__docId__": 100,
     "kind": "function",
     "name": "recurseDeep",
     "memberof": "src/recurseDeep.js",
@@ -2379,7 +2426,7 @@
     }
   },
   {
-    "__docId__": 99,
+    "__docId__": 101,
     "kind": "file",
     "name": "src/recurseDeeperStep.js",
     "content": "import assert from 'assert';\n\nimport StackEntry from './StackEntry.js';\nimport twoWayRealloc from './twoWayRealloc.js';\nimport twoWayScan from './twoWayScan.js';\n\n/**\n * RecurseDeeper.\n *\n * /!\\ The entries in this stack should have a value D = MAX that is exactly\n * the distance on the input range [li, lj, ri, rj].\n *\n * @param {Int8Array|Int16Array|Int32Array} B\n * @param {StackEntry[]} stack\n * @param {Function} eq\n * @return {number[]}\n */\nexport default function recurseDeeperStep(B, stack, eq) {\n\tassert(stack.length > 0);\n\tconst entry = stack.pop();\n\tassert(entry instanceof StackEntry);\n\tlet MAX = entry.D;\n\tconst li = entry.li;\n\tlet lj = entry.lj;\n\tconst ri = entry.ri;\n\tlet rj = entry.rj;\n\t// eslint-disable-next-line no-constant-condition\n\twhile (true) {\n\t\tassert(MAX >= 1);\n\t\tconst halfPerimeter = (((lj - li) | 0) + ((rj - ri) | 0)) | 0;\n\t\tassert(halfPerimeter >= MAX);\n\t\tif (halfPerimeter === MAX) {\n\t\t\tassert(li < lj || ri < rj);\n\t\t\tassert(lj - li <= MAX && rj - ri <= MAX);\n\t\t\treturn [li, lj, ri, rj];\n\t\t}\n\n\t\tassert(halfPerimeter > MAX);\n\t\tassert(li < lj);\n\t\tassert(ri < rj);\n\t\tassert(!eq(li, ri));\n\t\tassert(!eq(lj - 1, rj - 1));\n\n\t\tconst {V, centerF, centerB} = twoWayRealloc(B, MAX, li, lj, ri, rj);\n\n\t\tconst split = twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj);\n\n\t\tconst k = split.k;\n\t\tconst xBegin = split.xBegin;\n\t\tconst xEnd = split.xEnd;\n\t\tconst distanceLeft = split.distanceLeft;\n\t\tconst distance = split.distance;\n\t\tassert(distance === MAX);\n\t\tconst distanceRight = (MAX - distanceLeft) | 0;\n\n\t\tconsole.debug({k, xBegin, xEnd, distance});\n\n\t\tconst maxDistance = (halfPerimeter - ((xEnd - xBegin) << 1)) | 0;\n\t\tassert(distance <= maxDistance);\n\t\tassert(distance < maxDistance || xBegin < xEnd);\n\t\t// We push the right side of the recursion tree on the stack\n\t\tstack.push(new StackEntry(distanceRight, xEnd, lj, (xEnd - k) | 0, rj));\n\t\t// Explicit tail recursion on the left side of the recursion tree\n\t\tMAX = distanceLeft;\n\t\tlj = xBegin;\n\t\trj = (xBegin - k) | 0;\n\t}\n}\n",
@@ -2390,7 +2437,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 100,
+    "__docId__": 102,
     "kind": "function",
     "name": "recurseDeeperStep",
     "memberof": "src/recurseDeeperStep.js",
@@ -2448,7 +2495,7 @@
     }
   },
   {
-    "__docId__": 101,
+    "__docId__": 103,
     "kind": "file",
     "name": "src/twoWay.js",
     "content": "import assert from 'assert';\n\nimport twoWayAlloc from './twoWayAlloc.js';\nimport twoWayScan from './twoWayScan.js';\n\n/**\n * Scan from begin to middle and end to middle.\n *\n * @param {number} MAX\n * @param {Function} eq\n * @param {number} li\n * @param {number} lj\n * @param {number} ri\n * @param {number} rj\n */\nexport default function twoWay(MAX, eq, li, lj, ri, rj) {\n\tassert(MAX > 0);\n\tassert(MAX <= lj - li + rj - ri);\n\tassert(li < lj);\n\tassert(ri < rj);\n\tassert(!eq(li, ri));\n\tassert(!eq(lj - 1, rj - 1));\n\n\tconst {V, centerF, centerB} = twoWayAlloc(MAX, li, lj, ri, rj);\n\n\treturn twoWayScan(MAX, V, centerF, centerB, eq, li, lj, ri, rj);\n}\n",
@@ -2459,7 +2506,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 102,
+    "__docId__": 104,
     "kind": "function",
     "name": "twoWay",
     "memberof": "src/twoWay.js",
@@ -2542,7 +2589,7 @@
     }
   },
   {
-    "__docId__": 103,
+    "__docId__": 105,
     "kind": "file",
     "name": "src/twoWayAlloc.js",
     "content": "import assert from 'assert';\n\nimport boundAlloc from './boundAlloc.js';\nimport arrayAlloc from './arrayAlloc.js';\n\n/**\n * TwoWayAlloc.\n *\n * @param {number} MAX\n * @param {number} li\n * @param {number} lj\n * @param {number} ri\n * @param {number} rj\n */\nexport default function twoWayAlloc(MAX, li, lj, ri, rj) {\n\tconst HALF_MAX = ((MAX >> 1) + (MAX & 1)) | 0; // Ceil(MAX / 2);\n\n\tconst lMAX = boundAlloc(HALF_MAX, li, lj);\n\tconst rMAX = boundAlloc(HALF_MAX, ri, rj);\n\tconst n = (((rMAX + 1) | 0) + lMAX) | 0;\n\tassert(rMAX + 1 < n);\n\n\tconst V = arrayAlloc(lj, n << 1);\n\tV.fill(li, 0, n);\n\tV.fill(lj, n, n << 1);\n\tconst centerF = rMAX;\n\tconst centerB = (n + lMAX) | 0;\n\n\treturn {\n\t\tV,\n\t\tcenterF,\n\t\tcenterB,\n\t};\n}\n",
@@ -2553,7 +2600,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 104,
+    "__docId__": 106,
     "kind": "function",
     "name": "twoWayAlloc",
     "memberof": "src/twoWayAlloc.js",
@@ -2626,7 +2673,7 @@
     }
   },
   {
-    "__docId__": 105,
+    "__docId__": 107,
     "kind": "file",
     "name": "src/twoWayRealloc.js",
     "content": "import assert from 'assert';\n\nimport boundAlloc from './boundAlloc.js';\nimport arrayRealloc from './arrayRealloc.js';\n\n/**\n * TwoWayRealloc.\n *\n * @param {Int8Array|Int16Array|Int32Array} B\n * @param {number} MAX\n * @param {number} li\n * @param {number} lj\n * @param {number} ri\n * @param {number} rj\n */\nexport default function twoWayRealloc(B, MAX, li, lj, ri, rj) {\n\tconst HALF_MAX = ((MAX >> 1) + (MAX & 1)) | 0; // Ceil(MAX / 2);\n\n\tconst lMAX = boundAlloc(HALF_MAX, li, lj);\n\tconst rMAX = boundAlloc(HALF_MAX, ri, rj);\n\tconst n = (((rMAX + 1) | 0) + lMAX) | 0;\n\tassert(rMAX + 1 < n);\n\n\tconst V = arrayRealloc(lj, B);\n\tassert(V.length >= 2 * n);\n\tV.fill(li, 0, n);\n\tV.fill(lj, n, n << 1);\n\tconst centerF = rMAX;\n\tconst centerB = (n + lMAX) | 0;\n\n\treturn {\n\t\tV,\n\t\tcenterF,\n\t\tcenterB,\n\t};\n}\n",
@@ -2637,7 +2684,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 106,
+    "__docId__": 108,
     "kind": "function",
     "name": "twoWayRealloc",
     "memberof": "src/twoWayRealloc.js",
@@ -2722,7 +2769,7 @@
     }
   },
   {
-    "__docId__": 107,
+    "__docId__": 109,
     "kind": "file",
     "name": "src/twoWayScan.js",
     "content": "import assert from 'assert';\n\nimport lBound from './lBound.js';\nimport uBound from './uBound.js';\nimport forwardStep from './forwardStep.js';\nimport forwardExtend from './forwardExtend.js';\nimport backwardStep from './backwardStep.js';\nimport backwardExtend from './backwardExtend.js';\nimport longestCommonPrefix from './longestCommonPrefix.js';\nimport longestCommonSuffix from './longestCommonSuffix.js';\nimport Split from './Split.js';\n\n/**\n * Scan from begin to middle and end to middle.\n *\n * @param {number} MAX\n * @param {{[x: number]: number, length: number}} V\n * @param {number} centerF\n * @param {number} centerB\n * @param {Function} eq\n * @param {number} li\n * @param {number} lj\n * @param {number} ri\n * @param {number} rj\n * @return {Split}\n */\nexport default function twoWayScan(\n\tMAX,\n\tV,\n\tcenterF,\n\tcenterB,\n\teq,\n\tli,\n\tlj,\n\tri,\n\trj,\n) {\n\tassert(MAX >= 1);\n\tassert(MAX <= lj - li + rj - ri);\n\tassert(li < lj);\n\tassert(ri < rj);\n\tassert(!eq(li, ri));\n\tassert(!eq(lj - 1, rj - 1));\n\n\t// Math.ceil(MAX / 2); triggers deopt lost precision\n\tconst HALF_MAX = ((MAX >> 1) + (MAX & 1)) | 0;\n\tassert(HALF_MAX >= 1);\n\n\tconst Delta0 = (li - ri) | 0;\n\tconst Delta1 = (lj - rj) | 0;\n\tconst Delta = (Delta1 - Delta0) | 0;\n\n\tconst parityDelta = Delta & 1; // Delta % 2 does not work when Delta < 0\n\tassert(parityDelta === 0 || parityDelta === 1);\n\n\tconst DMAX = Math.min(HALF_MAX, (MAX + parityDelta) >> 1);\n\n\tif (DMAX !== 0) {\n\t\tassert(DMAX >= 1);\n\n\t\tif (parityDelta === 0) {\n\t\t\tbackwardStep(V, (centerB - 1) | 0, (centerB + 1) | 0, (centerB - 1) | 0);\n\t\t}\n\n\t\tconst cFmD0 = (centerF - Delta0) | 0;\n\t\tconst cBmD1 = (centerB - Delta1) | 0;\n\t\tconst cBDcF = (cBmD1 - cFmD0) | 0;\n\t\tlet D = 1;\n\t\tlet LBprev = -1;\n\t\tlet UBprev = 1;\n\t\tlet LB = -1;\n\t\tlet UB = 1;\n\t\t// eslint-disable-next-line no-constant-condition\n\t\twhile (true) {\n\t\t\tassert(2 * D <= MAX + parityDelta);\n\t\t\tassert(LB < UB);\n\t\t\tassert(LB !== D);\n\t\t\tassert(UB !== -D);\n\t\t\tforwardStep(V, (centerF + LB) | 0, (centerF + UB) | 0, (centerF + D) | 0);\n\t\t\tconst kMin = Math.max(LB, (Delta - ((D - parityDelta) | 0)) | 0);\n\t\t\tassert(kMin >= LB);\n\t\t\tassert((kMin & 1) === (LB & 1));\n\t\t\tconst kMax = Math.min(UB, (Delta + ((D - parityDelta) | 0)) | 0);\n\t\t\tassert(kMax <= UB);\n\t\t\tassert((kMax & 1) === (UB & 1));\n\t\t\tassert((kMin & 1) === (kMax & 1));\n\t\t\tconst cMin = (centerF + kMin) | 0;\n\t\t\tconst cMax = (centerF + kMax) | 0;\n\t\t\tif (cMin <= cMax) {\n\t\t\t\tlet c = cMin;\n\t\t\t\tdo {\n\t\t\t\t\tconst x = V[c];\n\t\t\t\t\t// Const y = x - (c - cFD0); // X - (k + Delta0)\n\t\t\t\t\tV[c] = longestCommonPrefix(\n\t\t\t\t\t\teq,\n\t\t\t\t\t\tx,\n\t\t\t\t\t\tlj,\n\t\t\t\t\t\t(x - ((c - cFmD0) | 0)) | 0,\n\t\t\t\t\t\trj,\n\t\t\t\t\t);\n\t\t\t\t\tif (V[c] === V[(c + cBDcF) | 0]) {\n\t\t\t\t\t\t// XEnd === V[centerB + k - Delta]\n\t\t\t\t\t\treturn new Split(\n\t\t\t\t\t\t\t(c - cFmD0) | 0, // K + Delta0\n\t\t\t\t\t\t\tlongestCommonSuffix(eq, x, li, (x - ((c - cFmD0) | 0)) | 0, ri),\n\t\t\t\t\t\t\tV[c],\n\t\t\t\t\t\t\tD,\n\t\t\t\t\t\t\t((D << 1) - parityDelta) | 0,\n\t\t\t\t\t\t);\n\t\t\t\t\t}\n\n\t\t\t\t\tassert(V[c] < V[c + cBDcF]); // WTF???\n\t\t\t\t\tc = (c + 2) | 0;\n\t\t\t\t} while (c <= cMax);\n\n\t\t\t\tif (D === DMAX) break; // This is where we break the loop\n\t\t\t\tforwardExtend((centerF + LB) | 0, (cMin - 2) | 0, cFmD0, V, eq, lj, rj);\n\t\t\t\tforwardExtend((cMax + 2) | 0, (centerF + UB) | 0, cFmD0, V, eq, lj, rj);\n\t\t\t} else {\n\t\t\t\tif (D === DMAX) break; // This is where we break the loop\n\t\t\t\tforwardExtend(\n\t\t\t\t\t(centerF + LB) | 0,\n\t\t\t\t\t(centerF + UB) | 0,\n\t\t\t\t\tcFmD0,\n\t\t\t\t\tV,\n\t\t\t\t\teq,\n\t\t\t\t\tlj,\n\t\t\t\t\trj,\n\t\t\t\t);\n\t\t\t}\n\n\t\t\tif (parityDelta === 0) {\n\t\t\t\tconst LB_ = -UB;\n\t\t\t\tconst UB_ = -LB;\n\t\t\t\tassert(LB_ <= UB_);\n\t\t\t\tassert(LB_ !== D);\n\t\t\t\tassert(UB_ !== -D);\n\t\t\t\tconst cMin = (centerB - UB) | 0;\n\t\t\t\tconst cMax = (centerB - LB) | 0;\n\t\t\t\tbackwardExtend(cMin, cMax, cBmD1, V, eq, li, ri);\n\n\t\t\t\t// LBprev = LB; // No need to update since we do not use them.\n\t\t\t\t// UBprev = UB;\n\t\t\t\tD = (D + 1) | 0;\n\t\t\t\tLB = lBound(D, (rj - ri) | 0); // This is where D is incremented.\n\t\t\t\tUB = uBound(D, (lj - li) | 0);\n\t\t\t\tbackwardStep(\n\t\t\t\t\tV,\n\t\t\t\t\t(centerB - UB) | 0,\n\t\t\t\t\t(centerB - LB) | 0,\n\t\t\t\t\t(centerB - D) | 0,\n\t\t\t\t);\n\t\t\t} else {\n\t\t\t\tassert(parityDelta === 1);\n\t\t\t\tif (D !== 1) {\n\t\t\t\t\tassert(D >= 2);\n\t\t\t\t\tconst LB_ = -UBprev;\n\t\t\t\t\tconst UB_ = -LBprev;\n\t\t\t\t\tassert(LB_ <= UB_);\n\t\t\t\t\tassert(LB_ !== D - 1);\n\t\t\t\t\tassert(UB_ !== -(D - 1));\n\t\t\t\t\tconst cMin = (centerB - UBprev) | 0;\n\t\t\t\t\tconst cMax = (centerB - LBprev) | 0;\n\t\t\t\t\tbackwardExtend(cMin, cMax, cBmD1, V, eq, li, ri);\n\t\t\t\t}\n\n\t\t\t\tbackwardStep(\n\t\t\t\t\tV,\n\t\t\t\t\t(centerB - UB) | 0,\n\t\t\t\t\t(centerB - LB) | 0,\n\t\t\t\t\t(centerB - D) | 0,\n\t\t\t\t);\n\t\t\t\tLBprev = LB;\n\t\t\t\tUBprev = UB;\n\t\t\t\tD = (D + 1) | 0; // This is where D is incremented.\n\t\t\t\tLB = lBound(D, (rj - ri) | 0);\n\t\t\t\tUB = uBound(D, (lj - li) | 0);\n\t\t\t}\n\t\t}\n\t}\n\n\treturn new Split(-1, -1, -1, -1, -1);\n}\n",
@@ -2733,7 +2780,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 108,
+    "__docId__": 110,
     "kind": "function",
     "name": "twoWayScan",
     "memberof": "src/twoWayScan.js",
@@ -2849,7 +2896,7 @@
     }
   },
   {
-    "__docId__": 109,
+    "__docId__": 111,
     "kind": "file",
     "name": "src/uBound.js",
     "content": "import assert from 'assert';\n\n/**\n * Computes an upper bound for the signed distance.\n *\n * Note that lBound(D, N) = uBound(D, M) is possible if and only if we have\n * D = N + M and N >= 1 and M >= 1. Case analysis:\n *\n *  - D = -D NOT POSSIBLE SINCE D >= 1\n *  - D = D - M * 2 NOT POSSIBLE SINCE M >= 1\n *  - -D = N * 2 - D  NOT POSSIBLE SINCE N >= 1\n *  - D - M * 2 = N * 2 - D POSSIBLE ONLY IF D = N + M, D >= N + 1, and D >= M + 1.\n *\n *  Note that we only use lBound and uBound when this special case does not\n *  happen. This required some refactoring in oneWay to pull-out the case D = N\n *  + M. None was required in twoWayScan since we have the assertions\n *  2 * D <= MAX + parityDelta and MAX <= N + M.\n *\n * @see lBound\n *\n * @param {number} D >= 1\n * @param {number} N >= 1\n * @return {number} A number -D < k <= N.\n */\nexport default function uBound(D, N) {\n\tassert(N >= 1);\n\tassert(D >= 1);\n\tconst k = D <= N ? D | 0 : ((N << 1) - D) | 0;\n\tassert(k <= N);\n\tassert(k > -D);\n\tassert((D & 1) === (k & 1));\n\treturn k;\n}\n",
@@ -2860,7 +2907,7 @@
     "lineNumber": 1
   },
   {
-    "__docId__": 110,
+    "__docId__": 112,
     "kind": "function",
     "name": "uBound",
     "memberof": "src/uBound.js",
@@ -2918,7 +2965,7 @@
   },
   {
     "kind": "packageJSON",
-    "content": "{\n  \"name\": \"@edit-distance/myers-1986\",\n  \"description\": \"Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript\",\n  \"version\": \"1.0.2\",\n  \"license\": \"AGPL-3.0\",\n  \"author\": \"make-github-pseudonymous-again\",\n  \"homepage\": \"https://edit-distance.github.io/myers-1986\",\n  \"repository\": {\n    \"url\": \"https://github.com/edit-distance/myers-1986\",\n    \"type\": \"git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/edit-distance/myers-1986/issues\"\n  },\n  \"keywords\": [\n    \"Hirschberg\",\n    \"Myers\",\n    \"Ukkonen\",\n    \"common\",\n    \"distance\",\n    \"divide-and-conquer\",\n    \"edit\",\n    \"exact\",\n    \"longest\",\n    \"optimal\",\n    \"string\",\n    \"subsequence\"\n  ],\n  \"sideEffects\": false,\n  \"type\": \"module\",\n  \"source\": \"src/index.js\",\n  \"main\": \"dist/index.cjs\",\n  \"module\": \"dist/index.module.js\",\n  \"esmodule\": \"dist/index.modern.js\",\n  \"umd:main\": \"dist/index.umd.js\",\n  \"unpkg\": \"dist/index.umd.js\",\n  \"exports\": {\n    \".\": {\n      \"browser\": \"./dist/index.module.js\",\n      \"umd\": \"./dist/index.umd.js\",\n      \"require\": \"./dist/index.cjs\",\n      \"default\": \"./dist/index.modern.js\"\n    }\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"scripts\": {\n    \"build\": \"NODE_ENV=production microbundle\",\n    \"build-docs\": \"esdoc\",\n    \"build-gh-pages\": \"npm run build-docs\",\n    \"ci:test\": \"npm run lint-config && npm run lint && npm run cover -- -- --tap | tap-dot\",\n    \"commit-msg\": \"commitlint --edit\",\n    \"cover\": \"NODE_ENV=cover c8 --all --src src --reporter lcov --reporter text-summary --reporter text npm test\",\n    \"debug\": \"NODE_ENV=debug npm run test -- -st --fail-fast\",\n    \"dev\": \"npm run lint-config-and-fix && npm run lint-and-fix && npm run cover -- -- -st --fail-fast\",\n    \"install-hooks\": \"husky install\",\n    \"lint\": \"xo\",\n    \"lint-and-fix\": \"npm run lint -- --fix\",\n    \"lint-config\": \"fixpack --dryRun\",\n    \"lint-config-and-fix\": \"fixpack || fixpack\",\n    \"postinstall\": \"npm run install-hooks\",\n    \"postpublish\": \"pinst --enable\",\n    \"precommit\": \"lint-staged\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"pinst --disable\",\n    \"release\": \"np --message ':hatching_chick: release: Bumping to v%s.'\",\n    \"test\": \"ava\"\n  },\n  \"dependencies\": {\n    \"@failure-abstraction/error\": \"^6.0.1\"\n  },\n  \"devDependencies\": {\n    \"@babel/core\": \"7.14.6\",\n    \"@babel/preset-env\": \"7.14.7\",\n    \"@babel/register\": \"7.14.5\",\n    \"@commitlint/cli\": \"12.1.4\",\n    \"@iterable-iterator/chain\": \"1.0.0\",\n    \"@iterable-iterator/iter\": \"1.0.0\",\n    \"@iterable-iterator/list\": \"1.0.0\",\n    \"@iterable-iterator/map\": \"1.0.0\",\n    \"@iterable-iterator/next\": \"2.0.0\",\n    \"@iterable-iterator/reduce\": \"1.0.0\",\n    \"@js-library/commitlint-config\": \"0.0.4\",\n    \"@node-loader/babel\": \"1.0.0\",\n    \"ava\": \"4.0.0-alpha.2\",\n    \"babel-plugin-transform-remove-console\": \"6.9.4\",\n    \"babel-plugin-unassert\": \"3.1.0\",\n    \"babel-preset-power-assert\": \"3.0.0\",\n    \"c8\": \"7.7.3\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"1.0.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"fixpack\": \"4.0.0\",\n    \"husky\": \"6.0.0\",\n    \"lint-staged\": \"11.0.0\",\n    \"microbundle\": \"0.13.1\",\n    \"np\": \"7.5.0\",\n    \"pinst\": \"2.1.6\",\n    \"power-assert\": \"1.6.1\",\n    \"seedrandom\": \"3.0.5\",\n    \"tap-dot\": \"2.0.0\",\n    \"xo\": \"0.39.1\"\n  },\n  \"ava\": {\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"nodeArguments\": [\n      \"--experimental-loader=@node-loader/babel\"\n    ],\n    \"timeout\": \"1m\"\n  },\n  \"babel\": {\n    \"sourceMaps\": true,\n    \"presets\": [\n      [\n        \"@babel/preset-env\",\n        {\n          \"bugfixes\": true,\n          \"modules\": false,\n          \"targets\": {\n            \"esmodules\": true\n          }\n        }\n      ]\n    ],\n    \"plugins\": [\n      [\n        \"transform-remove-console\",\n        {\n          \"exclude\": [\n            \"log\",\n            \"error\",\n            \"warn\"\n          ]\n        }\n      ]\n    ],\n    \"env\": {\n      \"debug\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"debug\",\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"test\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"cover\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"development\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"production\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ]\n        ],\n        \"plugins\": [\n          \"babel-plugin-unassert\"\n        ]\n      }\n    }\n  },\n  \"lint-staged\": {\n    \"!(_benchmark/*|_profile/*).js\": [\n      \"npm run lint-and-fix\"\n    ],\n    \"package.json\": [\n      \"npm run lint-config-and-fix\"\n    ]\n  },\n  \"prettier\": {\n    \"trailingComma\": \"all\"\n  },\n  \"xo\": {\n    \"prettier\": true,\n    \"plugins\": [\n      \"unicorn\"\n    ],\n    \"ignores\": [\n      \"_benchmark/**\",\n      \"_profile/**\"\n    ],\n    \"rules\": {\n      \"unicorn/filename-case\": [\n        \"error\",\n        {\n          \"cases\": {\n            \"camelCase\": true,\n            \"pascalCase\": true\n          }\n        }\n      ]\n    },\n    \"overrides\": [\n      {\n        \"files\": [\n          \"src/**\"\n        ],\n        \"rules\": {\n          \"unicorn/error-message\": \"off\",\n          \"unicorn/prefer-math-trunc\": \"off\"\n        }\n      },\n      {\n        \"files\": [\n          \"doc/**\"\n        ],\n        \"env\": \"browser\"\n      }\n    ]\n  }\n}\n",
+    "content": "{\n  \"name\": \"@edit-distance/myers-1986\",\n  \"description\": \"Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript\",\n  \"version\": \"1.1.0\",\n  \"license\": \"AGPL-3.0\",\n  \"author\": \"make-github-pseudonymous-again\",\n  \"homepage\": \"https://edit-distance.github.io/myers-1986\",\n  \"repository\": {\n    \"url\": \"https://github.com/edit-distance/myers-1986\",\n    \"type\": \"git\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/edit-distance/myers-1986/issues\"\n  },\n  \"keywords\": [\n    \"Hirschberg\",\n    \"Myers\",\n    \"Ukkonen\",\n    \"common\",\n    \"distance\",\n    \"divide-and-conquer\",\n    \"edit\",\n    \"exact\",\n    \"longest\",\n    \"optimal\",\n    \"string\",\n    \"subsequence\"\n  ],\n  \"sideEffects\": false,\n  \"type\": \"module\",\n  \"source\": \"src/index.js\",\n  \"main\": \"dist/index.cjs\",\n  \"module\": \"dist/index.module.js\",\n  \"esmodule\": \"dist/index.modern.js\",\n  \"umd:main\": \"dist/index.umd.js\",\n  \"unpkg\": \"dist/index.umd.js\",\n  \"exports\": {\n    \".\": {\n      \"browser\": \"./dist/index.module.js\",\n      \"umd\": \"./dist/index.umd.js\",\n      \"require\": \"./dist/index.cjs\",\n      \"default\": \"./dist/index.modern.js\"\n    }\n  },\n  \"files\": [\n    \"dist\"\n  ],\n  \"scripts\": {\n    \"build\": \"NODE_ENV=production microbundle\",\n    \"build-docs\": \"esdoc\",\n    \"build-gh-pages\": \"npm run build-docs\",\n    \"ci:test\": \"npm run lint-config && npm run lint && npm run cover -- -- --tap | tap-dot\",\n    \"commit-msg\": \"commitlint --edit\",\n    \"cover\": \"NODE_ENV=cover c8 --all --src src --reporter lcov --reporter text-summary --reporter text npm test\",\n    \"debug\": \"NODE_ENV=debug npm run test -- -st --fail-fast\",\n    \"dev\": \"npm run lint-config-and-fix && npm run lint-and-fix && npm run cover -- -- -st --fail-fast\",\n    \"install-hooks\": \"husky install\",\n    \"lint\": \"xo\",\n    \"lint-and-fix\": \"npm run lint -- --fix\",\n    \"lint-config\": \"fixpack --dryRun\",\n    \"lint-config-and-fix\": \"fixpack || fixpack\",\n    \"postinstall\": \"npm run install-hooks\",\n    \"postpublish\": \"pinst --enable\",\n    \"precommit\": \"lint-staged\",\n    \"prepare\": \"npm run build\",\n    \"prepublishOnly\": \"pinst --disable\",\n    \"release\": \"np --message ':hatching_chick: release: Bumping to v%s.'\",\n    \"test\": \"ava\"\n  },\n  \"dependencies\": {\n    \"@failure-abstraction/error\": \"^6.0.1\"\n  },\n  \"devDependencies\": {\n    \"@babel/core\": \"7.14.6\",\n    \"@babel/preset-env\": \"7.14.7\",\n    \"@babel/register\": \"7.14.5\",\n    \"@commitlint/cli\": \"12.1.4\",\n    \"@iterable-iterator/chain\": \"1.0.0\",\n    \"@iterable-iterator/iter\": \"1.0.0\",\n    \"@iterable-iterator/list\": \"1.0.0\",\n    \"@iterable-iterator/map\": \"1.0.0\",\n    \"@iterable-iterator/next\": \"2.0.0\",\n    \"@iterable-iterator/reduce\": \"1.0.0\",\n    \"@js-library/commitlint-config\": \"0.0.4\",\n    \"@node-loader/babel\": \"1.1.0\",\n    \"ava\": \"4.0.0-alpha.2\",\n    \"babel-plugin-transform-remove-console\": \"6.9.4\",\n    \"babel-plugin-unassert\": \"3.1.0\",\n    \"babel-preset-power-assert\": \"3.0.0\",\n    \"c8\": \"7.7.3\",\n    \"esdoc\": \"1.1.0\",\n    \"esdoc-ecmascript-proposal-plugin\": \"1.0.0\",\n    \"esdoc-inject-script-plugin\": \"1.0.0\",\n    \"esdoc-inject-style-plugin\": \"1.0.0\",\n    \"esdoc-standard-plugin\": \"1.0.0\",\n    \"fixpack\": \"4.0.0\",\n    \"husky\": \"7.0.0\",\n    \"lint-staged\": \"11.0.0\",\n    \"microbundle\": \"0.13.1\",\n    \"np\": \"7.5.0\",\n    \"pinst\": \"2.1.6\",\n    \"power-assert\": \"1.6.1\",\n    \"seedrandom\": \"3.0.5\",\n    \"tap-dot\": \"2.0.0\",\n    \"xo\": \"0.39.1\"\n  },\n  \"ava\": {\n    \"files\": [\n      \"test/src/**/*\"\n    ],\n    \"nodeArguments\": [\n      \"--experimental-loader=@node-loader/babel\"\n    ],\n    \"timeout\": \"1m\"\n  },\n  \"babel\": {\n    \"sourceMaps\": true,\n    \"presets\": [\n      [\n        \"@babel/preset-env\",\n        {\n          \"bugfixes\": true,\n          \"modules\": false,\n          \"targets\": {\n            \"esmodules\": true\n          }\n        }\n      ]\n    ],\n    \"plugins\": [\n      [\n        \"transform-remove-console\",\n        {\n          \"exclude\": [\n            \"log\",\n            \"error\",\n            \"warn\"\n          ]\n        }\n      ]\n    ],\n    \"env\": {\n      \"debug\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ],\n        \"plugins\": [\n          [\n            \"transform-remove-console\",\n            {\n              \"exclude\": [\n                \"debug\",\n                \"log\",\n                \"error\",\n                \"warn\"\n              ]\n            }\n          ]\n        ]\n      },\n      \"test\": {\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"cover\": {\n        \"sourceMaps\": \"both\",\n        \"presets\": [\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"development\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ],\n          \"babel-preset-power-assert\"\n        ]\n      },\n      \"production\": {\n        \"presets\": [\n          [\n            \"@babel/preset-env\",\n            {\n              \"targets\": [\n                \"defaults\",\n                \"maintained node versions\"\n              ]\n            }\n          ]\n        ],\n        \"plugins\": [\n          \"babel-plugin-unassert\"\n        ]\n      }\n    }\n  },\n  \"lint-staged\": {\n    \"!(_benchmark/*|_profile/*).js\": [\n      \"npm run lint-and-fix\"\n    ],\n    \"package.json\": [\n      \"npm run lint-config-and-fix\"\n    ]\n  },\n  \"prettier\": {\n    \"trailingComma\": \"all\"\n  },\n  \"xo\": {\n    \"prettier\": true,\n    \"plugins\": [\n      \"unicorn\"\n    ],\n    \"ignores\": [\n      \"_benchmark/**\",\n      \"_profile/**\"\n    ],\n    \"rules\": {\n      \"unicorn/filename-case\": [\n        \"error\",\n        {\n          \"cases\": {\n            \"camelCase\": true,\n            \"pascalCase\": true\n          }\n        }\n      ]\n    },\n    \"overrides\": [\n      {\n        \"files\": [\n          \"src/**\"\n        ],\n        \"rules\": {\n          \"unicorn/error-message\": \"off\",\n          \"unicorn/prefer-math-trunc\": \"off\"\n        }\n      },\n      {\n        \"files\": [\n          \"doc/**\"\n        ],\n        \"env\": \"browser\"\n      }\n    ]\n  }\n}\n",
     "longname": "/home/runner/work/myers-1986/myers-1986/package.json",
     "name": "package.json",
     "static": true,

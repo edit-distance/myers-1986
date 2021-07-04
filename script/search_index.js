@@ -102,6 +102,12 @@ window.esdocSearchIndex = [
     "function"
   ],
   [
+    "@edit-distance/myers-1986/src/makescan32.js~makescan32",
+    "function/index.html#static-function-makeScan32",
+    "<span>makeScan32</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/makeScan32.js</span>",
+    "function"
+  ],
+  [
     "@edit-distance/myers-1986/src/makescan.js~makescan",
     "function/index.html#static-function-makeScan",
     "<span>makeScan</span> <span class=\"search-result-import-path\">@edit-distance/myers-1986/src/makeScan.js</span>",
@@ -597,6 +603,12 @@ window.esdocSearchIndex = [
     "src/makescan.js",
     "file/src/makeScan.js.html",
     "src/makeScan.js",
+    "file"
+  ],
+  [
+    "src/makescan32.js",
+    "file/src/makeScan32.js.html",
+    "src/makeScan32.js",
     "file"
   ],
   [
