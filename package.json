@@ -1,7 +1,7 @@
 {
   "name": "@edit-distance/myers-1986",
   "description": "Reasonably efficient and concise exact longest common subsequence and minimum edit-distance algorithm implementation for JavaScript",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "license": "AGPL-3.0",
   "author": "make-github-pseudonymous-again",
   "homepage": "https://edit-distance.github.io/myers-1986",
