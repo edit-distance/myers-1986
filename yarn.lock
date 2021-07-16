@@ -1266,7 +1266,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@failure-abstraction/error@^6.0.0", "@failure-abstraction/error@^6.0.1":
+"@failure-abstraction/error@^6.0.1":
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@failure-abstraction/error/-/error-6.0.1.tgz#ab6929395c7ed3ec74d86db2976e74e31f9569e2"
   integrity sha512-KvIHhvwfrgbUduQbk55WRDGL2XcXjDLwleId+pSnK7mUUIY7zMGMy3N+ouDcOFymme48tKDlarKsYj5mEEd3fg==
@@ -1301,12 +1301,12 @@
   resolved "https://registry.yarnpkg.com/@iterable-iterator/map/-/map-1.0.1.tgz#7e4d82cb86877bf487e075347fde990ed21844da"
   integrity sha512-lUvX8/OCYRdof3eZii8ntJUvqW1MlL2ESkIcQj3cagajKVfBIBj058wE4ScrzQl6U2udMva/n2NwP70smdfZ+g==
 
-"@iterable-iterator/next@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@iterable-iterator/next/-/next-2.0.0.tgz#7c6ecb35e6f1f48d128855adff7d3b42f90f17da"
-  integrity sha512-T5OWkjAe7KlOtIuhIIksKu82Sz0gUZNzt7k3P/uCjegU0bFCQtIYV9YqQgHlQXZ6oXfehWDqjZhvEwpmzlrpNQ==
+"@iterable-iterator/next@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/next/-/next-2.0.1.tgz#b58a7471984cd1165e3b93e3fea646f4137b370f"
+  integrity sha512-D4E5JSH7xFEQqmJI8XMaotest1L1RM6wJssEDFRva81oZNZwPYmTlKErPZZVLnrZU/wTflEVwrImxUacoIZK3Q==
   dependencies:
-    "@failure-abstraction/error" "^6.0.0"
+    "@failure-abstraction/error" "^6.0.1"
 
 "@iterable-iterator/reduce@1.0.0":
   version "1.0.0"
