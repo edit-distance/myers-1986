@@ -1281,15 +1281,10 @@
   resolved "https://registry.yarnpkg.com/@iterable-iterator/chain/-/chain-2.0.1.tgz#b02068df99408ac94c446f895b4e985eb0cd1938"
   integrity sha512-mWd0nx1knSaJ6kcysBFtjcQd18iBaDgY0Rlr6crcBg11cMwVRkjaz56w2gBTe6No9JmoYOwsXxPNWpAeF7eAoA==
 
-"@iterable-iterator/iter@1.0.1":
+"@iterable-iterator/iter@1.0.1", "@iterable-iterator/iter@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@iterable-iterator/iter/-/iter-1.0.1.tgz#11149acef0d28b689e0b998dc478113eda81871d"
   integrity sha512-/C/Ciq69we9C0wvqx0rOdnpXAoSW+UnyIV/ZQrUYDzmtguvUQ4HjiIPcU2Csdh705VS6TMkUhoaBHIGh44V3OA==
-
-"@iterable-iterator/iter@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@iterable-iterator/iter/-/iter-1.0.0.tgz#a399879bc4cb53b90edca7df6496cdf81b42b1c0"
-  integrity sha512-aZ2nhrbwH4iOXmVfWrN76sBELRNQVucUJWbq5kz6+x0JKAh22mhJ1CFExPi67bC6JwVjrdm2Wsed9xLG0AvClQ==
 
 "@iterable-iterator/list@1.0.1":
   version "1.0.1"
@@ -1308,12 +1303,12 @@
   dependencies:
     "@failure-abstraction/error" "^6.0.1"
 
-"@iterable-iterator/reduce@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@iterable-iterator/reduce/-/reduce-1.0.0.tgz#1632b661704ac55229d9a24471459b5202110465"
-  integrity sha512-eTcWEgEfv47sZifr7XzAzAJDyRlAw8ZfcMCzFP/soTm0yVtPeXVmiRIUxKFdUiNQR8XgezcqjkNUAqxlwu68rg==
+"@iterable-iterator/reduce@1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@iterable-iterator/reduce/-/reduce-1.0.1.tgz#04bd02da8166a184dcf320576e482f4261df538d"
+  integrity sha512-/wwXupEhGb0cwVr4MDbuweD5tZ+wtd8fr8HkWwNre1lZn76Utu0um7nnhFpm9Mk3hifZzrH5dcKLhKB3VEuL/g==
   dependencies:
-    "@iterable-iterator/iter" "^1.0.0"
+    "@iterable-iterator/iter" "^1.0.1"
 
 "@js-library/commitlint-config@0.0.4":
   version "0.0.4"
