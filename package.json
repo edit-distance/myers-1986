@@ -79,7 +79,7 @@
     "@iterable-iterator/iter": "1.0.1",
     "@iterable-iterator/list": "1.0.1",
     "@iterable-iterator/map": "1.0.1",
-    "@iterable-iterator/next": "2.0.0",
+    "@iterable-iterator/next": "2.0.1",
     "@iterable-iterator/reduce": "1.0.0",
     "@js-library/commitlint-config": "0.0.4",
     "@node-loader/babel": "1.1.0",
