@@ -71,8 +71,8 @@
     "@failure-abstraction/error": "^6.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.14.8",
-    "@babel/preset-env": "7.14.9",
+    "@babel/core": "7.15.0",
+    "@babel/preset-env": "7.15.0",
     "@babel/register": "7.14.5",
     "@commitlint/cli": "13.1.0",
     "@iterable-iterator/chain": "2.0.1",
