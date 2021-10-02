@@ -40,7 +40,7 @@ export default function oneWay(MAX, eq, li, lj, ri, rj) {
 		assert(UB !== -D);
 		forwardStep(V, (center + LB) | 0, (center + UB) | 0, (center + D) | 0);
 		for (let k = LB; k <= UB; k = (k + 2) | 0) {
-			const x_ = V[(center + k) | 0];
+			const x_ = V[(center + k) | 0] | 0;
 			const y_ = (x_ - ((k + Delta0) | 0)) | 0;
 			const x = longestCommonPrefix(eq, x_, lj, y_, rj);
 			const y = (x - ((k + Delta0) | 0)) | 0;

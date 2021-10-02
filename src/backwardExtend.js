@@ -30,6 +30,12 @@ export default function backwardExtend(
 		assert(y === rj - 2 || y === rj - 1 || y >= rj); // Provided you called
 		// assert(x <= li); // BackwardStep(center, D, ...)
 		// assert(y <= ri); // Just before.
-		V[c] = longestCommonSuffix(eq, V[c], lj, (V[c] - ((c - cx) | 0)) | 0, rj);
+		V[c] = longestCommonSuffix(
+			eq,
+			V[c] | 0,
+			lj,
+			((V[c] | 0) - ((c - cx) | 0)) | 0,
+			rj,
+		);
 	}
 }

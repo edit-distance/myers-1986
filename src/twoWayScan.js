@@ -89,7 +89,7 @@ export default function twoWayScan(
 			if (cMin <= cMax) {
 				let c = cMin;
 				do {
-					const x = V[c];
+					const x = V[c] | 0;
 					// Const y = x - (c - cFD0); // X - (k + Delta0)
 					V[c] = longestCommonPrefix(
 						eq,
@@ -98,12 +98,12 @@ export default function twoWayScan(
 						(x - ((c - cFmD0) | 0)) | 0,
 						rj,
 					);
-					if (V[c] === V[(c + cBDcF) | 0]) {
+					if ((V[c] | 0) === (V[(c + cBDcF) | 0] | 0)) {
 						// XEnd === V[centerB + k - Delta]
 						return new Split(
 							(c - cFmD0) | 0, // K + Delta0
 							longestCommonSuffix(eq, x, li, (x - ((c - cFmD0) | 0)) | 0, ri),
-							V[c],
+							V[c] | 0,
 							D,
 							((D << 1) - parityDelta) | 0,
 						);

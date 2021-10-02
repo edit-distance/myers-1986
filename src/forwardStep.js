@@ -24,7 +24,7 @@ export default function forwardStep(V, cMin, cMax, cpD) {
 	// Assert(y <= rj); // False sometimes
 	// assert(x >= li); // Always true
 	// assert(y >= ri); // Always true
-	V[cMin] = V[(cMin + 1) | 0];
+	V[cMin] = V[(cMin + 1) | 0] | 0;
 
 	for (let c = (cMin + 2) | 0; c < cMax; c = (c + 2) | 0) {
 		// Assert(c - center !== -D && c - center !== D);
@@ -33,7 +33,7 @@ export default function forwardStep(V, cMin, cMax, cpD) {
 		// assert(y <= rj); // False sometimes
 		// assert(x >= li); // Always true
 		// assert(y >= ri); // Always true
-		V[c] = Math.max(V[(c + 1) | 0], (V[(c - 1) | 0] + 1) | 0);
+		V[c] = Math.max(V[(c + 1) | 0] | 0, ((V[(c - 1) | 0] | 0) + 1) | 0);
 	}
 
 	// Assert(UB !== LB);
@@ -44,6 +44,6 @@ export default function forwardStep(V, cMin, cMax, cpD) {
 	// assert(y >= ri); // Always true
 	V[cMax] =
 		cMax === cpD
-			? (V[(cMax - 1) | 0] + 1) | 0
-			: Math.max(V[(cMax + 1) | 0], (V[(cMax - 1) | 0] + 1) | 0);
+			? ((V[(cMax - 1) | 0] | 0) + 1) | 0
+			: Math.max(V[(cMax + 1) | 0] | 0, ((V[(cMax - 1) | 0] | 0) + 1) | 0);
 }
