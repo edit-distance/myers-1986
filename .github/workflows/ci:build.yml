@@ -17,4 +17,4 @@ jobs:
           useRollingCache: true
 
       - name: Build 🏗️
-        run: yarn build
+        run: yarn ci:build
