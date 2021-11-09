@@ -83,7 +83,7 @@
     "@iterable-iterator/next": "2.0.1",
     "@iterable-iterator/reduce": "1.0.1",
     "@js-library/commitlint-config": "0.0.4",
-    "@node-loader/babel": "1.1.0",
+    "@node-loader/babel": "2.0.0",
     "ava": "4.0.0-rc.1",
     "babel-plugin-transform-remove-console": "6.9.4",
     "babel-plugin-unassert": "3.2.0",

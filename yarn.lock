@@ -1965,10 +1965,10 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@node-loader/babel@1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-1.1.0.tgz#cfd4fc23304ff8a56790702587c0e9eb1a1a022e"
-  integrity sha512-U2nxEuRh6id3GnyoPQZyVBGmLD2VCc7ppGykroIvMG88iDrCCPketK2aopahxQFlxg/R60I12z9BC4mfBzYCUg==
+"@node-loader/babel@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-2.0.0.tgz#59d153d0c27737faae22da9368704a46ea93961a"
+  integrity sha512-aEnLPbryL7NCAxMcj8NmRzGID161/2H0hTlhsjtGLuxxuw9w2900CFUmfZEIrw0XkoKOQhHwY4swF/o2WCR3sQ==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
