@@ -21,11 +21,13 @@ import recurseDeep from './recurseDeep.js';
  * @return {IterableIterator}
  */
 export default function diff32(MAX, eq, li, lj, ri, rj) {
-	assert(Number.isInteger(MAX) && MAX >= -2147483648 && MAX <= 2147483647);
-	assert(Number.isInteger(li) && li >= -2147483648 && li <= 2147483647);
-	assert(Number.isInteger(lj) && lj >= -2147483648 && lj <= 2147483647);
-	assert(Number.isInteger(ri) && ri >= -2147483648 && ri <= 2147483647);
-	assert(Number.isInteger(rj) && rj >= -2147483648 && rj <= 2147483647);
+	assert(
+		Number.isInteger(MAX) && MAX >= -2_147_483_648 && MAX <= 2_147_483_647,
+	);
+	assert(Number.isInteger(li) && li >= -2_147_483_648 && li <= 2_147_483_647);
+	assert(Number.isInteger(lj) && lj >= -2_147_483_648 && lj <= 2_147_483_647);
+	assert(Number.isInteger(ri) && ri >= -2_147_483_648 && ri <= 2_147_483_647);
+	assert(Number.isInteger(rj) && rj >= -2_147_483_648 && rj <= 2_147_483_647);
 	const N = (lj - li) | 0;
 	const M = (rj - ri) | 0;
 	assert(MAX <= N + M);
