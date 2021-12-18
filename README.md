@@ -63,9 +63,8 @@ lcs('BANANA', 'ATANA'); // AANA
 
 [![License](https://img.shields.io/github/license/edit-distance/myers-1986.svg)](https://raw.githubusercontent.com/edit-distance/myers-1986/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/@edit-distance/myers-1986.svg)](https://www.npmjs.org/package/@edit-distance/myers-1986)
-[![Tests](https://img.shields.io/github/workflow/status/edit-distance/myers-1986/ci:test?event=push&label=tests)](https://github.com/edit-distance/myers-1986/actions/workflows/ci:test.yml?query=branch:main)
-[![Dependencies](https://img.shields.io/david/edit-distance/myers-1986.svg)](https://david-dm.org/edit-distance/myers-1986)
-[![Dev dependencies](https://img.shields.io/david/dev/edit-distance/myers-1986.svg)](https://david-dm.org/edit-distance/myers-1986?type=dev)
+[![Tests](https://img.shields.io/github/workflow/status/edit-distance/myers-1986/ci?event=push&label=tests)](https://github.com/edit-distance/myers-1986/actions/workflows/ci.yml?query=branch:main)
+[![Dependencies](https://img.shields.io/librariesio/github/edit-distance/myers-1986.svg)](https://github.com/edit-distance/myers-1986/network/dependencies)
 [![GitHub issues](https://img.shields.io/github/issues/edit-distance/myers-1986.svg)](https://github.com/edit-distance/myers-1986/issues)
 [![Downloads](https://img.shields.io/npm/dm/@edit-distance/myers-1986.svg)](https://www.npmjs.org/package/@edit-distance/myers-1986)
 
