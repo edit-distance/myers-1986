@@ -1970,10 +1970,10 @@
   resolved "https://registry.yarnpkg.com/@js-library/commitlint-config/-/commitlint-config-0.0.4.tgz#5243a58b0d4ad36999d4b944c7770c50658c68f5"
   integrity sha512-l6un9f0HmIJZswqGe5H/HGBkENpqBQv1b36bdLZLXhZEZBTlm2Chbv3J1hJ2kNG8ogh+EFV5nUYQnL3MefLSDQ==
 
-"@node-loader/babel@2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-2.0.0.tgz#59d153d0c27737faae22da9368704a46ea93961a"
-  integrity sha512-aEnLPbryL7NCAxMcj8NmRzGID161/2H0hTlhsjtGLuxxuw9w2900CFUmfZEIrw0XkoKOQhHwY4swF/o2WCR3sQ==
+"@node-loader/babel@2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@node-loader/babel/-/babel-2.0.1.tgz#a04d7535b5ade12e3987de04fc5ffe204f26c64c"
+  integrity sha512-lulESaNn+jyn4lCbfcFWFcRYchsL0jY8q/mf5XRKOiX2uTpkXE3fGAlZ4+wyP/hIAMSlDPuHIUkRSTkJZ6SQyA==
 
 "@node-loader/core@2.0.0":
   version "2.0.0"
