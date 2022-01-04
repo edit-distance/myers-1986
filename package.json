@@ -86,7 +86,7 @@
     "@iterable-iterator/next": "2.0.1",
     "@iterable-iterator/reduce": "1.0.1",
     "@js-library/commitlint-config": "0.0.4",
-    "@node-loader/babel": "2.0.0",
+    "@node-loader/babel": "2.0.1",
     "@node-loader/core": "2.0.0",
     "@node-loader/import-maps": "1.0.3",
     "ava": "4.0.0",
