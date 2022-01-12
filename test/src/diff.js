@@ -1,8 +1,7 @@
 import test from 'ava';
 
-import {ValueError} from '@failure-abstraction/error';
-
 import {
+	ValueError,
 	makeEqualityFn,
 	defaultTest,
 	data,

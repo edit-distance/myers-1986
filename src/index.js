@@ -1,3 +1,5 @@
+export {ValueError, TypeError} from '@failure-abstraction/error';
+
 export {default as RecurseDeeper} from './RecurseDeeper.js';
 export {default as Split} from './Split.js';
 export {default as StackEntry} from './StackEntry.js';

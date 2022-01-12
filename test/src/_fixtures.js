@@ -16,6 +16,13 @@ import {
 	longestCommonSuffix,
 } from '#module';
 
+import * as mod from '#module';
+
+const _mod = mod.default ?? mod;
+
+export const ValueError = _mod.ValueError;
+export const TypeError = _mod.TypeError;
+
 const _oneWayScan = makeScan(oneWay);
 const _twoWayScan = makeScan(twoWay);
 const oneWayScan = (...args) => _oneWayScan(...args);

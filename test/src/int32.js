@@ -1,8 +1,11 @@
 import test from 'ava';
 
-import {TypeError} from '@failure-abstraction/error';
-
-import {repr, diffAlgorithms, distanceAlgorithms} from './_fixtures.js';
+import {
+	TypeError,
+	repr,
+	diffAlgorithms,
+	distanceAlgorithms,
+} from './_fixtures.js';
 
 const macro = (t, algorithm, MAX, eq, li, lj, ri, rj, instanceOf) => {
 	t.throws(() => algorithm(MAX, eq, li, lj, ri, rj), {
