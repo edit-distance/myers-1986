@@ -212,10 +212,6 @@
     "plugins": [
       "unicorn"
     ],
-    "ignores": [
-      "_benchmark/**",
-      "_profile/**"
-    ],
     "rules": {
       "unicorn/filename-case": [
         "error",

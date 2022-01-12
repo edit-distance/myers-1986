@@ -10,4 +10,4 @@ TIMESTAMP="$(date '+%Y-%m-%dT%H:%M:%S')"
 
 logfile="${main}-n=${n}-L=${L}-D=${D}-I=${I}-${TIMESTAMP}-v8.log"
 
-node --prof --logfile="$logfile" "$@"
+NODE_LOADER_CONFIG=../test/loader/config.js IMPORT_MAP_PATH=../_benchmark/import-maps/src/index.json node --experimental-loader=@node-loader/core --prof --logfile="$logfile" "$@"

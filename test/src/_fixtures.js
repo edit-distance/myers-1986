@@ -14,7 +14,7 @@ import {
 	diff,
 	longestCommonPrefix,
 	longestCommonSuffix,
-} from '../../src/index.js';
+} from '#module';
 
 const _oneWayScan = makeScan(oneWay);
 const _twoWayScan = makeScan(twoWay);

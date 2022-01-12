@@ -6,9 +6,14 @@ import {diff as fastMyersDiff} from 'fast-myers-diff'; // CORRECT FAST
 // import {diff as myersDiff} from 'myers-diff'; // CORRECT VERY SLOW
 // import {same as fastArrayLCS} from 'fast-array-diff'; // CORRECT VERY SLOW
 
+import Benchtable from 'benchtable';
+
+import {title, benchmarkInputs} from './_fixtures.js';
+
 const importDiff = async (name) => {
 	const path = `../dist/index.${name}`;
-	const _diff = (await import(path)).diff;
+	const mod = await import(path);
+	const _diff = mod.diff;
 	const diff = (x, y) => {
 		const eq = (xi, yi) => x[xi] === y[yi];
 		const xi = 0;
@@ -25,7 +30,7 @@ const importDiff = async (name) => {
 
 	return {
 		title,
-		diff
+		diff,
 	};
 };
 
@@ -33,26 +38,24 @@ const cjs = await importDiff('cjs');
 const module = await importDiff('module.js');
 const modern = await importDiff('modern.js');
 
-import Benchtable from 'benchtable';
 const suite = new Benchtable('diffs', {isTransposed: true});
 
-import {
-	title,
-	benchmarkInputs,
-} from './_fixtures.js';
-
 const add = (title, diff) => {
-	suite.addFunction(title, (x, y, lcs) => {
-		let notDeleted = x.length + y.length;
-		for (const [xs, xe, ys, ye] of diff(x, y)) {
-			notDeleted -= xe - xs + (ye - ys);
-		}
+	suite.addFunction(
+		title,
+		(x, y, lcs) => {
+			let notDeleted = x.length + y.length;
+			for (const [xs, xe, ys, ye] of diff(x, y)) {
+				notDeleted -= xe - xs + (ye - ys);
+			}
 
-		if (notDeleted !== 2 * lcs) throw new Error('Wrong lcs length');
-	}, {
-		maxTime: 5
-	});
-}
+			if (notDeleted !== 2 * lcs) throw new Error('Wrong lcs length');
+		},
+		{
+			maxTime: 5,
+		},
+	);
+};
 
 add(title('fast-myers-diff'), fastMyersDiff);
 add(modern.title, modern.diff);

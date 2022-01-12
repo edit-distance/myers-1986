@@ -1,8 +1,6 @@
 import fs from 'fs';
 
-export {
-	benchmarkInputs,
-} from '../test/src/_fixtures.js'
+export {benchmarkInputs} from '../test/src/_fixtures.js';
 
 export function packageInfo(packageName) {
 	const file = `node_modules/${packageName}/package.json`;

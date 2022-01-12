@@ -1,7 +1,7 @@
 {
   "type": "module",
   "scripts": {
-    "bench": "node main.js"
+    "bench": "NODE_LOADER_CONFIG=../test/loader/config.js IMPORT_MAP_PATH=import-maps/src/index.json node --experimental-loader=@node-loader/core main.js"
   },
   "dependencies": {
     "benchtable": "0.1.0",
@@ -10,5 +10,21 @@
     "fast-myers-diff": "3.0.1",
     "myers-diff": "2.0.1",
     "seedrandom": "3.0.5"
+  },
+  "babel": {
+    "sourceMaps": true,
+    "plugins": [
+      [
+        "transform-remove-console",
+        {
+          "exclude": [
+            "log",
+            "error",
+            "warn"
+          ]
+        }
+      ],
+      "babel-plugin-unassert"
+    ]
   }
 }

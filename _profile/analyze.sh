@@ -10,4 +10,4 @@ TIMESTAMP="$(date '+%Y-%m-%dT%H:%M:%S')"
 
 logfile="${main}-n=${n}-L=${L}-D=${D}-I=${I}-${TIMESTAMP}-analyze-v8.log"
 
-node --prof --log-all --logfile="$logfile" analyze.js "$@"
+NODE_LOADER_CONFIG=../test/loader/config.js IMPORT_MAP_PATH=../_benchmark/import-maps/src/index.json node --experimental-loader=@node-loader/core --prof --log-all --logfile="$logfile" analyze.js "$@"
