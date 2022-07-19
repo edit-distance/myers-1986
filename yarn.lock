@@ -2158,10 +2158,10 @@
   resolved "https://registry.yarnpkg.com/@node-loader/core/-/core-2.0.0.tgz#7f5a3a91fe137c8e71c0813f3bbaa0ee136a1308"
   integrity sha512-7wV4qj2/tROXGgoYWmNvObUXbXqSv1yUD31K79Jt1q7NDuqrLz4WjjW+wVoCNgVcl8+YSj9BvLX8KsB/SrSzuw==
 
-"@node-loader/import-maps@1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@node-loader/import-maps/-/import-maps-1.0.3.tgz#4dff536d5dd4d9ff3510e1d2e0ddaf86630d4299"
-  integrity sha512-Wjw7atGrC/s9m26k853N93xUi9fxo8wcL8asFXqpkITRltuUmbSVyzblW7K742SCC/Ev9FM0zcS72CPreBu8Kg==
+"@node-loader/import-maps@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@node-loader/import-maps/-/import-maps-1.1.0.tgz#4785fdce3bc973c5b53a4549248ab42b370ecda9"
+  integrity sha512-RPB+7vBVhk9xF/eiSGSxEnL6hGQ0a1ua9hvl/MxXDmu7F+Nv+gMwA7AJ0S5TmcgulHAp9/IxobGoFiOxkX7xWQ==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
