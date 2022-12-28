@@ -8,7 +8,7 @@
     "fast-array-diff": "1.0.1",
     "fast-diff": "1.2.0",
     "fast-myers-diff": "3.0.1",
-    "myers-diff": "2.0.1",
+    "myers-diff": "2.1.0",
     "seedrandom": "3.0.5"
   },
   "babel": {

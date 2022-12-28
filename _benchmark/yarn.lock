@@ -136,10 +136,10 @@ lodash@^4.17.4:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
 
-myers-diff@2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/myers-diff/-/myers-diff-2.0.1.tgz#b24b58f7d9de24b9c5b2cd3fd6381f15269d6ec9"
-  integrity sha512-NzdspCVzE683Wsc2gcDR107lhqc8d5vNtPV72DV7FNdIGgNBG7lZgQOWmFYvEEPWtaewyx+HzdcITVNBL8N8Sw==
+myers-diff@2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/myers-diff/-/myers-diff-2.1.0.tgz#44c54a33937337c0b9bd1bf89ed5fd96e3e2cb57"
+  integrity sha512-6s/caiGUb5vNH9kq5HPw9t9OzAq6hTJ5V5N5Damd/npcp+stLg2LxQIcgJa9o51qbfTVgfth6/yVCoJvZY85BQ==
 
 noop6@^1.0.0, noop6@^1.0.1:
   version "1.0.9"
