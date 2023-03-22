@@ -94,10 +94,10 @@ deffy@^2.2.2:
   dependencies:
     typpy "^2.0.0"
 
-fast-array-diff@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/fast-array-diff/-/fast-array-diff-1.0.1.tgz#463bacfeddaa3f5d56b79f6847fe322f15581c92"
-  integrity sha512-pU83E/Y7+c/hRrDlmIiPYHy0Ugt+QypqzHKZI5qFOWMJAspWdmOyIeN/1FbdnGPlROp6FeGLLfhMO075DBqb4A==
+fast-array-diff@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/fast-array-diff/-/fast-array-diff-1.1.0.tgz#3f0a48b208f7d146671db6b4efdabf8995ad86be"
+  integrity sha512-muSPyZa/yHCoDQhah9th57AmLENB1nekbrUoLAqOpQXdl1Kw8VbH24Syl5XLscaQJlx7KRU95bfTDPvVB5BJvw==
 
 fast-diff@1.2.0:
   version "1.2.0"
