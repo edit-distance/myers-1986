@@ -63,7 +63,7 @@ lcs('BANANA', 'ATANA'); // AANA
 
 [![License](https://img.shields.io/github/license/edit-distance/myers-1986.svg)](https://raw.githubusercontent.com/edit-distance/myers-1986/main/LICENSE)
 [![Version](https://img.shields.io/npm/v/@edit-distance/myers-1986.svg)](https://www.npmjs.org/package/@edit-distance/myers-1986)
-[![Tests](https://img.shields.io/github/workflow/status/edit-distance/myers-1986/ci?event=push&label=tests)](https://github.com/edit-distance/myers-1986/actions/workflows/ci.yml?query=branch:main)
+[![Tests](https://img.shields.io/github/actions/workflow/status/edit-distance/myers-1986/ci.yml?branch=main&event=push&label=tests)](https://github.com/edit-distance/myers-1986/actions/workflows/ci.yml?query=branch:main)
 [![Dependencies](https://img.shields.io/librariesio/github/edit-distance/myers-1986.svg)](https://github.com/edit-distance/myers-1986/network/dependencies)
 [![GitHub issues](https://img.shields.io/github/issues/edit-distance/myers-1986.svg)](https://github.com/edit-distance/myers-1986/issues)
 [![Downloads](https://img.shields.io/npm/dm/@edit-distance/myers-1986.svg)](https://www.npmjs.org/package/@edit-distance/myers-1986)
