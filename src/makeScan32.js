@@ -48,8 +48,8 @@ export default function makeScan32(method) {
 				? halfPerimeter
 				: method(halfPerimeter, eq, l0, l1, r0, r1).distance
 			: l0 === l1 || r0 === r1
-			? -1
-			: method(MAX, eq, l0, l1, r0, r1).distance;
+				? -1
+				: method(MAX, eq, l0, l1, r0, r1).distance;
 	};
 
 	return scan32;

@@ -4,7 +4,6 @@ import {ValueError} from '@failure-abstraction/error';
 
 import longestCommonPrefix from './longestCommonPrefix.js';
 import longestCommonSuffix from './longestCommonSuffix.js';
-
 import recurse from './recurse.js';
 import recurseDeep from './recurseDeep.js';
 

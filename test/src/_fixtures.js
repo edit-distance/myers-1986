@@ -15,7 +15,6 @@ import {
 	longestCommonPrefix,
 	longestCommonSuffix,
 } from '#module';
-
 import * as mod from '#module';
 
 const _mod = mod.default ?? mod;
@@ -173,8 +172,7 @@ export const applyPatch = (patch, left, li, lj) => {
 
 const boxShift =
 	(xShift, yShift) =>
-	([x0, x1, y0, y1]) =>
-		[xShift + x0, xShift + x1, yShift + y0, yShift + y1];
+	([x0, x1, y0, y1]) => [xShift + x0, xShift + x1, yShift + y0, yShift + y1];
 
 const shiftEditScript = (xShift, yShift, editScript) =>
 	editScript && list(map(boxShift(xShift, yShift), editScript));

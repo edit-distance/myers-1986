@@ -1,12 +1,11 @@
 import fs from 'fs';
 
+import Benchtable from 'benchtable';
 import {diff as fastMyersDiff} from 'fast-myers-diff'; // CORRECT FAST
 // These have been removed from the bench
 // import fastDiff from 'fast-diff'; // INCORRECT SLOW
 // import {diff as myersDiff} from 'myers-diff'; // CORRECT VERY SLOW
 // import {same as fastArrayLCS} from 'fast-array-diff'; // CORRECT VERY SLOW
-
-import Benchtable from 'benchtable';
 
 import {title, benchmarkInputs} from './_fixtures.js';
 

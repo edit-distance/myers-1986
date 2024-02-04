@@ -110,7 +110,7 @@
     "power-assert": "1.6.1",
     "seedrandom": "3.0.5",
     "tap-dot": "2.0.0",
-    "xo": "0.53.1"
+    "xo": "0.56.0"
   },
   "ava": {
     "files": [
@@ -226,6 +226,20 @@
         }
       ],
       "unicorn/prefer-node-protocol": "off",
+      "import/order": [
+        "error",
+        {
+          "groups": [
+            "builtin",
+            "external",
+            "parent",
+            "sibling",
+            "index"
+          ],
+          "newlines-between": "always",
+          "warnOnUnassignedImports": true
+        }
+      ],
       "no-bitwise": "off"
     },
     "overrides": [

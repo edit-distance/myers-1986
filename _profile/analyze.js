@@ -6,6 +6,7 @@ import {
 	data,
 	benchmarkInputs,
 } from '../test/src/_fixtures.js';
+
 import {diff as _diff} from './dist/profile/index.js';
 
 console.time('prepare');

@@ -1,6 +1,7 @@
 import process from 'node:process';
 
 import {expectedDifficulty, makeInput} from '../test/src/_fixtures.js';
+
 import {diff as _diff} from './dist/profile/index.js';
 
 console.time('prepare');

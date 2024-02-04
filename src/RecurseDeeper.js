@@ -25,7 +25,7 @@ export default class RecurseDeeper {
 	 */
 	next() {
 		if (this._stack.length === 0) return {done: true, value: undefined};
-		assert(this._stack[this._stack.length - 1] instanceof StackEntry);
+		assert(this._stack.at(-1) instanceof StackEntry);
 		return {
 			done: false,
 			value: recurseDeeperStep(this.B, this._stack, this._eq),
