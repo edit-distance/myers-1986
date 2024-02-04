@@ -79,8 +79,8 @@
     "@failure-abstraction/error": "^6.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.23.5",
-    "@babel/preset-env": "7.23.5",
+    "@babel/core": "7.23.9",
+    "@babel/preset-env": "7.23.9",
     "@commitlint/cli": "18.4.3",
     "@iterable-iterator/chain": "2.0.1",
     "@iterable-iterator/iter": "1.0.1",
@@ -89,14 +89,14 @@
     "@iterable-iterator/next": "2.0.1",
     "@iterable-iterator/reduce": "1.0.1",
     "@js-library/commitlint-config": "0.0.4",
-    "@node-loader/babel": "2.0.1",
+    "@node-loader/babel": "2.1.0",
     "@node-loader/core": "2.0.0",
     "@node-loader/import-maps": "1.1.0",
     "ava": "6.0.1",
     "babel-plugin-transform-remove-console": "6.9.4",
     "babel-plugin-unassert": "3.2.0",
     "babel-preset-power-assert": "3.0.0",
-    "c8": "8.0.1",
+    "c8": "9.1.0",
     "esdoc": "1.1.0",
     "esdoc-inject-script-plugin": "1.0.0",
     "esdoc-inject-style-plugin": "1.0.0",
@@ -117,7 +117,7 @@
       "test/src/**/*"
     ],
     "nodeArguments": [
-      "--experimental-loader=@node-loader/core"
+      "--import=data:text/javascript,import {register} from 'node:module'; import {pathToFileURL} from 'node:url'; register('@node-loader/core', pathToFileURL('./'))"
     ],
     "timeout": "1m"
   },
