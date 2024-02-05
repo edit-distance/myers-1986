@@ -104,10 +104,10 @@ fast-diff@1.3.0:
   resolved "https://registry.yarnpkg.com/fast-diff/-/fast-diff-1.3.0.tgz#ece407fa550a64d638536cd727e129c61616e0f0"
   integrity sha512-VxPP4NqbUjj6MaAOafWeUn2cXWLcCtljklUtZf0Ind4XQ+QPtmA0b18zZy0jIQx+ExRVCR/ZQpBmik5lXshNsw==
 
-fast-myers-diff@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/fast-myers-diff/-/fast-myers-diff-3.1.0.tgz#d9a285531b3324caf5d1c70857d75275ca0ff67d"
-  integrity sha512-nLOy4sU1cxU+95gGmIiyjAKTmB1Nxaj2UUv9LnSgEv9pVqo2O7TJwQQZCtUJ+x8R5+zrwVn7XFUReb3efFjB/g==
+fast-myers-diff@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/fast-myers-diff/-/fast-myers-diff-3.2.0.tgz#e16ac218f311a99e3f76ad7ed8f61c0cda3da847"
+  integrity sha512-DxNm4a3gnV35AluvqjeAV3Zx3CAySs0tsaDjnex5JhnJAa2rxEUVCwmaL2gpz42ea1B+IJorlo7XLThXUaTQog==
 
 flat-colors@^3.1.0:
   version "3.3.12"
