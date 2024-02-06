@@ -110,7 +110,7 @@
     "power-assert": "1.6.1",
     "seedrandom": "3.0.5",
     "tap-dot": "2.0.0",
-    "xo": "0.56.0"
+    "xo": "0.57.0"
   },
   "ava": {
     "files": [
@@ -250,6 +250,16 @@
         "rules": {
           "unicorn/error-message": "off",
           "unicorn/prefer-math-trunc": "off"
+        }
+      },
+      {
+        "files": [
+          "_benchmark/**",
+          "_profile/**",
+          "test/**"
+        ],
+        "rules": {
+          "unicorn/prevent-abbreviations": "off"
         }
       },
       {
