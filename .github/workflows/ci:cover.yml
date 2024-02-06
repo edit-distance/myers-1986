@@ -22,6 +22,6 @@ jobs:
         run: yarn cover
 
       - name: Publish coverage report 📃
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           fail_ci_if_error: true
