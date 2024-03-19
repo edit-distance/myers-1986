@@ -8,8 +8,8 @@
     "diff": "yarn profile diff.js"
   },
   "dependencies": {
-    "@babel/cli": "7.23.9",
-    "@babel/preset-env": "7.24.0",
+    "@babel/cli": "7.24.1",
+    "@babel/preset-env": "7.24.1",
     "babel-plugin-transform-remove-console": "6.9.4",
     "babel-plugin-unassert": "3.2.0"
   }
