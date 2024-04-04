@@ -79,8 +79,8 @@
     "@failure-abstraction/error": "^6.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.24.3",
-    "@babel/preset-env": "7.24.3",
+    "@babel/core": "7.24.4",
+    "@babel/preset-env": "7.24.4",
     "@commitlint/cli": "19.2.1",
     "@iterable-iterator/chain": "2.0.1",
     "@iterable-iterator/iter": "1.0.1",
