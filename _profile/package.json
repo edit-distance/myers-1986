@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@babel/cli": "7.24.1",
-    "@babel/preset-env": "7.24.3",
+    "@babel/preset-env": "7.24.4",
     "babel-plugin-transform-remove-console": "6.9.4",
     "babel-plugin-unassert": "3.2.0"
   }
