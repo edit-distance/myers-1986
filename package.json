@@ -81,7 +81,7 @@
   "devDependencies": {
     "@babel/core": "7.25.2",
     "@babel/preset-env": "7.25.3",
-    "@commitlint/cli": "19.2.1",
+    "@commitlint/cli": "19.8.1",
     "@iterable-iterator/chain": "2.0.1",
     "@iterable-iterator/iter": "1.0.1",
     "@iterable-iterator/list": "1.0.1",
